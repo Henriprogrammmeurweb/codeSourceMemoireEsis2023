@@ -1,0 +1,128 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 50px;
+        margin-top: 100px;
+        background-color: rgb(64, 77, 85);
+
+    }
+
+    .content .titre p {
+        color: white;
+        margin-bottom: 8px;
+        text-decoration: underline;
+        margin-top: 35px;
+
+    }
+
+    .content .titre a {
+        margin-bottom: 8px;
+    }
+
+    .content .contenu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 90%;
+
+    }
+    .content .contenu .menu{
+        width: 800px;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+    }
+    .content .contenu .photo{
+        width: 500px;
+        height: 450px;
+        border-radius: 5px;
+        overflow:hidden;
+        margin-left: 80px;
+    }
+    .content .contenu .photo .img{
+        width: 100%;
+        height: 100%;
+    }
+    .content .contenu .photo .img img{
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
+        height: 100%;
+    }
+    
+
+    .content .contenu li {
+        color: white;
+    }
+</style>
+
+
+<div class="content">
+    <div class="contenu">
+        <ul class="info">
+            <li>Nom : {{get_personnel.username}}</li>
+            <li>PostNom : {{get_personnel.postnom}}</li>
+            <li>Prénom : {{get_personnel.prenom}}</li>
+            <li>Sexe : {{get_personnel.sexe}}</li>
+            {% if get_personnel.matricule %}
+            <li>Matricule : {{get_personnel.matricule}}</li>
+            {% else %}
+            <li>Matricule : -</li>
+            {% endif %}
+            <li>Email : {{get_personnel.email}}</li>
+            {% if get_personnel.grade %}
+            <li>Grade : {{get_personnel.grade}}</li>
+            {% else %}
+            <li>Grade : -</li>
+            {% endif %}
+            {% if get_personnel.fonction %}
+            <li>Fonction : {{get_personnel.fonction}}</li>
+            {% else %}
+            <li>Fonction : -</li>
+            {% endif %}
+            {% if get_personnel.fonction.service %}
+            <li>Service : {{get_personnel.fonction.service}}</li>
+            {% else %}
+            <li>Service : -</li>
+            {% endif %}
+            <li>Etat Civil : {{get_personnel.etat_civil}}</li>
+            {% if get_personnel.salaire %}
+              <li>Salaire : {{get_personnel.salaire}}</li>
+            {% else %}
+            <li>Salaire : -</li>
+            {% endif %}
+            <li>Demandeur : {{get_personnel.demandeur}}</li>
+            <li>Approbateur : {{get_personnel.approbateur}}</li>
+            <li>Consulteur : {{get_personnel.consulteur}}</li>
+            <li>Admin : {{get_personnel.is_superuser}}</li>
+            {% if get_personnel.date_naissance %}
+            <li>Date de Naissance : {{get_personnel.date_naissance}}</li>
+            {% else %}
+                <li>Date de Naissance : -</li>
+            {% endif %}
+            {% if get_personnel.date_engagement %}
+              <li>Date d'engagement : {{get_personnel.date_engagement}}</li>
+            {% else %}
+            <li>Date d'engagement : -</li>
+            {% endif %}
+            <li>Date creation : {{get_personnel.date_creation}}</li>
+            <li>Date Modification : {{get_personnel.date_modification}}</li>
+            <hr style="background-color: white;width: 300px;">
+        </ul>
+        <div class="photo">
+            <div class="img">
+                {% if get_personnel.photo %}
+                    <img src="{{get_personnel.photo.url}}" alt="">
+                {% else %}
+                <img src="{% static 'img/SEO2316-thumb.png' %}" alt="">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

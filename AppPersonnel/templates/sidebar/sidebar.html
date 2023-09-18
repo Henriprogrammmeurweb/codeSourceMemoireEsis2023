@@ -1,0 +1,140 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .menus-listes{
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        top: 80px;
+    }
+
+    .sidebar {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background-color: rgb(34, 52, 68);
+        height: 55px;
+    }
+    .sidebar.active{
+        background-color: rgb(7, 60, 78);
+    }
+
+    .sidebar .responsive {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-left: 20px;
+        cursor: pointer;
+        
+    }
+
+    .sidebar .responsive span {
+        background-color: white;
+        height: 3px;
+        width: 38px;
+    }
+
+    .sidebar .responsive::after {
+        content: "";
+        position: absolute;
+        background-color: white;
+        height: 3px;
+        width: 38px;
+        transform: translateY(7px);
+
+    }
+
+    .sidebar .responsive::before {
+        content: "";
+        position: absolute;
+        background-color: white;
+        height: 3px;
+        width: 38px;
+        transform: translateY(-7px);
+
+    }
+
+    .mes-menus {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background-color: rgb(25, 82, 118);
+        width: 200px;
+        position: sticky;
+        top: 134px;
+        z-index: 100;
+        overflow: scroll;
+        display: none;
+        padding: 20px;
+    }
+
+    .mes-menus .liste-menu {
+        height: 100vh;
+        width: 90%;
+    }
+
+    .mes-menus .liste-menu li {
+        list-style: none;
+    }
+
+    .mes-menus .liste-menu li a {
+        color: white;
+        text-decoration: none;
+        line-height: 35px;
+        margin-left: 8px;
+    }
+    .mes-menus.responsive{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background-color: rgb(7, 30, 36);
+        width: 200px;
+        position: fixed;
+        top: 134px;
+        z-index: 100;
+        height: 100vh;
+        overflow: auto;
+        overflow: scroll;
+        
+    }
+</style>
+
+
+<div class="menus-listes">
+    <div class="sidebar">
+        <div class="responsive"><span></span></div>
+    </div>
+    <div class="mes-menus">
+        <ul class="liste-menu">
+            <li><a href="{% url 'dashboard' %}">Accueil</a></li>
+            <li><a href="{% url 'CongeUser' %}">Congé</a></li>
+            <li><a href="{% url 'confirmRetourConge' %}">Retour</a></li>
+            <li><a href="{% url 'congeAttente' %}">Approbation</a></li>
+            <li><a href="{% url 'listeService' %}">Service</a></li>
+            <li><a href="{% url 'listeFonction' %}">Fonction</a></li>
+            <li><a href="{% url 'listeGrade' %}">Grade</a></li>
+            <li><a href="{% url 'listePersonnel' %}">Personnel</a></li>
+            <li><a href="{% url 'listePlanning' %}">Planning</a></li>
+            <li><a href="{% url 'listeAnnee' %}">Année</a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    let sidebar = document.querySelector('.sidebar');
+    let responsive_span = document.querySelector('.sidebar .responsive span');
+    let menu = document.querySelector('.mes-menus');
+
+
+    sidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        responsive_span.classList.toggle('active');
+        menu.classList.toggle('responsive');
+    });
+
+</script>

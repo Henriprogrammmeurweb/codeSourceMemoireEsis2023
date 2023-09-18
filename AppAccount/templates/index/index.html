@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .description {
+        margin-top: 78px;
+        background-color: rgb(34, 52, 68);
+        height: 250px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height : 15px;
+    }
+
+    .description h2 {
+        font-weight: bold;
+
+    }
+
+    .titre-fonctionnement {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .titre-fonctionnement h2 {
+        color: rgb(11, 69, 88);
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-weight: bold;
+
+    }
+
+    .detail-fonctionnement {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 15px;
+       
+    }
+
+    .detail-fonctionnement .detail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width:90%;
+        background-color: white;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin: 8px;
+        text-align: justify;
+    }
+
+</style>
+
+
+<div class="description">
+    <div class="texte-description">
+        <h2>Salut, Heureux de vous accueillir sur TeakLeave</h2>
+        <p>Sans beacoup des peines demander votre Congé et obtenu rapidement votre Réponse</p>
+        <p>Après avoir demander votre congé n'hésitez pas de consulté votre Boite Mail 📩</p>
+        <p>Vous serez alerté une fois que votre demande de Congé est traitée 📄</p>
+        <a href="{% url 'loginUser' %}" class="btn btn-light">Demander rapidement</a>
+    </div>
+</div>
+<div class="titre-fonctionnement">
+    <h2>Acteurs des Processus</h2>
+</div>
+<div class="detail-fonctionnement">
+    <div class="detail">
+        <p><span>Demandeur de Congé</span> : Il peut demander son Congé et recevoir une réponse d'approbation ou de
+            rejet dans un Bref delai sur la Plateforme.</p>
+    </div>
+    <div class="detail">
+        <p><span>Approbateur de Congé</span> : Il peut aussi demander un Congé mais il a également l'autorisation
+            d'approuver ou de rejeter un Congé d'un Travailleur.</p>
+    </div>
+    <div class="detail">
+        <p><span>Consulteur de Congé</span> : Il peut aussi demander un Congé mais il a l'autorisation de consulter les
+            Congés de Travailleurs encours.</p>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,184 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 134px;
+    }
+    .content .contenu{
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 5px;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+        width: 98%;
+        
+        
+    }
+    .content .contenu .conge{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        background-color: rgb(14, 68, 94);
+        color: white;
+        margin: 10px;
+    }
+    .content .contenu a{
+        text-decoration: none;
+    }
+    .content .contenu .conge:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    .content .contenu .approbation{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        color: white;
+        margin: 10px;
+        background-color: rgb(14, 68, 94);
+    }
+    .content .contenu .approbation:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    .content .contenu .rejeter{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        color: white;
+        margin: 10px;
+        background-color: rgb(14, 68, 94);
+    }
+    .content .contenu .rejeter:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    .content .contenu .encours{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        color: white;
+        margin: 10px;
+        background-color: rgb(14, 68, 94);
+    }
+    .content .contenu .encours:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    .content .contenu .attente{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        background-color: rgb(14, 68, 94);
+        color: white;
+        margin: 10px;
+    }
+    .content .contenu .attente:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    .content .contenu .retourconfirme{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        background-color: rgb(14, 68, 94);
+        color: white;
+        margin: 10px;
+    }
+    .content .contenu .retourconfirme:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    .content .contenu .retourNonconfirme{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        background-color: rgb(14, 68, 94);
+        color: white;
+        margin: 10px;
+    }
+    .content .contenu .retourNonconfirme:hover{
+        background-color: rgb(201, 108, 47);
+    }
+    
+    
+</style>
+
+<div class="content">
+    {% if user.is_authenticated %}
+    <div class="message">
+       <p>Salut {{user.prenom}} {{user.username}} et bienvenue sur ton Tableau de Bord</p>
+    </div>
+    {% endif %}
+    <div class="contenu">
+        <a href="{% url 'CongeUser' %}">
+            <div class="conge">
+                <p>Congés</p>
+                <p>{{nombreConge}}</p>
+            </div>
+        </a>
+        <a href="{% url 'congeApprouve' %}">
+            <div class="approbation">
+                <p>Approuvés</p>
+                <p>{{nombreApprouve}}</p>
+            </div>
+        </a>
+        <a href="{% url 'congeRejet' %}">
+            <div class="rejeter">
+                <p>Rejetés</p>
+                <p>{{nombreRejet}}</p>
+            </div>
+        </a>
+        <a href="{% url 'congeEncours' %}">
+            <div class="encours">
+                <p>En cours</p>
+                <p>{{nombreEncours}}</p>
+            </div>
+        </a>
+        <a href="{% url 'congeAttenteUser' %}">
+            <div class="attente">
+                <p>En attentes</p>
+                <p>{{nombreAttente}}</p>
+            </div>
+        </a>
+        <a href="">
+            <div class="retourconfirme">
+                <p>Retour ✅</p>
+                <p>{{retourConfirme}}</p>
+            </div>
+        </a>
+        <a href="">
+            <div class="retourNonconfirme">
+                <p>Retour ⛔</p>
+                <p>-</p>
+            </div>
+        </a>
+    </div>
+</div>
+  
+
+
+{% endblock content %}

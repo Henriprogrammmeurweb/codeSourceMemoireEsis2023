@@ -1,0 +1,90 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 25px;
+        margin-top: 134px;
+        
+    }
+    .content .titre h3{
+        color: rgb(16, 44, 76);
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    .content .titre a{
+        margin-bottom: 8px;
+    }
+    .content .contenu{
+        width: 90%;
+    }
+    .content .contenu table tr th{
+        background-color: rgb(16, 44, 76);
+        color: white;
+    }
+</style>
+  
+
+<div class="content">
+    <div class="titre">
+        <h3>Liste des Personnels exerçant la Fonction :  {{get_id.designation}}</h3>
+    </div>
+    <div class="contenu">
+        <table class="table tabele-responsive table-bordered">
+            <tr>
+                <th>N°</th>
+                <th>Nom</th>
+                <th>PostNom</th>
+                <th>Prenom</th>
+                <th>Matricule</th>
+                <th>Sexe</th>
+                <th>Service</th>
+                <th>Fonction</th>
+                <th>Grade</th>
+                <th><i class="fa fa-pencil" aria-hidden="true"></i></a></th>
+                <th><i class="fa fa-trash" aria-hidden="true"></i></a></th>
+            </tr>
+            {% for liste_object in liste_object %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i>
+                        {{liste_object.username}}</a></td>
+                <td>{{liste_object.postnom}}</td>
+                <td>{{liste_object.prenom}}</td>
+                {% if liste_object.matricule %}
+                <td>{{liste_object.matricule}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                <td>{{liste_object.sexe}}</td>
+                {% if liste_object.fonction.service %}
+                <td>{{liste_object.fonction.service}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if liste_object.fonction.designation %}
+                <td>{{liste_object.fonction.designation}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if liste_object.grade %}
+                <td>{{liste_object.grade}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                 <td><a href="{% url 'modifPersonnel' liste_object.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                <td><a href="{% url 'suppPersonnel' liste_object.id %}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11">Pas des Personnels dans la Base de données</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock content %}

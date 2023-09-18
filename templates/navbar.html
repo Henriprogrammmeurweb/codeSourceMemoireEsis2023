@@ -1,0 +1,74 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    header nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        height: 78px;
+        width: 100%;
+        background-color: white;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        z-index: 1000;
+    }
+
+    header nav .logo p {
+        color: rgb(12, 78, 114);
+        margin-left: 15px;
+        
+       
+
+    }
+
+    header nav .logo a {
+        text-decoration: none;
+       
+
+    }
+
+    header nav .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header nav .menu li {
+        list-style: none;
+    }
+    header nav .menu li a{
+        margin-right: 15px;
+    }
+
+</style>
+
+
+<header>
+    <nav>
+        {% if user.is_authenticated %}
+        <div class="logo">
+            <a href="{% url 'dashboard' %}"><p>TakeLeave</p></a>
+        </div>
+        {% else %}
+        <div class="logo">
+            <a href="/"><p>TakeLeave</p></a>
+        </div>
+        {% endif %}
+        <div class="burger">
+            <span></span>
+        </div>
+        <ul class="menu">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logoutUser' %}" class="btn btn-primary"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            {% else %}
+            <li><a href="{% url 'loginUser' %}" class="btn btn-primary"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
