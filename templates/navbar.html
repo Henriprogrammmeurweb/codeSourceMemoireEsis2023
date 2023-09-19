@@ -37,12 +37,14 @@
         list-style: none;
     }
     header nav .menu li a{
-        margin-right: 15px;
-        border-radius: 25px;
         background-color: rgb(245, 127, 59);
         padding: 10px;
         color: white;
         text-decoration: none;
+        margin-right: 25px;
+    }
+    header nav .menu li a:hover{
+        color: white;
     }
 
 </style>
@@ -64,9 +66,9 @@
         </div>
         <ul class="menu">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'logoutUser' %}"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            <li><a href="{% url 'logoutUser' %}" class="btn"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
-            <li><a href="{% url 'loginUser' %}"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            <li><a href="{% url 'loginUser' %}" class="btn"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>

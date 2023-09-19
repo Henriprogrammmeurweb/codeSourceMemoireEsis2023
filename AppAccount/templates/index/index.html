@@ -24,15 +24,14 @@
 
     }
     .description .texte-description .link{
-        margin-top: 35px;
+        margin-top: 15px;
     }
     .description .texte-description a{
-        border-radius: 25px;
         background-color: rgb(245, 127, 59);
         padding: 10px;
         color: white;
         text-decoration: none;
-        border: 1px solid rgb(245, 127, 59);
+        
         
     }
 
@@ -79,11 +78,11 @@
 
 <div class="description">
     <div class="texte-description">
-        <h2>Salut, Heureux de vous accueillir sur TeakLeave</h2>
+        <h2><span>Salut,</span> Heureux de vous accueillir sur TeakLeave</h2>
         <p>Sans beacoup des peines demander votre Congé et obtenu rapidement votre Réponse</p>
         <p>Après avoir demander votre congé n'hésitez pas de consulté votre Boite Mail 📩</p>
         <p>Vous serez alerté une fois que votre demande de Congé est traitée 📄</p>
-        <div class="link"><a href="{% url 'loginUser' %}">Demander rapidement</a></div>
+        <div class="link"><a href="{% url 'loginUser' %}" class="btn">Demander rapidement</a></div>
     </div>
 </div>
 <div class="titre-fonctionnement">

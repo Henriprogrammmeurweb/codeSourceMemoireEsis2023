@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
 <style>
@@ -8,7 +9,7 @@
         align-items: center;
         flex-direction: column;
         margin-top: 80px;
-        background-color: rgb(65, 130, 187);
+        background-color: rgb(59, 79, 98);
     }
     .content .alert{
         margin-top: 30px;
@@ -21,16 +22,28 @@
         background-color: white;
         border-radius: 15px;
         width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
-    .content .contenu .bienvenue h2{
-        font-weight: bold;
-        color: rgb(28, 127, 180);
+    .content .contenu .bienvenue{
+        width: 50%;
+    }
+    .content .contenu .bienvenue img{
+        width: 100%;
     }
     .content .contenu form{
         width: 100%;
     }
+    .content .contenu form h3{
+        font-weight: bold;
+        color: rgb(245, 127, 59);
+    }
     .content .contenu form button{
         margin-top: 15px;
+        background-color: rgb(245, 127, 59);
+        color: white;
     }
 </style>
 
@@ -42,12 +55,13 @@
     {% endfor %}
     <div class="contenu">
         <div class="bienvenue">
-            <h2>Bienvenue</h2>
+            <img src="{% static 'img/user.png' %}" alt="">
         </div>
         <form action="" method="post" novalidate>
+            <h3>Connectez-vous</h3>
             {% csrf_token %}
             {{form}}
-            <button type="submit" class="btn btn-danger btn-block">Se connecter</button>
+            <button type="submit" class="btn btn-block">Se connecter</button>
             <a href="">Mot de passe oublié ?</a>
         </form>
     </div>
