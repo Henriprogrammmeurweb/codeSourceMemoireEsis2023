@@ -61,8 +61,8 @@
                 <td style="text-transform: uppercase;"><a href=""><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.designation}}</a></td>
                 <td>{{liste_object.date_creation}}</td>
                 <td>{{liste_object.date_modification}}</td>
-                <td><a href="{% url 'modifGrade' liste_object.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                <td><a href="{% url 'suppGrade' liste_object.id  %}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                <td><a href="{% url 'modifGrade' liste_object.id %}" class="btn btn-success">Modifier</a></td>
+                <td><a href="{% url 'suppGrade' liste_object.id  %}" class="btn btn-danger">Supprimer</a></td>
               </tr>
               {% empty %}
               <tr>

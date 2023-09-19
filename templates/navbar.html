@@ -19,16 +19,10 @@
         z-index: 1000;
     }
 
-    header nav .logo p {
-        color: rgb(12, 78, 114);
-        margin-left: 15px;
-        
-       
-
-    }
-
     header nav .logo a {
         text-decoration: none;
+        color: teal;
+        margin-left: 20px;
        
 
     }
@@ -44,6 +38,11 @@
     }
     header nav .menu li a{
         margin-right: 15px;
+        border-radius: 25px;
+        background-color: rgb(245, 127, 59);
+        padding: 10px;
+        color: white;
+        text-decoration: none;
     }
 
 </style>
@@ -53,11 +52,11 @@
     <nav>
         {% if user.is_authenticated %}
         <div class="logo">
-            <a href="{% url 'dashboard' %}"><p>TakeLeave</p></a>
+            <a href="{% url 'dashboard' %}">TakeLeave</a>
         </div>
         {% else %}
         <div class="logo">
-            <a href="/"><p>TakeLeave</p></a>
+            <a href="/">TakeLeave</a>
         </div>
         {% endif %}
         <div class="burger">
@@ -65,9 +64,9 @@
         </div>
         <ul class="menu">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'logoutUser' %}" class="btn btn-primary"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            <li><a href="{% url 'logoutUser' %}"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
-            <li><a href="{% url 'loginUser' %}" class="btn btn-primary"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            <li><a href="{% url 'loginUser' %}"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>

@@ -88,7 +88,6 @@ class Conge(models.Model):
 
 class Demande(models.Model):
     conge = models.ForeignKey(Conge, on_delete=models.CASCADE)
-    personnel = models.ForeignKey(Personnel, on_delete=models.CASCADE)
     commentaire = models.TextField()
     approbation = models.BooleanField(default=False)
     date_debut = models.DateField()

@@ -11,7 +11,7 @@
     .description {
         margin-top: 78px;
         background-color: rgb(34, 52, 68);
-        height: 250px;
+        height: 280px;
         color: white;
         display: flex;
         justify-content: center;
@@ -22,6 +22,18 @@
     .description h2 {
         font-weight: bold;
 
+    }
+    .description .texte-description .link{
+        margin-top: 35px;
+    }
+    .description .texte-description a{
+        border-radius: 25px;
+        background-color: rgb(245, 127, 59);
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        border: 1px solid rgb(245, 127, 59);
+        
     }
 
     .titre-fonctionnement {
@@ -71,7 +83,7 @@
         <p>Sans beacoup des peines demander votre Congé et obtenu rapidement votre Réponse</p>
         <p>Après avoir demander votre congé n'hésitez pas de consulté votre Boite Mail 📩</p>
         <p>Vous serez alerté une fois que votre demande de Congé est traitée 📄</p>
-        <a href="{% url 'loginUser' %}" class="btn btn-light">Demander rapidement</a>
+        <div class="link"><a href="{% url 'loginUser' %}">Demander rapidement</a></div>
     </div>
 </div>
 <div class="titre-fonctionnement">

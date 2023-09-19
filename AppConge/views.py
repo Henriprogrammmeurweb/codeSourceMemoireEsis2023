@@ -101,11 +101,14 @@ def approuveRejetConge(request):
     if request.method == "POST":
         form=forms.FormAddApprobation(request.POST)
         if form.is_valid():
-            demande=form.save(commit=False)
-            demande.personnel=request.user
-            demande.save()
-            sweetify.success(request, "Merci d'avoir fourni une réponse à cette demande")
-            form=forms.FormAddApprobation()
+            date_debut=form.cleaned_data['date_debut']
+            date_fin=form.cleaned_data['date_fin']
+            if date_fin < date_debut :
+                sweetify.info(request, "Date de fin inférieure à la date début !")
+            else:
+                form.save()
+                sweetify.success(request, "Merci d'avoir fourni une réponse à cette demande")
+                form=forms.FormAddApprobation()
         else:
             sweetify.error(request, "Formulaire invalide !")
     else:
@@ -159,6 +162,12 @@ def congeRejet(request):
 @permission_required("AppConge.view_conge", raise_exception=True)
 def congeEncours(request):
     liste_object=models.Demande.objects.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True)).filter(conge__personnel=request.user)
+    if request.method == "GET":
+        recherche=request.GET.get('recherche')
+        if recherche:
+            liste_object=models.Conge.objects.exclude.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True)).filter(conge__personnel=request.user, titre__icontains=recherche)
+            sweetify.success(request, 'Résultats de la recheche')
+            return render(request, "conge/congeAttenteUser.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -167,6 +176,12 @@ def congeEncours(request):
 @login_required
 def congeAttenteUser(request):
     liste_object=models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).filter(personnel=request.user)
+    if request.method == "GET":
+        recherche=request.GET.get('recherche')
+        if recherche:
+            liste_object=models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).filter(titre__icontains=recherche, personnel=request.user)
+            sweetify.success(request, 'Résultats de la recheche')
+            return render(request, "conge/congeAttenteUser.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
