@@ -186,7 +186,7 @@ def modifPersonnel(request,id):
         form=forms.FormChangePersonnel(request.POST, request.FILES,instance=get_personnel)
         if form.is_valid():
             form.save()
-            sweetify.success(request, "Information d'un Personnel changées avec succès !")
+            sweetify.success(request, "Information d'un Personnel changée avec succès !")
             return redirect('listePersonnel')
         else:
             sweetify.error(request,"Informations non changées !")

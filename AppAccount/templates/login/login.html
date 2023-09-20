@@ -45,20 +45,28 @@
         background-color: rgb(245, 127, 59);
         color: white;
     }
+
+
+    /*Media*/
+    @media(max-width:800px){
+        .content .contenu{
+            width: 95%;
+        }
+    }
 </style>
 
 <div class="content">
-    {% for message in messages %}
-      <div class="alert alert-danger" role="alert">
-        <p>{{message}}</p>
-      </div>
-    {% endfor %}
     <div class="contenu">
         <div class="bienvenue">
             <img src="{% static 'img/user.png' %}" alt="">
         </div>
         <form action="" method="post" novalidate>
             <h3>Connectez-vous</h3>
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+              <p>{{message}}</p>
+            </div>
+            {% endfor %}
             {% csrf_token %}
             {{form}}
             <button type="submit" class="btn btn-block">Se connecter</button>

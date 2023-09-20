@@ -4,7 +4,8 @@
         margin: 0;
         box-sizing: border-box;
     }
-    .menus-listes{
+
+    .menus-listes {
         position: fixed;
         width: 100%;
         z-index: 1000;
@@ -18,9 +19,10 @@
         background-color: rgb(34, 52, 68);
         height: 55px;
     }
-    .sidebar.active{
-        background-color: rgb(64, 150, 179);
-        
+
+    .sidebar.active {
+        background-color: rgb(7, 60, 78);
+
     }
 
     .sidebar .responsive {
@@ -32,7 +34,7 @@
         flex-direction: column;
         margin-left: 20px;
         cursor: pointer;
-        
+
     }
 
     .sidebar .responsive span {
@@ -40,7 +42,8 @@
         height: 3px;
         width: 38px;
     }
-    .sidebar .responsive span.active{
+
+    .sidebar .responsive span.active {
         width: 0%;
     }
 
@@ -53,7 +56,8 @@
         transform: translateY(7px);
 
     }
-    .sidebar .responsive.active::before{
+
+    .sidebar .responsive.active::before {
         content: "";
         position: absolute;
         transform: rotate(45Deg);
@@ -68,7 +72,8 @@
         transform: translateY(-7px);
 
     }
-    .sidebar .responsive.active::after{
+
+    .sidebar .responsive.active::after {
         content: "";
         position: absolute;
         transform: rotate(-45Deg);
@@ -103,7 +108,8 @@
         line-height: 35px;
         margin-left: 8px;
     }
-    .mes-menus.responsive{
+
+    .mes-menus.responsive {
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
@@ -115,8 +121,8 @@
         height: 100vh;
         overflow: auto;
         transition: 5s;
-        
-        
+
+
     }
 </style>
 
@@ -127,16 +133,34 @@
     </div>
     <div class="mes-menus">
         <ul class="liste-menu">
+            {% if perms.AppConge.view_conge %}
             <li><a href="{% url 'dashboard' %}">Accueil</a></li>
             <li><a href="{% url 'CongeUser' %}">Congé</a></li>
+            {% endif %}
+            {% if perms.AppConge.add_retour %}
             <li><a href="{% url 'confirmRetourConge' %}">Retour</a></li>
+            {% endif %}
+            {% if perms.AppConge.view_conge %}
             <li><a href="{% url 'congeAttente' %}">Approbation</a></li>
+            {% endif %}
+            {% if perms.AppPersonnel.view_service %}
             <li><a href="{% url 'listeService' %}">Service</a></li>
+            {% endif %}
+            {% if perms.AppPersonnel.view_fonction %}
             <li><a href="{% url 'listeFonction' %}">Fonction</a></li>
+            {% endif %}
+            {% if perms.AppPersonnel.view_grade %}
             <li><a href="{% url 'listeGrade' %}">Grade</a></li>
+            {% endif %}
+            {% if perms.AppAccount.view_personnel %}
             <li><a href="{% url 'listePersonnel' %}">Personnel</a></li>
+            {% endif %}
+            {% if perms.AppPlanning.view_planning %}
             <li><a href="{% url 'listePlanning' %}">Planning</a></li>
+            {% endif %}
+            {% if perms.AppPlanning.view_annee %}
             <li><a href="{% url 'listeAnnee' %}">Année</a></li>
+            {% endif %}
         </ul>
     </div>
 </div>

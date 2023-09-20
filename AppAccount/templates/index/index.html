@@ -7,21 +7,23 @@
         margin: 0;
         box-sizing: border-box;
     }
+    .index{
+        background-color: rgb(237, 241, 241);
+        padding-bottom: 25px;
+    }
 
     .description {
         margin-top: 78px;
         background-color: rgb(34, 52, 68);
-        height: 280px;
+        height: 310px;
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         line-height : 15px;
     }
-
-    .description h2 {
+    .description h2{
         font-weight: bold;
-
     }
     .description .texte-description .link{
         margin-top: 15px;
@@ -37,70 +39,128 @@
 
     .titre-fonctionnement {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: flex-start;
 
     }
 
-    .titre-fonctionnement h2 {
-        color: rgb(11, 69, 88);
-        margin-top: 15px;
-        margin-bottom: 15px;
+    .titre-fonctionnement p {
+        color: rgb(12, 116, 148);
+        font-size: x-large;
+        margin-left: 2%;
+        padding-top: 5px;
         font-weight: bold;
 
     }
+    .fonctionContact{
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 0 2% 0 2% ;
+        margin-top: 25px;
 
+    }
     .detail-fonctionnement {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        margin: 15px;
+        flex-wrap: wrap;
+
+        
        
     }
 
     .detail-fonctionnement .detail {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         flex-direction: column;
-        width:90%;
-        background-color: white;
+        width:304px;
+        height: 150px;
+        background-color: rgb(237, 241, 241);
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
         padding: 10px;
         margin: 8px;
         text-align: justify;
     }
+    .detail-fonctionnement .detail p span{
+        color: rgb(225 96 74);
+    }
+    .contact #titrecontact{
+        color: rgb(12, 116, 148);
+        font-size: x-large;
+        margin-left: 2%;
+        padding-top: 5px;
+        font-weight: bold;
+    }
+    .contact p{
+        margin-left: 2%;
+    }
+    .contact ul li{
+        list-style: none;
+        margin-left: 2%;
+        
+    }
+
+
+    /*Media screen*/
+    @media(max-width:900px){
+        .description{
+            height: auto;
+            padding: 15px;
+            line-height: 20px;
+            
+        }
+        .detail-fonctionnement .detail{
+            width: 95%;
+            height: auto;
+        }
+    }
 
 </style>
 
 
-<div class="description">
-    <div class="texte-description">
-        <h2><span>Salut,</span> Heureux de vous accueillir sur TeakLeave</h2>
-        <p>Sans beacoup des peines demander votre Congé et obtenu rapidement votre Réponse</p>
-        <p>Après avoir demander votre congé n'hésitez pas de consulté votre Boite Mail 📩</p>
-        <p>Vous serez alerté une fois que votre demande de Congé est traitée 📄</p>
-        <div class="link"><a href="{% url 'loginUser' %}" class="btn">Demander rapidement</a></div>
+<section class="index">
+    <div class="description">
+        <div class="texte-description">
+            <h2>Salut, Heureux de vous accueillir sur TeakLeave </h2>
+            <p>Planifier les Congés de Travailleurs de votre Entreprise en un clic</p>
+            <p>Fini la Gestion manuelle ✍️, planifier le Congé Annuel des Travailleurs en un clic seulement</p>
+            <p>Sans beacoup des peines demander votre Congé et obtenez rapidement votre Réponse</p>
+            <p>Après avoir demander votre congé n'hésitez pas de consulter votre Boite Mail 📩</p>
+            <p>Vous serez alerté une fois que votre demande de Congé est traitée 📄</p>
+            <div class="link"><a href="{% url 'loginUser' %}" class="btn"> Demander rapidement</a></div>
+        </div>
     </div>
-</div>
-<div class="titre-fonctionnement">
-    <h2>Acteurs des Processus</h2>
-</div>
-<div class="detail-fonctionnement">
-    <div class="detail">
-        <p><span>Demandeur de Congé</span> : Il peut demander son Congé et recevoir une réponse d'approbation ou de
-            rejet dans un Bref delai sur la Plateforme.</p>
+    <div class="fonctionContact">
+        <div class="titre-fonctionnement">
+            <p>* Identification des Rôles</p>
+        </div>
+        <div class="detail-fonctionnement">
+            <div class="detail">
+                <p><span>Demandeur de Congé </span> : Il peut demander son Congé et recevoir une réponse d'approbation ou de
+                    rejet dans un Bref delai sur la Plateforme.</p>
+            </div>
+            <div class="detail">
+                <p><span>Approbateur de Congé</span> : Il peut aussi demander un Congé mais il a également l'autorisation
+                    d'approuver ou de rejeter un Congé d'un Travailleur.</p>
+            </div>
+            <div class="detail">
+                <p><span>Consulteur de Congé</span> : Il peut aussi demander un Congé mais il a l'autorisation de consulter les
+                    Congés de Travailleurs encours.</p>
+            </div>
+            <div class="detail">
+                <p><span>Planificateur de congé</span> : Pour chaque service il y a un Planificateur qui a le rôle de planifier le Congés des Travailleurs de son service uniquement</p>
+            </div>
+        </div>
+        <div class="contact">
+            <p id="titrecontact">* Nous contactez</p>
+            <p>Pour tout dysfonctionnement, entretien ou question n'hésitez pas de nous contacter au :</p>
+            <ul>
+                <li>Téléphone : <a href="tel:+243819328364">+243819328364</a></li>
+                <li>Email : <a href="mailto:contactdps@gmail.com">contactdps@gmail.com</a></li>
+            </ul>
+            <hr style="background-color: rgb(12, 116, 148);height: 2px;width: 100%;">
+        </div>
     </div>
-    <div class="detail">
-        <p><span>Approbateur de Congé</span> : Il peut aussi demander un Congé mais il a également l'autorisation
-            d'approuver ou de rejeter un Congé d'un Travailleur.</p>
-    </div>
-    <div class="detail">
-        <p><span>Consulteur de Congé</span> : Il peut aussi demander un Congé mais il a l'autorisation de consulter les
-            Congés de Travailleurs encours.</p>
-    </div>
-</div>
+</section>
 
 {% endblock content %}

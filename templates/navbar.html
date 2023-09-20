@@ -13,15 +13,14 @@
         top: 0;
         height: 78px;
         width: 100%;
-        background-color: white;
+        background-color: rgb(237, 241, 241);
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        overflow: hidden;
         z-index: 1000;
     }
 
     header nav .logo a {
         text-decoration: none;
-        color: teal;
+        color: rgb(12, 116, 148);
         margin-left: 20px;
        
 
@@ -46,7 +45,82 @@
     header nav .menu li a:hover{
         color: white;
     }
+    header nav .burger{
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        display: none;
+    }
+    header nav .burger span{
+        width: 38px;
+        height: 3px;
+        background-color: rgb(34, 52, 68);
+    }
+    header nav .burger::before{
+        content: "";
+        position: absolute;
+        width: 38px;
+        height: 3px;
+        background-color: rgb(34, 52, 68);
+        transform: translateY(7px);
 
+    }
+    header nav .burger::after{
+        content: "";
+        position: absolute;
+        width: 38px;
+        height: 3px;
+        background-color: rgb(34, 52, 68);
+        transform: translateY(-7px);
+
+    }
+
+    /*Media*/
+    @media(max-width:510px){
+        header nav .menu {
+            display: none;
+        }
+        header nav .burger{
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-right: 10px;
+       
+    }
+    header nav .burger span.active{
+        width: 0%;
+    }
+    header nav .burger.active::after{
+        content: "";
+        position: absolute;
+        transform: rotate(45deg);
+    }
+    header nav .burger.active::before{
+        content: "";
+        position: absolute;
+        transform: rotate(-45deg);
+    }
+    header nav .menu.responsive{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background-color: rgb(33, 99, 153);
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        height: 165px;
+        top: 80px;
+        padding: 15px;
+        z-index: 10000px;
+
+    }
+    }
 </style>
 
 
@@ -73,3 +147,15 @@
         </ul>
     </nav>
 </header>
+
+<script>
+    let burgers=document.querySelector('.burger');
+    let burger_spans=document.querySelector('.burger span');
+    let menus=document.querySelector('.menu');
+
+    burgers.addEventListener('click',()=>{
+        burgers.classList.toggle('active');
+        burger_spans.classList.toggle('active');
+        menus.classList.toggle('responsive');
+    });
+</script>
