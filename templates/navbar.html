@@ -35,7 +35,7 @@
     header nav .menu li {
         list-style: none;
     }
-    header nav .menu li a{
+    header nav .menu li #login{
         background-color: rgb(245, 127, 59);
         padding: 10px;
         color: white;
@@ -141,7 +141,8 @@
         </div>
         <ul class="menu">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'logoutUser' %}" class="btn"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            <li><a href="{% url 'changePassword' %}" class="btn btn-info">Change Mot de passe</a></li>
+            <li><a href="{% url 'logoutUser' %}" class="btn" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
             <li><a href="{% url 'loginUser' %}" class="btn"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}

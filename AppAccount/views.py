@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+import sweetify
 from .import forms
 
 
@@ -46,3 +48,22 @@ def page404(request, exception):
 
 def page500(request):
     return render(request, "error/page_500.html")
+
+
+@login_required
+def changePassword(request):
+    form=PasswordChangeForm(request.user)
+    if request.method == "POST":
+        form=PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request, user)
+            logout(request)
+            sweetify.info(request, "Mot de passe change")
+            return redirect('/')
+        else:
+            sweetify.error(request, "Impossible !")
+    else:
+        form=PasswordChangeForm(request.user)
+    return render(request, "password/passwordchange.html",{"form":form})
+
