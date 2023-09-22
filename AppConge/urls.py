@@ -14,5 +14,9 @@ urlpatterns=[
     path('congeApprouve', views.congeApprouve, name="congeApprouve"),
     path('congeRejet', views.congeRejet, name="congeRejet"),
     path('congeEncours', views.congeEncours, name='congeEncours'),
-    path('congeAttenteUser', views.congeAttenteUser, name="congeAttenteUser")
+    path('congeAttenteUser', views.congeAttenteUser, name="congeAttenteUser"),
+    path('listeApprobationRejet', views.listeApprobationRejet, name="listeApprobationRejet"),
+    path('modifApprobation/<str:id>/Rejet', views.modifApprobationRejet, name='modifApprobationRejet'),
+    path('supp/<str:id>/Demande', views.suppDemande, name="suppDemande"),
+    path('detail/<str:id>/Demande', views.detailDemande, name="detailDemande")
 ]

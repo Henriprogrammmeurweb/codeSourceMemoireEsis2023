@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 50px;
+        margin-top: 100px;
+        background-color: rgb(64, 77, 85);
+        
+    }
+    .content .titre p{
+        color: white;
+        margin-bottom: 8px;
+        text-decoration: underline;
+        margin-top: 35px;
+        
+    }
+    .content .titre a{
+        margin-bottom: 8px;
+    }
+    .content .contenu{
+        width: 70%;
+        
+    }
+    .content .contenu li{
+        color: white;
+    }
+
+</style>
+  
+
+<div class="content">
+    <div class="contenu">
+        <ul>
+            <li>Titre : {{get_id.conge.titre}}</li>
+            <li>Nature : {{get_id.conge.nature}}</li>
+            <li>Réponse : {{get_id.getReponseConge}}</li>
+            <li>Commentaire : {{get_id.commentaire}}</li>
+            <li>Date Début : {{get_id.date_debut}}</li>
+            <li>Date Fin : {{get_id.date_fin}}</li>
+            <li>Jours : {{get_id.get_nombre_Jours}}</li>
+            <li>Consommés : {{get_id.getJoursConsommes}}</li>
+            <li>Reste : {{get_id.get_reste_jours}}</li>
+            <li>Date creation : {{get_id.date_creation}}</li>
+            <li>Date creation : {{get_id.date_creation}}</li>
+            <li>Date Modification : {{get_id.date_modification}}</li>
+            <hr style="background-color: white;width: 300px;">
+        </ul>
+        <div class="motif">
+            <ul>
+                <li style="text-align: justify;">Motif : {{get_id.conge.motif|linebreaks}}</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
+
+
+

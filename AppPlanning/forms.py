@@ -4,6 +4,7 @@ from .import models
 
 
 class FormAjoutPlanningConge(forms.ModelForm):
+    global personnel
     def __init__(self, *args, **kwargs):
         self.request=kwargs.pop('request')
         super(FormAjoutPlanningConge, self).__init__(*args, **kwargs)

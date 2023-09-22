@@ -35,6 +35,7 @@
         margin-left: 20px;
         cursor: pointer;
 
+
     }
 
     .sidebar .responsive span {
@@ -91,6 +92,7 @@
         overflow: scroll;
         display: none;
         padding: 20px;
+        
     }
 
     .mes-menus .liste-menu {
@@ -140,7 +142,7 @@
             {% if perms.AppConge.add_retour %}
             <li><a href="{% url 'confirmRetourConge' %}">Retour</a></li>
             {% endif %}
-            {% if perms.AppConge.view_conge %}
+            {% if perms.AppConge.view_demande %}
             <li><a href="{% url 'congeAttente' %}">Approbation</a></li>
             {% endif %}
             {% if perms.AppPersonnel.view_service %}

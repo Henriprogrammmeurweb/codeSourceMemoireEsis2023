@@ -32,7 +32,6 @@
         color: white;
     }
 </style>
-  
 
 <div class="content">
     <div class="contenu">
@@ -43,36 +42,34 @@
             </form>
         </div>
         <div class="titre">
-            <a href="{% url 'approuveRejetConge' %}" class="btn btn-dark btn-block">Répondre aux demandes des Congés</a>
-            <a href="{% url 'listeApprobationRejet' %}" class="btn btn-info btn-block">Mes Approbations</a>
-            <p>Liste des Congés en Attente</p>
+            <p>Liste des Réponses aux Congés des Travailleurs</p>
         </div>
-        <table class="table tabele-responsive table-bordered">
+        <table class=" table table-responsive table-bordered">
             <tr>
                 <th>N°</th>
                 <th>Personnel</th>
-                <th>Titre</th>
-                <th>Motif</th>
-                <th>Nature</th>
-                <th>Date Création</th>
+                <th>Commentaire</th>
+                <th>Réponse</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
             {% for liste_object in liste_object %}
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td>{{liste_object.personnel.username}}-{{liste_object.personnel.postnom}}-{{liste_object.personnel.prenom}}</td>
-                <td><a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre}}</a></td>
-                <td>{{liste_object.motif|truncatewords:3}}</td>
-                <td>{{liste_object.nature}}</td>
-                <td>{{liste_object.date_creation}}</td>
-              </tr>
-              {% empty %}
-              <tr>
-                <td colspan="5">Pas des demandes actuellement</td>
+                <td><a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.personnel.getPersonnel}}</a></td>
+                <td>{{liste_object.commentaire|truncatewords:3}}</td>
+                <td>{{liste_object.getReponseConge}}</td>
+                <td>{{liste_object.date_debut}}</td>
+                <td>{{liste_object.date_fin}}</td>
+                <td><a href="{% url 'modifApprobationRejet' liste_object.id %}" class="btn btn-success">Modifier</a></td>
+                <td><a href="{% url 'suppDemande' liste_object.id %}" class="btn btn-danger">Supprimer</a></td>
+                
               </tr>
             {% endfor %}
         </table>
     </div>
 </div>
-
-
+  
 {% endblock content %}

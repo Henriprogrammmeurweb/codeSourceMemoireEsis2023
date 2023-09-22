@@ -11,12 +11,15 @@ import sweetify
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
     service=Service.objects.filter(fonction__personnel=request.user)
-    for services in service:
-        liste_object=models.Planning.objects.filter(service=services)
-    context={
-        "liste_object":liste_object
-    }
-    return render(request, "planning/listePlanning.html",context)
+    if service :
+        for services in service:
+            liste_object=models.Planning.objects.filter(service=services)
+        context={
+            "liste_object":liste_object
+        }
+        return render(request, "planning/listePlanning.html",context)
+    else:
+        return render(request, "planning/listePlanning.html")
 
 @login_required
 @permission_required('AppPlanning.add_planning', raise_exception=True)

@@ -30,10 +30,27 @@ class FormAddApprobation(forms.ModelForm):
             "conge": forms.Select(attrs={"class": "form-control"}),
             "commentaire": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
             "approbation": forms.CheckboxInput(attrs={"class": "form-control"}),
-            "date_debut": forms.DateInput(
+            "date_debut": forms.TextInput(
                 attrs={"class": "form-control", "type": "date"}
             ),
-            "date_fin": forms.DateInput(
+            "date_fin": forms.TextInput(
+                attrs={"class": "form-control", "type": "date"}
+            ),
+        }
+
+
+class FormChangeApprobation(forms.ModelForm):
+    class Meta:
+        model = models.Demande
+
+        fields = ["commentaire", "approbation", "date_debut", "date_fin"]
+        widgets = {
+            "commentaire": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
+            "approbation": forms.CheckboxInput(attrs={"class": "form-control"}),
+            "date_debut": forms.TextInput(
+                attrs={"class": "form-control", "type": "date"}
+            ),
+            "date_fin": forms.TextInput(
                 attrs={"class": "form-control", "type": "date"}
             ),
         }

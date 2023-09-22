@@ -35,3 +35,7 @@ class Personnel(AbstractUser):
     def __str__(self):
         return f"{self.username} {self.postnom}"
     
+    @property
+    def getPersonnel(self):
+        return f'{self.username}-{self.postnom}-{self.prenom}'
+    

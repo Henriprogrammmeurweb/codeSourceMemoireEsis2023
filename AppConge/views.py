@@ -101,9 +101,12 @@ def approuveRejetConge(request):
     if request.method == "POST":
         form=forms.FormAddApprobation(request.POST)
         if form.is_valid():
+            approbation=form.cleaned_data['approbation']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
-            if date_fin < date_debut :
+            if approbation == False and  date_debut != date_fin :
+                sweetify.info(request, "La date de début doit être identique à la date de fin !")
+            elif date_fin < date_debut :
                 sweetify.info(request, "Date de fin inférieure à la date début !")
             else:
                 form.save()
@@ -186,6 +189,64 @@ def congeAttenteUser(request):
         "liste_object":liste_object
     }
     return render(request, "conge/congeAttenteUser.html", context)
+
+
+@login_required
+@permission_required("AppConge.view_demande", raise_exception=True)
+def listeApprobationRejet(request):
+    liste_object=models.Demande.objects.all().order_by('-date_creation')
+    context={
+        "liste_object":liste_object
+    }
+    return render(request, "approbation/listeApprobationRejet.html",context)
+
+@login_required
+@permission_required("AppConge.change_demande", raise_exception=True)
+def modifApprobationRejet(request,id):
+    get_id=models.Demande.objects.get(id=id)
+    form=forms.FormChangeApprobation(instance=get_id)
+    if request.method == "POST":
+        form=forms.FormChangeApprobation(request.POST,instance=get_id)
+        if form.is_valid():
+            date_debut=form.cleaned_data['date_debut']
+            date_fin=form.cleaned_data['date_fin']
+            if date_fin < date_debut :
+                sweetify.info(request, "Date de fin inférieure à la date début !")
+            else:
+                form.save()
+                sweetify.success(request, "Cette Réponse a été Modifiée")
+                return redirect('listeApprobationRejet')
+        else:
+            sweetify.error(request, "Formulaire invalide !")
+    else:
+        form=forms.FormChangeApprobation(instance=get_id)
+    context={
+        "get_id":get_id,
+        "form":form
+    }
+    return render(request, "approbation/modifApprobationRejet.html",context)
+
+@login_required
+@permission_required("AppConge.delete_demande", raise_exception=True)
+def suppDemande(request,id):
+    get_id=models.Demande.objects.get(id=id)
+    if request.method == "POST":
+        get_id.delete()
+        sweetify.info(request, "La réponse à cette demande a été supprimée !")
+        return redirect('listeApprobationRejet')
+    return render(request, "approbation/suppDemande.html", {"get_id":get_id})
+
+
+@login_required
+@permission_required("AppConge.view_demande", raise_exception=True)
+def detailDemande(request,id):
+    get_id=models.Demande.objects.get(id=id)
+    return render(request, "approbation/detailDemande.html", {"get_id":get_id})
+
+
+
+
+
 
 
 

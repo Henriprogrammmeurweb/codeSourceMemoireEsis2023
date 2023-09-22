@@ -128,6 +128,13 @@ class Demande(models.Model):
         else:
             return date.today() - self.date_debut
         
+
+    @property
+    def getReponseConge(self):
+        if self.approbation == True :
+            return 'Congé accordé ✅'
+        return 'Congé rejeté ❌'
+        
  
 
 
