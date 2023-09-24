@@ -42,8 +42,12 @@
         text-decoration: none;
         margin-right: 25px;
     }
-    header nav .menu li a:hover{
+    header nav .menu li #login:hover{
         color: white;
+        margin-left: 15px;
+    }
+    header nav .menu li a{
+        margin-right: 15px;
     }
     header nav .burger{
         width: 40px;
@@ -141,10 +145,10 @@
         </div>
         <ul class="menu">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'changePassword' %}" class="btn btn-info">Change Mot de passe</a></li>
+            <li><a href="{% url 'changePassword' %}">Changer Mot de passe</a></li>
             <li><a href="{% url 'logoutUser' %}" class="btn" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
-            <li><a href="{% url 'loginUser' %}" class="btn"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            <li><a href="{% url 'loginUser' %}" class="btn" id="login"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>

@@ -52,18 +52,18 @@ def page500(request):
 
 @login_required
 def changePassword(request):
-    form=PasswordChangeForm(request.user)
+    form=forms.FormChangePassword(request.user)
     if request.method == "POST":
-        form=PasswordChangeForm(request.user, request.POST)
+        form=forms.FormChangePassword(request.user, request.POST)
         if form.is_valid():
             user=form.save()
             update_session_auth_hash(request, user)
-            logout(request)
             sweetify.info(request, "Mot de passe change")
+            logout(request)
             return redirect('/')
         else:
             sweetify.error(request, "Impossible !")
     else:
-        form=PasswordChangeForm(request.user)
+        form=forms.FormChangePassword(request.user)
     return render(request, "password/passwordchange.html",{"form":form})
 
