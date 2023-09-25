@@ -32,12 +32,12 @@
 
 <div class="content">
     <div class="contenu">
-        <p style="color: teal;">Voulez-vous vraiment supprimer cette anne :  {{get_id.personnel.username}}</p>
+        <p style="color: teal;">Voulez-vous vraiment supprimer cette année :  {{get_id.personnel.username}}</p>
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{form}}
             <button type="submit" class="btn btn-danger btn-block">Confirmer la suppression</button>
-            <a href="{% url 'listeService' %}" class="btn btn-success btn-block">Ne pas supprimer</a>
+            <a href="{% url 'listeAnnee' %}" class="btn btn-success btn-block">Ne pas supprimer</a>
         </form>
     </div>
 </div>

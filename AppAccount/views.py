@@ -56,11 +56,9 @@ def changePassword(request):
     if request.method == "POST":
         form=forms.FormChangePassword(request.user, request.POST)
         if form.is_valid():
-            user=form.save()
-            update_session_auth_hash(request, user)
+            form.save()
             sweetify.info(request, "Mot de passe change")
-            logout(request)
-            return redirect('/')
+            return redirect('loginUser')
         else:
             sweetify.error(request, "Impossible !")
     else:

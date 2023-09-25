@@ -12,6 +12,13 @@ class Annee(models.Model):
     date_modification=models.DateTimeField(auto_now=True)
 
 
+    @property
+    def get_anneePlannig(self):
+        planning=self.planning_set.all()
+        liste_annee=[ligne.annee for ligne in planning]
+        return liste_annee
+
+
     def __str__(self):
         return self.designation
 

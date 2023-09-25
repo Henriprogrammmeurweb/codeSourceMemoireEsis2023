@@ -109,9 +109,14 @@ def ajoutAnnee(request):
     if request.method == "POST":
         form=forms.FormAjoutAnnee(request.POST)
         if form.is_valid():
-            form.save()
-            sweetify.success(request, "Année enregistrée avec succès !")
-            form=forms.FormAjoutAnnee()
+            date_debut=form.cleaned_data['date_debut']
+            date_fin=form.cleaned_data['date_fin']
+            if date_debut > date_fin :
+                sweetify.info(request, "Date debut supérieure à la date de fin !")
+            else:
+                form.save()
+                sweetify.success(request, "Année enregistrée avec succès !")
+                form=forms.FormAjoutAnnee()
         else:
             sweetify.error(request, "Formulaire invalide !")
     else:
@@ -125,6 +130,9 @@ def ajoutAnnee(request):
 @permission_required('AppPlanning.change_annee', raise_exception=True)
 def modifAnnee(request,id):
     get_id=models.Annee.objects.get(id=id)
+    annee=models.Planning.objects.filter(annee=get_id).exists()
+    if annee :
+        return render(request, 'error/page_403.html')
     form=forms.FormAjoutAnnee(instance=get_id)
     if request.method == "POST":
         form=forms.FormAjoutAnnee(request.POST, instance=get_id)
@@ -144,6 +152,9 @@ def modifAnnee(request,id):
 @permission_required('AppPlanning.delete_annee', raise_exception=True)
 def suppAnnee(request,id):
     get_id=models.Annee.objects.get(id=id)
+    annee=models.Planning.objects.filter(annee=get_id).exists()
+    if annee :
+        return render(request, 'error/page_403.html')
     if request.method == "POST":
         get_id.delete()
         sweetify.info(request, "Année modifiée a été supprimée !")
