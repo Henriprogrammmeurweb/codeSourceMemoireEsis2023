@@ -58,7 +58,7 @@
             {% for liste_object in liste_object %}
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"> {{liste_object.designation}}</td>
+                <td style="text-transform: uppercase;"> <a href="{% url 'planningAnnee' liste_object.id %}">{{liste_object.designation}}</a></td>
                 <td>{{liste_object.date_debut}}</td>
                 <td>{{liste_object.date_fin}}</td>
                 {% if liste_object.get_anneePlannig %}

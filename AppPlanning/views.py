@@ -10,15 +10,14 @@ import sweetify
 @login_required
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
-    service=Service.objects.filter(fonction__personnel=request.user)
-    for services in service:
+    fonction_user=Service.objects.filter(fonction__personnel=request.user)
+    for services in fonction_user:
         liste_object=models.Planning.objects.filter(service=services)
         context={
             "liste_object":liste_object
         }
-        return render(request, "planning/listePlanning.html",context)
-    else:
-        return render(request, "planning/listePlanning.html")
+    return render(request, "planning/listePlanning.html",context)
+
 
 @login_required
 @permission_required('AppPlanning.add_planning', raise_exception=True)
@@ -159,3 +158,22 @@ def suppAnnee(request,id):
         sweetify.info(request, "Année modifiée a été supprimée !")
         return redirect('listeAnnee')
     return render(request, "annee/suppAnnee.html",{"get_id":get_id})
+
+
+
+@login_required
+@permission_required('AppPlanning.view_planning', raise_exception=True)
+def planningAnnee(request, id):
+    get_id=models.Annee.objects.get(id=id)
+    liste_object=models.Planning.objects.filter(annee=get_id)
+    if request.method == "GET":
+        recherche=request.GET.get('recherche')
+        if recherche:
+            liste_object=models.Planning.objects.filter(personnel__username__icontains=recherche)
+            sweetify.success(request, 'Résultats de la recheche')
+            return render(request, "planning/planningAnnee.html", {"liste_object":liste_object})
+    context={
+        "get_id":get_id,
+        'liste_object':liste_object
+    }
+    return render(request, "planning/planningAnnee.html", context)
