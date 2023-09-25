@@ -12,7 +12,7 @@ class FormAjoutPlanningConge(forms.ModelForm):
         annee=models.Annee.objects.exclude(date_fin__lt=datetime.date.today())
         for i in service:
             personnel=models.Personnel.objects.filter(fonction__service=i)
-        self.fields['personnel'].queryset=personnel
+            self.fields['personnel'].queryset=personnel
         self.fields['service'].queryset=service
         self.fields['annee'].queryset=annee
     class Meta:
