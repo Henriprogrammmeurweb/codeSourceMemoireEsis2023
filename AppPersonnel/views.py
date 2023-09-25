@@ -156,6 +156,7 @@ def ajoutPersonnel(request):
             date_naissance=form.cleaned_data['date_naissance']
             date_engagement=form.cleaned_data['date_engagement']
             salaire=form.cleaned_data['salaire']
+            prime=form.cleaned_data['prime']
             etat_civil=form.cleaned_data['etat_civil']
             password=form.cleaned_data['password']
             is_active=form.cleaned_data['is_active']
@@ -166,7 +167,7 @@ def ajoutPersonnel(request):
             sbgr=form.cleaned_data['sbgr']
             new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
                                                         sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
-                                                        salaire=salaire,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
+                                                        salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
                                                         demandeur=demandeur, approbateur=approbateur, consulteur=consulteur, sbgr=sbgr)
             new_personnel.save()
             sweetify.success(request, "Personnel ajouté avec succès !")

@@ -83,6 +83,7 @@ class FormAddPersonnel(forms.ModelForm):
             "date_engagement",
             "photo",
             "salaire",
+            'prime',
             "etat_civil",
             "is_active",
             "is_superuser",
@@ -109,7 +110,8 @@ class FormAddPersonnel(forms.ModelForm):
                 attrs={"class": "form-control", "type": "date"}
             ),
             "photo":forms.FileInput(attrs={"class": "form-control"}),
-            "salaire": forms.NumberInput(attrs={"class": "form-control"}),
+            "salaire": forms.Select(attrs={"class": "form-control"}),
+            "prime": forms.Select(attrs={"class": "form-control"}),
             "etat_civil": forms.Select(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"}),
         }
@@ -131,6 +133,7 @@ class FormChangePersonnel(forms.ModelForm):
             "date_engagement",
             "photo",
             "salaire",
+            'prime',
             "etat_civil",
             "user_permissions",
             "is_active",
@@ -157,7 +160,8 @@ class FormChangePersonnel(forms.ModelForm):
                 attrs={"class": "form-control", "type": "date"}
             ),
             "photo":forms.FileInput(attrs={"class": "form-control"}),
-            "salaire": forms.NumberInput(attrs={"class": "form-control"}),
+            "salaire": forms.Select(attrs={"class": "form-control"}),
+            "prime": forms.Select(attrs={"class": "form-control"}),
             "etat_civil": forms.Select(attrs={"class": "form-control"}),
             "user_permissions": forms.SelectMultiple(attrs={"class": "form-control"}),
         }
