@@ -142,7 +142,7 @@
             {% if perms.AppConge.add_retour %}
             <li><a href="{% url 'confirmRetourConge' %}">Retour</a></li>
             {% endif %}
-            {% if perms.AppConge.view_demande %}
+            {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
             <li><a href="{% url 'congeAttente' %}">Approbation</a></li>
             {% endif %}
             {% if perms.AppPersonnel.view_service %}
@@ -183,3 +183,4 @@
     });
 
 </script>
+
