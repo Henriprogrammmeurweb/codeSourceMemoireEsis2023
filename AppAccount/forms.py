@@ -8,6 +8,6 @@ class FormLogin(forms.Form):
 
 
 class FormChangePassword(PasswordChangeForm):
-    old_password=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control','placeholder':"Ancien mot de passe"}))
-    new_password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control', 'placeholder':"Nouveau mot de passe"}))
-    new_password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control', 'placeholder':"Confirmer mot de passe"}))
+    old_password=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
+    new_password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
+    new_password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
