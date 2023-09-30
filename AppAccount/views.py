@@ -11,6 +11,8 @@ def index(request):
     return render(request, 'index/index.html')
 
 def loginUser(request):
+    if request.user.is_authenticated :
+        return redirect('dashboard')
     form=forms.FormLogin()
     if request.method == "POST":
         form=forms.FormLogin(request.POST)
