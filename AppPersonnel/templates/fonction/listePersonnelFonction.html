@@ -37,24 +37,20 @@
         <table class="table tabele-responsive table-bordered">
             <tr>
                 <th>N°</th>
-                <th>Nom</th>
-                <th>PostNom</th>
-                <th>Prenom</th>
+                <th>Personnels</th>
                 <th>Matricule</th>
                 <th>Sexe</th>
                 <th>Service</th>
                 <th>Fonction</th>
                 <th>Grade</th>
-                <th><i class="fa fa-pencil" aria-hidden="true"></i></a></th>
-                <th><i class="fa fa-trash" aria-hidden="true"></i></a></th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
             {% for liste_object in liste_object %}
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i>
-                        {{liste_object.username}}</a></td>
-                <td>{{liste_object.postnom}}</td>
-                <td>{{liste_object.prenom}}</td>
+                        {{liste_object.getPersonnel}}</a></td>
                 {% if liste_object.matricule %}
                 <td>{{liste_object.matricule}}</td>
                 {% else %}
@@ -76,8 +72,8 @@
                 {% else %}
                 <td>-</td>
                 {% endif %}
-                 <td><a href="{% url 'modifPersonnel' liste_object.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                <td><a href="{% url 'suppPersonnel' liste_object.id %}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                 <td><a href="{% url 'modifPersonnel' liste_object.id %}" class="btn btn-success" >Modifier</a></td>
+                <td><a href="{% url 'suppPersonnel' liste_object.id %}" class="btn btn-danger">Supprimer</a></td>
             </tr>
             {% empty %}
             <tr>

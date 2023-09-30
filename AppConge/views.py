@@ -6,6 +6,7 @@ from AppAccount.models import Personnel
 import sweetify
 
 
+
 @login_required
 @permission_required('AppConge.view_conge', raise_exception=True)
 def CongeUser(request):
@@ -208,9 +209,12 @@ def modifApprobationRejet(request,id):
     if request.method == "POST":
         form=forms.FormChangeApprobation(request.POST,instance=get_id)
         if form.is_valid():
+            approbation=form.cleaned_data['approbation']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
-            if date_fin < date_debut :
+            if approbation == False and  date_debut != date_fin :
+                sweetify.info(request, "La date de début doit être identique à la date de fin !")
+            elif date_fin < date_debut :
                 sweetify.info(request, "Date de fin inférieure à la date début !")
             else:
                 form.save()
