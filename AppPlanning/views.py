@@ -11,6 +11,7 @@ import sweetify
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
     fonction_user=Service.objects.filter(fonction__personnel=request.user)
+    context={}
     for services in fonction_user:
         liste_object=models.Planning.objects.filter(service=services)
         context={

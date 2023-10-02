@@ -39,6 +39,7 @@ def loginUser(request):
 @login_required
 def logoutUser(request):
     logout(request)
+    messages.info(request, "Vous êtes déconnecté !")
     return redirect('loginUser')
 
 def page403(request, exception):
@@ -59,7 +60,7 @@ def changePassword(request):
         form=forms.FormChangePassword(request.user, request.POST)
         if form.is_valid():
             form.save()
-            sweetify.info(request, "Mot de passe change")
+            messages.info(request, "Vous êtes maintenant deconnecté, votre mot de passe a été changé, connectez-vous à nouveau !")
             return redirect('loginUser')
         else:
             sweetify.error(request, "Impossible !")

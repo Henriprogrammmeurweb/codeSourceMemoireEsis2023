@@ -9,7 +9,7 @@ class FormAjoutConge(forms.ModelForm):
         widgets = {
             "titre": forms.TextInput(attrs={"class": "form-control"}),
             "nature": forms.Select(attrs={"class": "form-control"}),
-            "motif": forms.Textarea(attrs={"class": "form-control"}),
+            "motif": forms.Textarea(attrs={"class": "form-control", "rows":"2"}),
         }
 
 
@@ -28,7 +28,7 @@ class FormAddApprobation(forms.ModelForm):
         fields = ["conge", "commentaire", "approbation", "date_debut", "date_fin"]
         widgets = {
             "conge": forms.Select(attrs={"class": "form-control"}),
-            "commentaire": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
+            "commentaire": forms.Textarea(attrs={"class": "form-control", "rows": "2"}),
             "approbation": forms.CheckboxInput(attrs={"class": "form-control"}),
             "date_debut": forms.TextInput(
                 attrs={"class": "form-control", "type": "date"}

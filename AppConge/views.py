@@ -32,7 +32,8 @@ def ajoutConge(request):
             conge=form.save(commit=False)
             conge.personnel=request.user
             conge.save()
-            sweetify.success(request, "Votre demande de congé a été envoyé aux approbateurs, vous recevrez une réponse dans un bref delai")
+            sweetify.success(request, 
+                             "Votre demande de congé a été envoyé aux approbateurs,vous recevrez une réponse dans un bref delai")
             form=forms.FormAjoutConge()
         else:
             sweetify.error(request, "Demande non envoyée merci de ressayer plus tard !")
@@ -89,7 +90,8 @@ def detailConge(request,id):
 @login_required
 @permission_required('AppConge.view_demande', raise_exception=True)
 def congeAttente(request):
-    liste_object=models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True))
+    liste_object=models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', 
+                                                                                                 flat=True))
     context={
         "liste_object":liste_object
     }

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Permission
 from AppConge.models import Demande,Conge, Retour
 from django.contrib import messages
 from AppAccount.models import Personnel
@@ -141,6 +142,7 @@ def detailPersonnel(request,id):
 @login_required
 @permission_required("AppAccount.add_personnel", raise_exception=True)
 def ajoutPersonnel(request):
+    liste_perms=Permission.objects.all()
     form=forms.FormAddPersonnel()
     if request.method == "POST":
         form=forms.FormAddPersonnel(request.POST, request.FILES)
