@@ -34,7 +34,11 @@
         <p style="color: teal;">Planifier les congés des Personnels</p>
         <form action="" method="post" novalidate>
             {% csrf_token %}
-            {{form}}
+            {{form.personnel}}
+            {{form.nature}}
+            {{form.annee}}
+            {{form.date_debut}}
+            {{form.date_fin}}
             <button type="submit" class="btn btn-danger btn-block">Enregistrer</button>
             <button type="reset" class="btn btn-dark btn-block">Recommencer</button>
         </form>

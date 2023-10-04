@@ -15,6 +15,8 @@ class FormAjoutPlanningConge(forms.ModelForm):
             self.fields['personnel'].queryset=personnel
         self.fields['service'].queryset=service
         self.fields['annee'].queryset=annee
+
+  
     class Meta:
         model=models.Planning
 
@@ -23,11 +25,12 @@ class FormAjoutPlanningConge(forms.ModelForm):
         widgets={
             "personnel":forms.Select(attrs={"class":"form-control"}),
             "nature":forms.Select(attrs={"class":"form-control"}),
-            "service":forms.Select(attrs={"class":"form-control"}),
             "annee":forms.Select(attrs={"class":"form-control"}),
             "date_debut":forms.TextInput(attrs={"class":"form-control",'type':'date'}),
             "date_fin":forms.TextInput(attrs={"class":"form-control", 'type':'date'})
         }
+    
+  
 
 class FormModifPlanningConge(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -38,17 +41,15 @@ class FormModifPlanningConge(forms.ModelForm):
         for i in service:
             personnel=models.Personnel.objects.filter(fonction__service=i)
         self.fields['personnel'].queryset=personnel
-        self.fields['service'].queryset=service
         self.fields['annee'].queryset=annee
     class Meta:
         model=models.Planning
 
-        fields=['personnel', 'nature','service','annee', 'date_debut','date_fin']
+        fields=['personnel', 'nature','annee', 'date_debut','date_fin']
 
         widgets={
             "personnel":forms.Select(attrs={"class":"form-control"}),
             "nature":forms.Select(attrs={"class":"form-control"}),
-            "service":forms.Select(attrs={"class":"form-control"}),
             "annee":forms.Select(attrs={"class":"form-control"}),
             "date_debut":forms.TextInput(attrs={"class":"form-control",'type':'date'}),
             "date_fin":forms.TextInput(attrs={"class":"form-control", 'type':'date'})
