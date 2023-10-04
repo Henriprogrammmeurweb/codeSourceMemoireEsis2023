@@ -62,7 +62,7 @@
               <tr>
                 <td>{{forloop.counter}}</td>
                 <td><a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.personnel.getPersonnel}}</a></td>
-                <td>{{liste_object.commentaire|truncatewords:3}}</td>
+                <td>{{liste_object.commentaire|truncatewords:8}}</td>
                 <td>{{liste_object.getReponseConge}}</td>
                 <td>{{liste_object.date_debut}}</td>
                 <td>{{liste_object.date_fin}}</td>

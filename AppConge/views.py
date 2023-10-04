@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from .import forms
 from .import models
+import datetime
 from AppAccount.models import Personnel
 import sweetify
 
@@ -109,6 +110,8 @@ def approuveRejetConge(request):
             date_fin=form.cleaned_data['date_fin']
             if approbation == False and  date_debut != date_fin :
                 sweetify.info(request, "La date de début doit être identique à la date de fin !")
+            elif approbation == False and date_debut or date_fin != datetime.date.today():
+                sweetify.info(request, "la date de debut et de fin doivent être égales à la date d'aujourd'hui !")
             elif date_fin < date_debut :
                 sweetify.info(request, "Date de fin inférieure à la date début !")
             else:
