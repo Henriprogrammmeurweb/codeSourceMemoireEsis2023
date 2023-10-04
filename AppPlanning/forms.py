@@ -13,7 +13,6 @@ class FormAjoutPlanningConge(forms.ModelForm):
         for i in service:
             personnel=models.Personnel.objects.filter(fonction__service=i)
             self.fields['personnel'].queryset=personnel
-        self.fields['service'].queryset=service
         self.fields['annee'].queryset=annee
 
   

@@ -44,5 +44,5 @@ class Planning(models.Model):
         return super().save(*args, **kwargs)
     
     def __str__(self):
-        return self.nature
+        return self.annee.designation
 

@@ -167,13 +167,16 @@ def ajoutPersonnel(request):
             approbateur=form.cleaned_data["approbateur"]
             consulteur=form.cleaned_data["consulteur"]
             sbgr=form.cleaned_data['sbgr']
-            new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
-                                                        sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
-                                                        salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
-                                                        demandeur=demandeur, approbateur=approbateur, consulteur=consulteur, sbgr=sbgr)
-            new_personnel.save()
-            sweetify.success(request, "Personnel ajouté avec succès !")
-            form=forms.FormAddPersonnel()
+            if len(password) < 6:
+                sweetify.info(request, "Le mot de passe doit être au moins de 6 caractère !")
+            else:
+                new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
+                                                            sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
+                                                            salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
+                                                            demandeur=demandeur, approbateur=approbateur, consulteur=consulteur, sbgr=sbgr)
+                new_personnel.save()
+                sweetify.success(request, "Personnel ajouté avec succès !")
+                form=forms.FormAddPersonnel()
         else:
             sweetify.error(request, "Personnel non ajouté  !")
     else:
@@ -341,6 +344,9 @@ def modifGrade(request,id):
         else:
             sweetify.error(request, 'Formulaire invalide !')
     return render(request, 'grade/modifGrade.html',{"form":form,"get_id":get_id})
+
+
+
 
 
 

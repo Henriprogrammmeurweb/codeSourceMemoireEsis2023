@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required, permission_required
 from .import models
 from AppAccount.models import Personnel
-from AppPersonnel.models import Service
+from AppPersonnel.models import Service, Fonction
 from .import forms
 import sweetify
 
@@ -10,11 +10,8 @@ import sweetify
 @login_required
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
-    fonction_user=Service.objects.filter(fonction__personnel=request.user)
-    context={}
-    for services in fonction_user:
-        liste_object=models.Planning.objects.filter(service=services)
-        context={
+    liste_object=models.Planning.objects.filter(personnel=request.user)
+    context={
             "liste_object":liste_object
         }
     return render(request, "planning/listePlanning.html",context)
@@ -31,15 +28,23 @@ def ajoutPlanning(request):
             annee=form.cleaned_data['annee']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
+            fonction_user=Service.objects.filter(fonction__personnel=request.user)
             testeConge=models.Planning.objects.filter(personnel=personnel, annee=annee).exists()
-            if testeConge:
+            fonction_user=Fonction.objects.filter(personnel=request.user)
+            if len(fonction_user) == 0:
+                sweetify.info(request, "Impossible, tu n'appartiens à aucun service !")
+            elif fonction_user == "":
+                sweetify.info(request, "Impossible de planifier le congé, tu n'as aucune fonction !")
+            elif testeConge:
                 sweetify.info(request, "Ce personnel a déjà été planfié dans cette année !")
             elif date_debut < annee.date_debut:
                 sweetify.info(request, "La date de debut ou de fin de ce planning est inférieure à la date de debut de cette année !")
             elif date_fin > annee.date_fin :
                 sweetify.info(request, "La date de fin ou de fin de ce planning est supérieure à la date de fin de cette année")
             else:
-                form.save()
+                new_planning=form.save(commit=False)
+                new_planning.personnel=request.user
+                new_planning.save()
                 sweetify.success(request, "Planification enregistrée !")
                 form=forms.FormAjoutPlanningConge(request=request)
         else:
