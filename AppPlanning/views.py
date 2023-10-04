@@ -28,11 +28,10 @@ def ajoutPlanning(request):
         form=forms.FormAjoutPlanningConge(request.POST, request=request)
         if form.is_valid():
             personnel=form.cleaned_data['personnel']
-            nature=form.cleaned_data['nature']
             annee=form.cleaned_data['annee']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
-            testeConge=models.Planning.objects.filter(personnel=personnel,nature=nature, annee=annee).exists()
+            testeConge=models.Planning.objects.filter(personnel=personnel, annee=annee).exists()
             if testeConge:
                 sweetify.info(request, "Ce personnel a déjà été planfié dans cette année !")
             elif date_debut < annee.date_debut:

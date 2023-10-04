@@ -20,11 +20,10 @@ class FormAjoutPlanningConge(forms.ModelForm):
     class Meta:
         model=models.Planning
 
-        fields=['personnel', 'nature','service','annee', 'date_debut','date_fin']
+        fields=['personnel', 'service','annee', 'date_debut','date_fin']
 
         widgets={
             "personnel":forms.Select(attrs={"class":"form-control"}),
-            "nature":forms.Select(attrs={"class":"form-control"}),
             "annee":forms.Select(attrs={"class":"form-control"}),
             "date_debut":forms.TextInput(attrs={"class":"form-control",'type':'date'}),
             "date_fin":forms.TextInput(attrs={"class":"form-control", 'type':'date'})
@@ -45,11 +44,10 @@ class FormModifPlanningConge(forms.ModelForm):
     class Meta:
         model=models.Planning
 
-        fields=['personnel', 'nature','annee', 'date_debut','date_fin']
+        fields=['personnel', 'annee', 'date_debut','date_fin']
 
         widgets={
             "personnel":forms.Select(attrs={"class":"form-control"}),
-            "nature":forms.Select(attrs={"class":"form-control"}),
             "annee":forms.Select(attrs={"class":"form-control"}),
             "date_debut":forms.TextInput(attrs={"class":"form-control",'type':'date'}),
             "date_fin":forms.TextInput(attrs={"class":"form-control", 'type':'date'})

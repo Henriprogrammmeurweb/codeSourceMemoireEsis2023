@@ -24,11 +24,7 @@ class Annee(models.Model):
 
 
 class Planning(models.Model):
-    NATURE_CONGE = (
-        ("Annuel", "Annuel"),
-    )
     personnel=models.ForeignKey(Personnel, on_delete=models.SET_NULL, blank=True, null=True)
-    nature = models.CharField(max_length=155, choices=NATURE_CONGE)
     service=models.ForeignKey(Service, on_delete=models.SET_NULL, blank=True, null=True)
     annee=models.ForeignKey(Annee, on_delete=models.CASCADE)
     date_debut=models.DateField()
@@ -43,7 +39,7 @@ class Planning(models.Model):
         return self.date_fin - self.date_debut
     
     def save(self, *args, **kwargs):
-        if not self.service:
+        if not self.service :
             self.service = self.personnel.fonction.service
         return super().save(*args, **kwargs)
     
