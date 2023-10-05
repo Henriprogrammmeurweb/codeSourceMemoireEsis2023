@@ -20,6 +20,9 @@ def listePlanning(request):
 @login_required
 @permission_required('AppPlanning.add_planning', raise_exception=True)
 def ajoutPlanning(request):
+    fonction_user=Fonction.objects.filter(personnel=request.user)
+    if len(fonction_user) == 0:
+        return render(request, "error/page_403.html")
     form=forms.FormAjoutPlanningConge(request=request)
     if request.method == "POST":
         form=forms.FormAjoutPlanningConge(request.POST, request=request)
@@ -28,14 +31,8 @@ def ajoutPlanning(request):
             annee=form.cleaned_data['annee']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
-            fonction_user=Service.objects.filter(fonction__personnel=request.user)
-            testeConge=models.Planning.objects.filter(personnel=personnel, annee=annee).exists()
-            fonction_user=Fonction.objects.filter(personnel=request.user)
-            if len(fonction_user) == 0:
-                sweetify.info(request, "Impossible, tu n'appartiens à aucun service !")
-            elif fonction_user == "":
-                sweetify.info(request, "Impossible de planifier le congé, tu n'as aucune fonction !")
-            elif testeConge:
+            testePlanningPersonnel=models.Planning.objects.filter(personnel=personnel, annee=annee).exists()
+            if testePlanningPersonnel:
                 sweetify.info(request, "Ce personnel a déjà été planfié dans cette année !")
             elif date_debut < annee.date_debut:
                 sweetify.info(request, "La date de debut ou de fin de ce planning est inférieure à la date de debut de cette année !")

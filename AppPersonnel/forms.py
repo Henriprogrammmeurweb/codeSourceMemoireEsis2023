@@ -91,7 +91,8 @@ class FormAddPersonnel(forms.ModelForm):
             "demandeur",
             "approbateur",
             "consulteur",
-            "sbgr"
+            "sbgr",
+            'planificateur'
         ]
 
         widgets = {
@@ -141,7 +142,8 @@ class FormChangePersonnel(forms.ModelForm):
             "demandeur",
             "approbateur",
             "consulteur",
-            "sbgr"
+            "sbgr",
+            'planificateur'
         ]
 
         widgets = {

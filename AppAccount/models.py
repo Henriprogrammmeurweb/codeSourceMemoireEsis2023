@@ -33,6 +33,7 @@ class Personnel(AbstractUser):
     approbateur=models.BooleanField(default=False)
     consulteur=models.BooleanField(default=False)
     sbgr=models.BooleanField(default=False)
+    planificateur=models.BooleanField(default=False)
     date_creation=models.DateTimeField(auto_now_add=True)
     date_modification=models.DateTimeField(auto_now=True)
 

@@ -8,6 +8,9 @@ import sweetify
 from .import forms
 from .import models
 
+
+
+
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def dashboard(request):
@@ -142,6 +145,23 @@ def detailPersonnel(request,id):
 @login_required
 @permission_required("AppAccount.add_personnel", raise_exception=True)
 def ajoutPersonnel(request):
+    #Liste des permissions pour utilisateur
+    ajoutConge=Permission.objects.get(codename="add_conge")
+    changeConge=Permission.objects.get(codename="change_conge")
+    suppConge=Permission.objects.get(codename="delete_conge")
+    viewConge=Permission.objects.get(codename="view_conge")
+    #-------------------------------------------------------
+    ajoutPlanning=Permission.objects.get(codename='add_planning')
+    changePlanning=Permission.objects.get(codename='change_planning')
+    suppPlanning=Permission.objects.get(codename='delete_planning')
+    viewPlanning=Permission.objects.get(codename='view_planning')
+    #--------------------------------------------------------
+    #Fin ici 
+    ajoutDemande=Permission.objects.get(codename="add_demande")
+    changeDemande=Permission.objects.get(codename="change_demande")
+    suppDemande=Permission.objects.get(codename="delete_demande")
+    viewDemande=Permission.objects.get(codename="view_demande")
+
     form=forms.FormAddPersonnel()
     if request.method == "POST":
         form=forms.FormAddPersonnel(request.POST, request.FILES)
@@ -166,8 +186,55 @@ def ajoutPersonnel(request):
             approbateur=form.cleaned_data["approbateur"]
             consulteur=form.cleaned_data["consulteur"]
             sbgr=form.cleaned_data['sbgr']
+            planificateur=form.cleaned_data['planificateur']
             if len(password) < 6:
                 sweetify.info(request, "Le mot de passe doit être au moins de 6 caractère !")
+            elif password.isdigit():
+                sweetify.info(request, "Le mot de passe ne doit être composé de chiffre et de lettre !")
+            elif demandeur == True:
+                new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
+                                                            sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
+                                                            salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
+                                                            demandeur=demandeur)
+                new_personnel.user_permissions.add(ajoutConge)
+                new_personnel.user_permissions.add(changeConge)
+                new_personnel.user_permissions.add(viewConge)
+                new_personnel.user_permissions.add(suppConge)
+                new_personnel.save()
+                sweetify.success(request, "Personnel demandeur de congé crée !")
+                form=forms.FormAddPersonnel()
+            elif planificateur == True :
+                new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
+                                                            sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
+                                                            salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
+                                                            planificateur=planificateur)
+                new_personnel.user_permissions.add(ajoutConge)
+                new_personnel.user_permissions.add(changeConge)
+                new_personnel.user_permissions.add(viewConge)
+                new_personnel.user_permissions.add(suppConge)
+                new_personnel.user_permissions.add(ajoutPlanning)
+                new_personnel.user_permissions.add(changePlanning)
+                new_personnel.user_permissions.add(viewPlanning)
+                new_personnel.user_permissions.add(suppPlanning)
+                new_personnel.save()
+                sweetify.success(request, "Personnel Planificateur de congé créé !")
+                form=forms.FormAddPersonnel()
+            elif approbateur == True :
+                new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
+                                                            sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
+                                                            salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
+                                                            approbateur=approbateur) 
+                new_personnel.user_permissions.add(ajoutConge)
+                new_personnel.user_permissions.add(changeConge)
+                new_personnel.user_permissions.add(viewConge)
+                new_personnel.user_permissions.add(suppConge)
+                new_personnel.user_permissions.add(ajoutDemande)
+                new_personnel.user_permissions.add(changeDemande)
+                new_personnel.user_permissions.add(viewDemande)
+                new_personnel.user_permissions.add(suppDemande)
+                new_personnel.save()
+                sweetify.success(request, "Personnel approbateur des congés créé")
+                form=forms.FormAddPersonnel()
             else:
                 new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
                                                             sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
