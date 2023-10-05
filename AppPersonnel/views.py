@@ -142,7 +142,6 @@ def detailPersonnel(request,id):
 @login_required
 @permission_required("AppAccount.add_personnel", raise_exception=True)
 def ajoutPersonnel(request):
-    liste_perms=Permission.objects.all()
     form=forms.FormAddPersonnel()
     if request.method == "POST":
         form=forms.FormAddPersonnel(request.POST, request.FILES)
