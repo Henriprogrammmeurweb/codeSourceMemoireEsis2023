@@ -14,7 +14,7 @@ def sendEmailCreateConge(sender, created,instance, **kwargs):
         for i in approbateur:
             liste_Approbateur.append(i.email)
             sujet=f"Demande de congé du Personnel {instance.personnel.username}-{instance.personnel.prenom}"
-            message=f"Salut cher Approbateur, vous recevez ce message parce que un Agent {instance.personnel.username}-{instance.personnel.prenom} vient de demander un congé de nature : {instance.nature}.\nVeuillez lui fournir une réponse rapidement, Cordiaalement"
+            message=f"Salut cher Approbateur, vous recevez ce message parce que un Agent {instance.personnel.username}-{instance.personnel.prenom} vient de demander un congé de nature : {instance.nature}.\nVeuillez lui fournir une réponse rapidement, Cordialement"
             send_mail(sujet, message,"", liste_Approbateur)
 
 
@@ -28,7 +28,7 @@ def sendEmailChangeConge(sender, created,instance, **kwargs):
         for i in approbateur:
             liste_Approbateur.append(i.email)
             sujet=f"Demande de congé du Personnel {instance.personnel.username}-{instance.personnel.prenom}"
-            message=f"Salut cher Approbateur, vous recevez ce message parce que un Agent {instance.personnel.username}-{instance.personnel.prenom} vient de changer le congé qu'il avait demandé précedement : {instance.nature}.\nVeuillez lui fournir une réponse rapidement, Cordiaalement"
+            message=f"Salut cher Approbateur, vous recevez ce message parce que un Agent {instance.personnel.username}-{instance.personnel.prenom} vient de changer le congé qu'il avait demandé précedement : {instance.nature}.\nVeuillez lui fournir une réponse rapidement, Cordialement"
             send_mail(sujet, message,"", liste_Approbateur)
 
 
@@ -37,6 +37,6 @@ def sendEmailChangeConge(sender, created,instance, **kwargs):
 def sendEmailAddReponseDemande(sender, created,instance, **kwargs):
     if created:
         sujet=f"Réponse à votre demande de congé"
-        message=f"Salut, Vous recevez ce message parce que votre des congés a été traitée : {instance.conge.nature}.\Veuillez vous connecter sur le site pour plus de des détails.\nMerci Cordiaalement"
+        message=f"Salut, Vous recevez ce message parce que votre des congés a été traitée : {instance.conge.nature}.\Veuillez vous connecter sur le site pour plus de des détails.\nMerci Cordialement"
         send_mail(sujet, message,"", [instance.conge.personnel.email])
     

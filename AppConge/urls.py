@@ -18,5 +18,7 @@ urlpatterns=[
     path('listeApprobationRejet', views.listeApprobationRejet, name="listeApprobationRejet"),
     path('modifApprobation/<str:id>/Rejet', views.modifApprobationRejet, name='modifApprobationRejet'),
     path('supp/<str:id>/Demande', views.suppDemande, name="suppDemande"),
-    path('detail/<str:id>/Demande', views.detailDemande, name="detailDemande")
+    path('detail/<str:id>/Demande', views.detailDemande, name="detailDemande"),
+    path('consulterCongeEncours', views.consulterCongeEncours, name="consulterCongeEncours"),
+    path('sendEmail', views.sendEmail, name='sendEmail')
 ]

@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 78px;
+        height: 100vh;
+    }
+    .contenu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 70%;
+        background-color: gray;
+        color: white;
+    }
+</style>
+
+<div class="content">
+    <div class="contenu">
+        <p>Email est envoyé à : {{listeUserEmail}}</p>
+    </div>
+</div>
+  
+{% endblock content %}

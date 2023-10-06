@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.mail import send_mail
+from ProjectGestionPersonnel.settings import EMAIL_HOST
+import datetime
 from .import forms
 from .import models
 import datetime
@@ -251,6 +254,32 @@ def suppDemande(request,id):
 def detailDemande(request,id):
     get_id=models.Demande.objects.get(id=id)
     return render(request, "approbation/detailDemande.html", {"get_id":get_id})
+
+
+def consulterCongeEncours(request):
+    liste_object=models.Demande.objects.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True))
+    context={
+        "liste_object":liste_object
+    }
+    return render(request, "conge/consulterCongeEncours.html", context)
+
+
+
+
+
+def sendEmail(request):
+    liste_demande=models.Demande.objects.exclude(date_fin__lt=datetime.date.today()).filter(approbation=True)
+    liste_user=[]
+    listeUserEmail=""
+    for demande in liste_demande :
+        demande_user=models.Demande.objects.filter(date_fin__range=(demande.date_fin - datetime.timedelta(7), demande.date_fin))
+        for user in demande_user:
+            liste_user.append(user.conge.personnel.email)
+            listeUserEmail= ",".join(liste_user)
+            sujet="Fin de votre congé !!!"
+            subject=f"Salut, vous recevez ce message parce que vous avez demandé un congé dernièrement.\nNous vous informons que votre congé va prendre fin dans bientôt, Merci de réprendre rapidement le Boulot comme prévu.\nPour plus des details veuillez vous connectez sur la plateforme"
+            send_mail(sujet, subject, '', liste_user)
+    return render(request, "alerte/finConge.html",{"listeUserEmail":listeUserEmail})
 
 
 

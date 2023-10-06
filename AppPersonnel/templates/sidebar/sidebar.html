@@ -171,7 +171,7 @@
             {% if perms.AppPlanning.view_annee %}
             <li><a href="{% url 'listeAnnee' %}">Année</a></li>
             {% endif %}
-            <li><a href="#">Encours</a> </li>
+            <li><a href="{% url 'consulterCongeEncours' %}">Encours</a> </li>
         </ul>
     </div>
 </div>
