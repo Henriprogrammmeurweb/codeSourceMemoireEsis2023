@@ -110,7 +110,7 @@ def approuveRejetConge(request):
             date_fin=form.cleaned_data['date_fin']
             if approbation == False and  date_debut != date_fin :
                 sweetify.info(request, "La date de début doit être identique à la date de fin !")
-            elif approbation == False and date_debut or date_fin != datetime.date.today():
+            elif approbation == False and date_debut != datetime.date.today() and date_fin != datetime.date.today() :
                 sweetify.info(request, "la date de debut et de fin doivent être égales à la date d'aujourd'hui !")
             elif date_fin < date_debut :
                 sweetify.info(request, "Date de fin inférieure à la date début !")

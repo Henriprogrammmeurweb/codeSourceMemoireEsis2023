@@ -1,8 +1,8 @@
 
 
 from pathlib import Path
+from decouple import config
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,16 +76,16 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'BDDMEMOIREHENRI_ESIS',
-#         'USER':'postgres',
-#         'PASSWORD':"HenriHenri",
-#         'LOCALHOST':"127.0.0.1",
-#         'PORT':5432
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER':config('DB_USER'),
+        'PASSWORD':config('DB_PASSWORD'),
+        'HOST':config('DB_HOST'),
+        'PORT': config('PORT'),
+    }
+}
 
 # PORT : 5050
 
@@ -141,5 +141,13 @@ SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'comptedepotgithub@gmail.com'
+EMAIL_HOST_PASSWORD = "mazqhqejecwwylcq"
 
 
