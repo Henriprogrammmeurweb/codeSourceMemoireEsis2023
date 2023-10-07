@@ -36,16 +36,10 @@
         list-style: none;
     }
     header nav .menu li #login{
-        background-color: rgb(245, 127, 59);
         padding: 10px;
         color: white;
         text-decoration: none;
         margin-right: 25px;
-    }
-    header nav .menu li #login:hover{
-        color: white;
-        margin-left: 15px;
-        background-color: rgb(108 119 197);
     }
     header nav .menu li a{
         margin-right: 15px;
@@ -148,9 +142,9 @@
         <ul class="menu">
             {% if user.is_authenticated %}
             <li><a href="{% url 'changePassword' %}">Changer Mot de passe</a></li>
-            <li><a href="{% url 'logoutUser' %}" class="btn" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            <li><a href="{% url 'logoutUser' %}" class="btn btn-info" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
-            <li><a href="{% url 'loginUser' %}" class="btn" id="login"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            <li><a href="{% url 'loginUser' %}" class="btn btn-info" id="login"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>

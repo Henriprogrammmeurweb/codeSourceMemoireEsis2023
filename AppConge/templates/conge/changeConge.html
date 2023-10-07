@@ -5,7 +5,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgb(64, 77, 85);
+        background-color: rgb(237, 241, 241);
         margin-top: 134px;
     }
     .content .contenu{
@@ -35,7 +35,7 @@
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{form}}
-            <button type="submit" class="btn btn-danger btn-block">Enregistrer</button>
+            <button type="submit" class="btn btn-info btn-block">Valider les Modifications</button>
             <a href="{% url 'CongeUser' %}"class="btn btn-dark btn-block">Ne pas modifier</a>
         </form>
     </div>

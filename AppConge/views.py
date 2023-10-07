@@ -256,6 +256,8 @@ def detailDemande(request,id):
     return render(request, "approbation/detailDemande.html", {"get_id":get_id})
 
 
+@login_required
+@permission_required("AppConge.view_demande", raise_exception=True)
 def consulterCongeEncours(request):
     liste_object=models.Demande.objects.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True))
     context={
@@ -266,7 +268,8 @@ def consulterCongeEncours(request):
 
 
 
-
+@login_required
+@permission_required("AppConge.view_demande", raise_exception=True)
 def sendEmail(request):
     liste_demande=models.Demande.objects.exclude(date_fin__lt=datetime.date.today()).filter(approbation=True)
     liste_user=[]
