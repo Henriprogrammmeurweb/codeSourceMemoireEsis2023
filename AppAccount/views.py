@@ -68,3 +68,5 @@ def changePassword(request):
         form=forms.FormChangePassword(request.user)
     return render(request, "password/passwordchange.html",{"form":form})
 
+
+
