@@ -204,6 +204,12 @@ def congeAttenteUser(request):
 @permission_required("AppConge.view_demande", raise_exception=True)
 def listeApprobationRejet(request):
     liste_object=models.Demande.objects.all().order_by('-date_creation')
+    if request.method == "GET":
+        recherche=request.GET.get('recherche')
+        if recherche:
+            liste_object=models.Demande.objects.filter(conge__personnel__username__icontains=recherche)
+            sweetify.success(request, 'Résultats de la recheche')
+            return render(request, "approbation/listeApprobationRejet.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
