@@ -266,6 +266,13 @@ def detailDemande(request,id):
 @permission_required("AppConge.view_demande", raise_exception=True)
 def consulterCongeEncours(request):
     liste_object=models.Demande.objects.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True))
+    if request.method == "GET":
+        date_debut=request.GET.get('date-debut')
+        date_fin=request.GET.get('date-fin')
+        if date_debut and date_fin:
+            liste_object=models.Demande.objects.filter(approbation=True, date_debut__range=(date_debut, date_fin)).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True))
+            sweetify.success(request, 'Résultats de la recheche')
+            return render(request, "conge/consulterCongeEncours.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
