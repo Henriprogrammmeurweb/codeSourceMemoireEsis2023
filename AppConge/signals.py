@@ -13,7 +13,7 @@ def sendEmailCreateConge(sender, created,instance, **kwargs):
         approbateur=Personnel.objects.filter(approbateur=True)
         for i in approbateur:
             liste_Approbateur.append(i.email)
-            sujet=f"Demande de congé du Personnel {instance.personnel.username}-{instance.personnel.prenom}"
+            sujet=f"Demande de congé du Personnel {instance.personnel.getPersonnel}"
             message=f"Salut cher Approbateur, vous recevez ce message parce que un Agent {instance.personnel.username}-{instance.personnel.prenom} vient de demander un congé de nature : {instance.nature}.\nVeuillez lui fournir une réponse rapidement, Cordialement"
             send_mail(sujet, message,"", liste_Approbateur)
 

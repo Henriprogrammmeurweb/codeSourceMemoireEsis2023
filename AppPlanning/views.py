@@ -132,7 +132,7 @@ def modifAnnee(request,id):
     get_id=models.Annee.objects.get(id=id)
     annee=models.Planning.objects.filter(annee=get_id).exists()
     if annee :
-        return render(request, 'error/page_403.html')
+        return redirect('/')
     form=forms.FormAjoutAnnee(instance=get_id)
     if request.method == "POST":
         form=forms.FormAjoutAnnee(request.POST, instance=get_id)
