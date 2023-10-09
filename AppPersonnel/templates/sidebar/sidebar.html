@@ -147,12 +147,17 @@
             <li><a href="{% url 'dashboard' %}">Accueil</a></li>
             <li><a href="{% url 'CongeUser' %}">Congé</a></li>
             {% endif %}
-            {% if perms.AppConge.view_retour %}
-            <li><a href="{% url 'listeRetourConge' %}">Retour</a></li>
+
+            {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+            <li><a href="{% url 'consulterCongeEncours' %}">Encours</a> </li>
             {% endif %}
             {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
             <li><a href="{% url 'congeAttente' %}">Approbation</a></li>
             {% endif %}
+            {% if perms.AppConge.view_retour %}
+            <li><a href="{% url 'listeRetourConge' %}">Retour</a></li>
+            {% endif %}
+            <hr style="width: 100%;">
             {% if perms.AppPersonnel.view_service %}
             <li><a href="{% url 'listeService' %}">Service</a></li>
             {% endif %}
@@ -171,7 +176,7 @@
             {% if perms.AppPlanning.view_annee %}
             <li><a href="{% url 'listeAnnee' %}">Année</a></li>
             {% endif %}
-            <li><a href="{% url 'consulterCongeEncours' %}">Encours</a> </li>
+
         </ul>
     </div>
 </div>
