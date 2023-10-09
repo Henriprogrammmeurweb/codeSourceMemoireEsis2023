@@ -156,11 +156,17 @@ def ajoutPersonnel(request):
     suppPlanning=Permission.objects.get(codename='delete_planning')
     viewPlanning=Permission.objects.get(codename='view_planning')
     #--------------------------------------------------------
-    #Fin ici 
+    #
     ajoutDemande=Permission.objects.get(codename="add_demande")
     changeDemande=Permission.objects.get(codename="change_demande")
     suppDemande=Permission.objects.get(codename="delete_demande")
     viewDemande=Permission.objects.get(codename="view_demande")
+
+    #------------------------------------------------------------
+    ajoutRetourConge=Permission.objects.get(codename='add_retour')
+    changeRetourConge=Permission.objects.get(codename='change_retour')
+    suppRetourConge=Permission.objects.get(codename='delete_retour')
+    viewRetourConge=Permission.objects.get(codename='view_retour')
 
     form=forms.FormAddPersonnel()
     if request.method == "POST":
@@ -200,6 +206,10 @@ def ajoutPersonnel(request):
                 new_personnel.user_permissions.add(changeConge)
                 new_personnel.user_permissions.add(viewConge)
                 new_personnel.user_permissions.add(suppConge)
+                new_personnel.user_permissions.add(ajoutRetourConge)
+                new_personnel.user_permissions.add(changeRetourConge)
+                new_personnel.user_permissions.add(suppRetourConge)
+                new_personnel.user_permissions.add(viewRetourConge)
                 new_personnel.save()
                 sweetify.success(request, "Personnel demandeur de congé crée !")
                 form=forms.FormAddPersonnel()
@@ -212,6 +222,10 @@ def ajoutPersonnel(request):
                 new_personnel.user_permissions.add(changeConge)
                 new_personnel.user_permissions.add(viewConge)
                 new_personnel.user_permissions.add(suppConge)
+                new_personnel.user_permissions.add(ajoutRetourConge)
+                new_personnel.user_permissions.add(changeRetourConge)
+                new_personnel.user_permissions.add(suppRetourConge)
+                new_personnel.user_permissions.add(viewRetourConge)
                 new_personnel.user_permissions.add(ajoutPlanning)
                 new_personnel.user_permissions.add(changePlanning)
                 new_personnel.user_permissions.add(viewPlanning)
@@ -228,6 +242,10 @@ def ajoutPersonnel(request):
                 new_personnel.user_permissions.add(changeConge)
                 new_personnel.user_permissions.add(viewConge)
                 new_personnel.user_permissions.add(suppConge)
+                new_personnel.user_permissions.add(ajoutRetourConge)
+                new_personnel.user_permissions.add(changeRetourConge)
+                new_personnel.user_permissions.add(suppRetourConge)
+                new_personnel.user_permissions.add(viewRetourConge)
                 new_personnel.user_permissions.add(ajoutDemande)
                 new_personnel.user_permissions.add(changeDemande)
                 new_personnel.user_permissions.add(viewDemande)
