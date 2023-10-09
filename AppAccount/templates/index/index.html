@@ -7,44 +7,96 @@
         margin: 0;
         box-sizing: border-box;
     }
-    .index{
+
+    .index {
         background-color: rgb(237, 241, 241);
         padding-bottom: 25px;
     }
 
     .description {
         margin-top: 78px;
-        background: url('static/img/pc.gif') center/cover no-repeat;
-        height: 320px;
+        background-color: #0b5060;
+        height: 300px;
         color: white;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        line-height : 15px;
-        
+        line-height: 15px;
+
     }
-    .description .texte-description{
-        margin: 0 0 0 2% ;
+
+    .description .texte-description {
+        margin: 0 0 0 2%;
     }
-    .description h2{
+
+    .description h2 {
         font-weight: bold;
         color: aliceblue;
         margin-left: 8px;
     }
 
-    .description p{
+    .description p {
         margin-left: 8px;
     }
-    .description .texte-description .link{
+
+    .description .texte-description .link {
         margin-top: 15px;
         margin-left: 8px;
     }
-    .description .texte-description a{
+
+    .description .texte-description a {
         padding: 10px;
         color: white;
         text-decoration: none;
-        
-        
+
+
+    }
+
+    .publicite {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+
+
+    }
+
+    .publicite .publicite-liste {
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 15px;
+    }
+
+    .publicite .publicite-liste .img-publicite {
+        width: 50%;
+        margin-right: 15px;
+    }
+
+    .publicite .publicite-liste .img-publicite img {
+        width: 100%;
+
+    }
+
+    .publicite .publicite-liste .texte-publicite {
+        width: 50%;
+    }
+
+    .publicite .publicite-liste .texte-publicite h2 {
+        color: rgb(12, 116, 148);
+        font-weight: bold;
+    }
+
+    .publicite publicite-liste .texte-publicite p {
+        text-align: justify;
+    }
+
+    .publicite .publicite-liste .texte-publicite .link a {
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        padding: 10px;
     }
 
     .titre-fonctionnement {
@@ -62,20 +114,22 @@
         font-weight: bold;
 
     }
-    .fonctionContact{
+
+    .fonctionContact {
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        margin: 0 2% 0 2% ;
+        margin: 0 2% 0 2%;
         margin-top: 25px;
 
     }
+
     .detail-fonctionnement {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
 
-        
-       
+
+
     }
 
     .detail-fonctionnement .detail {
@@ -83,7 +137,7 @@
         justify-content: flex-start;
         align-items: center;
         flex-direction: column;
-        width:304px;
+        width: 304px;
         height: 150px;
         background-color: rgb(237, 241, 241);
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
@@ -91,48 +145,80 @@
         margin: 8px;
         text-align: justify;
     }
-    .detail-fonctionnement .detail p span{
+
+    .detail-fonctionnement .detail p span {
         color: rgb(225 96 74);
     }
-    .contact #titrecontact{
+
+    .contact #titrecontact {
         color: rgb(12, 116, 148);
         font-size: x-large;
         margin-left: 2%;
         padding-top: 5px;
         font-weight: bold;
     }
-    .contact p{
+
+    .contact p {
         margin-left: 2%;
     }
-    .contact ul li{
+
+    .contact ul li {
         list-style: none;
         margin-left: 2%;
-        
+
     }
 
 
     /*Media screen*/
-    @media(max-width:900px){
-        .description{
+    @media(max-width:900px) {
+        .description {
             height: auto;
             padding: 15px;
             line-height: 20px;
-            background: url('static/img/pc.gif') center/cover no-repeat;
-            
-        }
-        .detail-fonctionnement .detail{
-            width: 95%;
-            height: auto;
-        }
-    }
 
+
+        }
+
+        .publicite {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+
+
+        }
+
+        .publicite .publicite-liste {
+            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 15px;
+        }
+
+        .publicite .publicite-liste .img-publicite {
+            width: 90%;
+            margin-right: 15px;
+        }
+
+        .publicite .publicite-liste .img-publicite img {
+            width: 100%;
+
+        }
+
+        .publicite .publicite-liste .texte-publicite {
+            width: 90%;
+        }
+
+    }
 </style>
 
 
 <section class="index">
     <div class="description">
         <div class="texte-description">
-            <h2>Salut, Heureux de vous accueillir sur TeakLeave </h2>
+            <h2>La Meilleure Gestion des employés de votre entreprise </h2>
             <p>Planifier les Congés des Travailleurs de votre Entreprise en un clic</p>
             <p>Fini la Gestion manuelle ✍️, planifier le Congé Annuel des Travailleurs en un clic seulement</p>
             <p>Sans beacoup des peines demander votre Congé et obtenez rapidement votre Réponse</p>
@@ -141,37 +227,44 @@
             <div class="link"><a href="{% url 'loginUser' %}" class="btn btn-info"> Demander rapidement</a></div>
         </div>
     </div>
-    <div class="fonctionContact">
-        <div class="titre-fonctionnement">
-            <p>* Identification des Rôles</p>
-        </div>
-        <div class="detail-fonctionnement">
-            <div class="detail">
-                <p><span>Demandeur de Congé </span> : Il peut demander son Congé et recevoir une réponse d'approbation ou de
-                    rejet dans un Bref delai sur la Plateforme.</p>
+    <div class="publicite">
+        <div class="publicite-liste">
+            <div class="img-publicite">
+                <img src="{% static 'img/hero-img.png' %}" alt="">
             </div>
-            <div class="detail">
-                <p><span>Approbateur de Congé</span> : Il peut aussi demander un Congé mais il a également l'autorisation
-                    d'approuver ou de rejeter un Congé d'un Travailleur.</p>
+            <div class="texte-publicite">
+                <h2>La meilleure solution pour votre entreprise</h2>
+
+                <p>Vous êtes à la recherche d'une solution de pointe pour gérer efficacement les congés dans votre
+                    entreprise ? Ne cherchez plus ! Notre application de gestion des congés est là pour répondre à tous
+                    vos
+                    besoins.
+                    <br> Grâce à notre interface conviviale et intuitive, vous pourrez gérer facilement les demandes de
+                    congés de vos employés et avoir une vision globale sur les disponibilités de chacun. Fini les tracas
+                    de
+                    la gestion manuelle des congés, notre application vous permettra de gagner un temps précieux et
+                    d'améliorer la productivité de votre entreprise.
+                </p>
+                <p>Notre application de gestion des congés est également dotée d'un calendrier centralisé qui vous
+                    permettra
+                    d'avoir une vue d'ensemble sur les congés planifiés de tous vos employés.
+                    <br> Vous pourrez visualiser les périodes de congés déjà accordées, les congés à venir et les
+                    disponibilités de chaque membre de votre équipe. Vous pourrez ainsi organiser efficacement le
+                    travail et
+                    répartir les tâches en fonction des disponibilités de chacun.
+                </p>
+                <p>Vos données sont sauvegardées de manière sécurisée et vous avez la possibilité de configurer les
+                    droits d'accès pour chaque utilisateur. <br> De plus, notre application est compatible avec tous les
+                    types de congés (annuels, maternité, cumulé,circonstance, etc.) et peut être adaptée aux
+                    spécificités de votre entreprise. <br> Alors n'attendez plus, choisissez notre application de
+                    gestion des congés et prenez le contrôle total sur la gestion des congés dans votre entreprise!</p>
+
+                <hr>
+                <div class="link"><a href="{% url 'loginUser' %}" class="btn btn-info"> Rejoindre maintenant</a></div>
             </div>
-            <div class="detail">
-                <p><span>Consulteur de Congé</span> : Il peut aussi demander un Congé mais il a l'autorisation de consulter les
-                    Congés de Travailleurs encours.</p>
-            </div>
-            <div class="detail">
-                <p><span>Planificateur de congé</span> : Pour chaque service il y a un Planificateur qui a le rôle de planifier le Congés des Travailleurs de son service uniquement</p>
-            </div>
-        </div>
-        <div class="contact">
-            <p id="titrecontact">* Nous contactez</p>
-            <p>Pour tout dysfonctionnement, entretien ou question n'hésitez pas de nous contacter au :</p>
-            <ul>
-                <li>Téléphone : <a href="tel:+243819328364">+243819328364</a></li>
-                <li>Email : <a href="mailto:contactdps@gmail.com">contactdps@gmail.com</a></li>
-            </ul>
-            <hr style="background-color: rgb(12, 116, 148);height: 2px;width: 100%;">
         </div>
     </div>
+
 </section>
 
 {% endblock content %}
