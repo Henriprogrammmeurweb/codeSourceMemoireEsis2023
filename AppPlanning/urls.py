@@ -4,6 +4,7 @@ from .import views
 
 urlpatterns=[
     path("liste-planning", views.listePlanning, name="listePlanning"),
+    path('planning/<str:id>/User', views.planningUser, name="planningUser"),
     path('ajout-planning', views.ajoutPlanning,name="ajoutPlanning"),
     path('modif/<str:id>/Planning', views.modifPlanning, name="modifPlanning"),
     path('supp/<str:id>/Planning', views.suppPlanning,name="suppPlanning"),

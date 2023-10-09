@@ -11,10 +11,24 @@ import sweetify
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
     liste_object=models.Planning.objects.filter(personnel=request.user)
+    liste_annee=models.Annee.objects.all().order_by('-date_creation')
+
     context={
-            "liste_object":liste_object
+            "liste_object":liste_object,
+            "liste_annee":liste_annee
         }
     return render(request, "planning/listePlanning.html",context)
+
+@login_required
+@permission_required("AppPlanning.view_planning", raise_exception=True)
+def planningUser(request, id):
+    get_id=models.Annee.objects.get(id=id)
+    liste_object=models.Planning.objects.filter(annee=get_id, personnel=request.user)
+    context={
+            "liste_object":liste_object,
+            "get_id":get_id
+        }
+    return render(request, "planning/planningUser.html",context)
 
 
 @login_required
@@ -57,6 +71,9 @@ def ajoutPlanning(request):
 @permission_required('AppPlanning.change_planning', raise_exception=True)
 def modifPlanning(request,id):
     get_id=models.Planning.objects.get(id=id)
+    fonction_user=Fonction.objects.filter(personnel=request.user)
+    if len(fonction_user) == 0:
+        return render(request, "error/page_403.html")
     form=forms.FormModifPlanningConge(request=request, instance=get_id)
     if request.method == "POST":
         form=forms.FormModifPlanningConge(request.POST, request=request, instance=get_id)
@@ -85,6 +102,9 @@ def modifPlanning(request,id):
 @permission_required('AppPlanning.delete_planning', raise_exception=True)
 def suppPlanning(request,id):
     get_id=models.Planning.objects.get(id=id)
+    fonction_user=Fonction.objects.filter(personnel=request.user)
+    if len(fonction_user) == 0:
+        return render(request, "error/page_403.html")
     if request.method == "POST":
         get_id.delete()
         sweetify.success(request, "Planning supprimé !")
@@ -179,3 +199,5 @@ def planningAnnee(request, id):
         'liste_object':liste_object
     }
     return render(request, "planning/planningAnnee.html", context)
+
+

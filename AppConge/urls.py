@@ -10,6 +10,7 @@ urlpatterns=[
     path('supp/<int:id>/Conge', views.suppConge, name='suppConge'),
     path('conge-attente', views.congeAttente, name='congeAttente'),
     path('approuve-rejet-conge', views.approuveRejetConge, name="approuveRejetConge"),
+    path('liste-retour-conge', views.listeRetourConge, name="listeRetourConge"),
     path('confirm-retour-conge', views.confirmRetourConge,name="confirmRetourConge"),
     path('conge-approuve', views.congeApprouve, name="congeApprouve"),
     path('conge-rejet', views.congeRejet, name="congeRejet"),

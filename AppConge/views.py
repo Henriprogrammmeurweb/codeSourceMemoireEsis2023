@@ -113,8 +113,10 @@ def approuveRejetConge(request):
             date_fin=form.cleaned_data['date_fin']
             if approbation == False and  date_debut != date_fin :
                 sweetify.info(request, "La date de début doit être identique à la date de fin !")
-            elif approbation == False and date_debut != datetime.date.today() and date_fin != datetime.date.today() :
-                sweetify.info(request, "la date de debut et de fin doivent être égales à la date d'aujourd'hui !")
+            elif approbation == False and date_debut != datetime.date.today():
+                sweetify.info(request, "La date de début doit être égale à la date d'aujourd'hui !")
+            elif approbation == False and date_fin != datetime.date.today():
+                sweetify.info(request, "La date de fin doit être identique à la date d'aujourd'hui !")
             elif date_fin < date_debut :
                 sweetify.info(request, "Date de fin inférieure à la date début !")
             else:
@@ -128,6 +130,17 @@ def approuveRejetConge(request):
     return render(request, "approbation/approuveRejetConge.html", {"form":form})
 
  
+
+@login_required
+@permission_required("AppConge.view_retour", raise_exception=True)
+def listeRetourConge(request):
+    liste_object=models.Retour.objects.filter(personnel=request.user).order_by('-date_creation')
+    context={
+        'liste_object':liste_object
+    }
+    return render(request, 'retour/listeRetourConge.html', context)
+
+
 @login_required
 @permission_required("AppConge.add_retour", raise_exception=True)
 def confirmRetourConge(request):

@@ -1,0 +1,79 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 50px;
+        margin-top: 100px;
+        
+    }
+    .content .titre p{
+        color: rgb(29, 84, 147);
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    .content .titre a{
+        margin-bottom: 8px;
+    }
+    .content .contenu{
+        width: 100%;
+        
+    }
+    .content .contenu .rechercher button{
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    .content .contenu table tr th{
+        background-color: rgb(16, 44, 76);
+        color: white;
+    }
+</style>
+  
+
+<div class="content">
+    <div class="contenu">
+        <div class="rechercher">
+            <form action="" method="get">
+                <input type="text" name="recherche" placeholder="Rechecher un service" class="form-control" required>
+                <button type="submit" class="btn btn-success btn-block">Rechecher</button>
+            </form>
+        </div>
+        <div class="titre">
+            <a href="{% url 'ajoutPlanning' %}" class="btn btn-dark btn-block">Plannifier les Congés</a>
+            <p>Liste des Planning : {{get_id.designation}}</p>
+        </div>
+        <table class="table tabele-responsive table-bordered">
+            <tr>
+                <th>N°</th>
+                <th>Personnel</th>
+                <th>Service</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Total Jours</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            {% for liste_object in liste_object %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td style="text-transform: uppercase;"><a href=""><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.personnel.getPersonnel}}</a></td>
+                <td>{{liste_object.service}}</td>
+                <td>{{liste_object.date_debut}}</td>
+                <td>{{liste_object.date_fin}}</td>
+                <td>{{liste_object.getNombreJours}}</td>
+                <td><a href="{% url 'modifPlanning' liste_object.id %}" class="btn btn-success">Modifier</a></td>
+                <td><a href="{% url 'suppPlanning' liste_object.id %}" class="btn btn-danger">Supprimer</a></td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5">Pas des planning des Congés dans la Base de données</td>
+              </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock content %}
