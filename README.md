@@ -6,9 +6,9 @@
 
 "Ce projet est Open source et chacun peut le recupérer pour modifier ajouter, supprimer ou  retirer les fonctionnalités qui ne lui sont pas necessaires"
 
-#Pour créer un compte Utilisateur il faut renseigner REQUIRED_FIELDS=['username', 'postnom', 'prenom',"sexe","etat_civil"]
-#Sexe :"M" ou "F"
-#Etat civil :"C" ou "M" ou "V"
+"Quand vous allez recupérer les codes sources, pour l'exécuter correctement il faut reinistaller les dépendances qui sont dans les fichiers requirements.txt et aller dans le settings de commenter les lignes de la base de données SQLITE3"
+
+"Merci de me lire et faire savoir les points à améliorer à mon addresse : kiukahenri@gmail.com ❤️ "
 
 
 
