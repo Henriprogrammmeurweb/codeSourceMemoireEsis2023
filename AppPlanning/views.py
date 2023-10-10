@@ -1,4 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 from django.contrib.auth.decorators import login_required, permission_required
 from .import models
 from AppAccount.models import Personnel
@@ -78,8 +81,6 @@ def modifPlanning(request,id):
     if request.method == "POST":
         form=forms.FormModifPlanningConge(request.POST, request=request, instance=get_id)
         if form.is_valid():
-            personnel=form.cleaned_data['personnel']
-            nature=form.cleaned_data['nature']
             annee=form.cleaned_data['annee']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
@@ -199,5 +200,27 @@ def planningAnnee(request, id):
         'liste_object':liste_object
     }
     return render(request, "planning/planningAnnee.html", context)
+
+
+def PDFplanningAnnee(request, id):
+    get_id=models.Annee.objects.get(id=id)
+    liste_object=models.Planning.objects.filter(annee=get_id)
+    template_path = 'annee/planning_pdf.html'
+    context = {'get_id': get_id, 'liste_object':liste_object}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="PlanningAnnee.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response,)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
 
 

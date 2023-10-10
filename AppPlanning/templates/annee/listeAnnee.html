@@ -52,6 +52,7 @@
                 <th>Designation</th>
                 <th>Date début</th>
                 <th>Date fin</th>
+                <th>Rapport</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -61,6 +62,7 @@
                 <td style="text-transform: uppercase;"> <a href="{% url 'planningAnnee' liste_object.id %}">{{liste_object.designation}}</a></td>
                 <td>{{liste_object.date_debut}}</td>
                 <td>{{liste_object.date_fin}}</td>
+                <td><a href="{% url 'planning-annee'  liste_object.id %}" class="btn btn-dark">Planning PDF</a></td>
                 {% if liste_object.get_anneePlannig %}
                 <td style="color: red;">Action Interdite</td>
                 <td style="color: red;">Action Interdite</td>

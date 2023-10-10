@@ -12,5 +12,8 @@ urlpatterns=[
     path('ajout-annee', views.ajoutAnnee, name="ajoutAnnee"),
     path('modif/<str:id>/Annee', views.modifAnnee, name="modifAnnee"),
     path('supp/<str:id>/Annee', views.suppAnnee, name='suppAnnee'),
-    path('planning/<str:id>/Annee', views.planningAnnee, name='planningAnnee')
+    path('planning/<str:id>/Annee', views.planningAnnee, name='planningAnnee'),
+
+    #---------------PDF-----------------
+    path('pdf-planning/<str:id>/annee', views.PDFplanningAnnee, name="planning-annee")
 ]

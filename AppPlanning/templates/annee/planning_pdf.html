@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+   
+        
+    }
+    .content .accueil{
+        display: flex;
+        justify-content:  center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    .content .titre p{
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    .content .titre a{
+        margin-bottom: 8px;
+    }
+    .content .contenu{
+        width: 100%;
+        
+    }
+    .content .contenu table tr th{
+        border: 1px solid black;
+        height: 35px;
+        padding: 5px;
+    }
+    .content .contenu table tr #num{
+        width: 55px;
+    }
+    .content .contenu table tr #personnel{
+        width: 35%;
+    }
+    .content .contenu table tr td{
+        padding: 5px;
+        border: 1px solid black;
+    }
+</style>
+  
+
+<div class="content">
+    <div class="accueil">
+        <h2>REPUBLIQUE DEMOCRATIQUE DU CONGO</h2>
+        <p>TakeLeave.com</p>
+    </div>
+    <div class="contenu">
+        <div class="titre">
+            <p>Liste des Planning : {{get_id.designation}}</p>
+        </div>
+        <table class="table tabele-responsive table-bordered">
+            <tr>
+                <th id="num">N°</th>
+                <th id="personnel">Personnel</th>
+                <th>Service</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Total Jours</th>
+            </tr>
+            {% for liste_object in liste_object %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td style="text-transform: uppercase;">{{liste_object.personnel.getPersonnel}}</td>
+                <td>{{liste_object.service}}</td>
+                <td>{{liste_object.date_debut}}</td>
+                <td>{{liste_object.date_fin}}</td>
+                <td>{{liste_object.getNombreJours}}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5">Pas des planning des Congés dans la Base de données</td>
+              </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+</html>
