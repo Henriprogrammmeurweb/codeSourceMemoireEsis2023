@@ -8,15 +8,16 @@
 
 "Quand vous allez recupérer les codes sources, pour l'exécuter correctement il faut reinistaller les dépendances qui sont dans les fichiers requirements.txt et aller dans le settings de commenter les lignes de la base de données SQLITE3"
 
-"Vous allez constater que nous avons utilisés les signaux des django qui permet d'envoyer ou de recevoir les adresses Email aux différents acteurs, vous souhaitez les utilisez vous devez configurer :
+"Vous allez constater que nous avons utilisés les signaux des django qui permet d'envoyer ou de recevoir les adresses Email aux différents acteurs, vous souhaitez les utilisez vous devez configurer : "
 
-EMAIL_BACKEND = ...............
-EMAIL_HOST = ...............
-EMAIL_USE_TLS = ...............
-EMAIL_PORT = ...............
-EMAIL_HOST_USER = ...............
-EMAIL_HOST_PASSWORD = ........
+"EMAIL_BACKEND = ............... "
+"EMAIL_HOST = ..............."
+"EMAIL_USE_TLS = ..............."
+"EMAIL_PORT = ..............."
+"EMAIL_HOST_USER = ..............."
+"EMAIL_HOST_PASSWORD = ........"
 
+"
 Ou si vous les souhaitez pas, vous pouvez seulemement les commenter, ils se trouvent dans le fichier signals.py de l'application concernée
 
 "
