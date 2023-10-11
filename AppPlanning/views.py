@@ -26,7 +26,7 @@ def listePlanning(request):
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def planningUser(request, id):
     get_id=models.Annee.objects.get(id=id)
-    liste_object=models.Planning.objects.filter(annee=get_id, personnel=request.user)
+    liste_object=models.Planning.objects.filter(annee=get_id, service__fonction__personnel=request.user)
     context={
             "liste_object":liste_object,
             "get_id":get_id
@@ -56,9 +56,7 @@ def ajoutPlanning(request):
             elif date_fin > annee.date_fin :
                 sweetify.info(request, "La date de fin ou de fin de ce planning est supérieure à la date de fin de cette année")
             else:
-                new_planning=form.save(commit=False)
-                new_planning.personnel=request.user
-                new_planning.save()
+                form.save()
                 sweetify.success(request, "Planification enregistrée !")
                 form=forms.FormAjoutPlanningConge(request=request)
         else:
