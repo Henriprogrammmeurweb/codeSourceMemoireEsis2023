@@ -200,6 +200,8 @@ def planningAnnee(request, id):
     return render(request, "planning/planningAnnee.html", context)
 
 
+@login_required
+@permission_required("AppPlanning.view_annee")
 def PDFplanningAnnee(request, id):
     get_id=models.Annee.objects.get(id=id)
     liste_object=models.Planning.objects.filter(annee=get_id)
