@@ -6,9 +6,9 @@
 
 "Ce projet est Open source et chacun peut le recupérer pour modifier ajouter, supprimer ou  retirer les fonctionnalités qui ne lui sont pas necessaires"
 
-"Quand vous allez recupérer les codes sources, pour l'exécuter correctement il faut reinistaller les dépendances qui sont dans les fichiers requirements.txt et aller dans le settings de commenter les lignes de la base de données SQLITE3"
+"Quand vous allez recupérer les codes sources, pour l'exécuter correctement il faut reinistaller les dépendances qui sont dans les fichiers requirements.txt et aller dans le settings decommenter les lignes de la base de données SQLITE3 qui sont commentés parce qu'en developpement nous avons utiliser un autre SGBD"
 
-"Vous allez constater que nous avons utilisés les signaux des django qui permet d'envoyer ou de recevoir les adresses Email aux différents acteurs, vous souhaitez les utilisez vous devez configurer : "
+"Vous allez constater que nous avons utilisé les signaux de django qui permettent d'envoyer ou de recevoir les adresses Email des différents acteurs du Processus, si vous souhaitez les utilisez vous devez configurer : "
 
 "EMAIL_BACKEND = ............... "
 "EMAIL_HOST = ..............."
@@ -22,7 +22,7 @@ Ou si vous les souhaitez pas, vous pouvez seulemement les commenter, ils se trou
 
 "
 
-"Merci de me lire et faire savoir les points à améliorer à mon addresse : kiukahenri@gmail.com ❤️ "
+"Merci de me lire et de me faire savoir les points à améliorer à mon addresse : kiukahenri@gmail.com ❤️ "
 
 
 
