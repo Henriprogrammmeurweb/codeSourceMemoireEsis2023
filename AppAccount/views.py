@@ -70,3 +70,8 @@ def changePassword(request):
 
 
 
+def appropos(request):
+    return render(request, "appropos.html")
+
+
+

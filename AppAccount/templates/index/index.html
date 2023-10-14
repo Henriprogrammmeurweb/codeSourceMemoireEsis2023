@@ -15,8 +15,11 @@
 
     .description {
         margin-top: 78px;
-        background-color: #0b5060;
-        height: 300px;
+        background: url('static/img/subtle-waves468.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 330px;
         color: white;
         display: flex;
         justify-content: flex-start;
@@ -44,9 +47,9 @@
         margin-left: 8px;
     }
 
+
     .description .texte-description a {
         padding: 10px;
-        color: white;
         text-decoration: none;
 
 
@@ -56,36 +59,53 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
+        margin-top: 15px;
+
+
+
+
+    }
+
+    .publicite .publicite-site {
+        box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.20);
+        width: 98%;
         padding: 15px;
-
-
     }
 
     .publicite .publicite-liste {
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding-bottom: 15px;
+        margin-top: 15px;
     }
 
     .publicite .publicite-liste .img-publicite {
-        width: 50%;
+        width: 20%;
+        height: 150px;
         margin-right: 15px;
     }
 
     .publicite .publicite-liste .img-publicite img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: none;
+        border-radius: 7px;
 
     }
 
     .publicite .publicite-liste .texte-publicite {
-        width: 50%;
+        width: 80%;
     }
 
     .publicite .publicite-liste .texte-publicite h2 {
-        color: rgb(12, 116, 148);
-        font-weight: bold;
+        color: rgb(18, 68, 97);
+        font-style: italic;
+        font-size: 15px;
+        text-decoration: underline;
     }
 
     .publicite publicite-liste .texte-publicite p {
@@ -99,74 +119,7 @@
         padding: 10px;
     }
 
-    .titre-fonctionnement {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
 
-    }
-
-    .titre-fonctionnement p {
-        color: rgb(12, 116, 148);
-        font-size: x-large;
-        margin-left: 2%;
-        padding-top: 5px;
-        font-weight: bold;
-
-    }
-
-    .fonctionContact {
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        margin: 0 2% 0 2%;
-        margin-top: 25px;
-
-    }
-
-    .detail-fonctionnement {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-
-
-
-    }
-
-    .detail-fonctionnement .detail {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-        width: 304px;
-        height: 150px;
-        background-color: rgb(237, 241, 241);
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        padding: 10px;
-        margin: 8px;
-        text-align: justify;
-    }
-
-    .detail-fonctionnement .detail p span {
-        color: rgb(225 96 74);
-    }
-
-    .contact #titrecontact {
-        color: rgb(12, 116, 148);
-        font-size: x-large;
-        margin-left: 2%;
-        padding-top: 5px;
-        font-weight: bold;
-    }
-
-    .contact p {
-        margin-left: 2%;
-    }
-
-    .contact ul li {
-        list-style: none;
-        margin-left: 2%;
-
-    }
 
 
     /*Media screen*/
@@ -180,8 +133,9 @@
         }
 
     }
-    @media(max-width:980px){
-                .publicite {
+
+    @media(max-width:980px) {
+        .publicite {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -225,45 +179,65 @@
             <p>Sans beacoup des peines demander votre Congé et obtenez rapidement votre Réponse</p>
             <p>Après avoir demander votre congé n'hésitez pas de consulter votre Boite Mail 📩</p>
             <p>Vous serez alerté une fois que votre demande de Congé est traitée 📄</p>
-            <div class="link"><a href="{% url 'loginUser' %}" class="btn btn-info"> Demander rapidement</a></div>
+            <div class="link"><a href="{% url 'loginUser' %}" class="btn btn-light"> Demander rapidement</a></div>
         </div>
     </div>
     <div class="publicite">
-        <div class="publicite-liste">
-            <div class="img-publicite">
-                <img src="{% static 'img/hero-img.png' %}" alt="">
+        <div class="publicite-site">
+            <div class="publicite-liste">
+                <div class="img-publicite">
+                    <img src="{% static 'img/Outils-Gestion-de-projet.png' %}" alt="">
+                </div>
+                <div class="texte-publicite">
+                    <h2>Fonctionnement</h2>
+                    <p>Vous êtes à la recherche d'une solution de pointe pour gérer efficacement les congés dans votre
+                        entreprise ? Ne cherchez plus ! Notre application de gestion des congés est là pour répondre à
+                        tous
+                        vos
+                        besoins.
+                        <br> Grâce à notre interface conviviale et intuitive, vous pourrez gérer facilement les demandes
+                        de
+                        congés de vos employés et avoir une vision globale sur les disponibilités de chacun. Fini les
+                        tracas
+                        de
+                        la gestion manuelle des congés, notre application vous permettra de gagner un temps précieux et
+                        d'améliorer la productivité de votre entreprise.
+                    </p>
+                </div>
             </div>
-            <div class="texte-publicite">
-                <h2>La meilleure solution pour votre entreprise</h2>
-
-                <p>Vous êtes à la recherche d'une solution de pointe pour gérer efficacement les congés dans votre
-                    entreprise ? Ne cherchez plus ! Notre application de gestion des congés est là pour répondre à tous
-                    vos
-                    besoins.
-                    <br> Grâce à notre interface conviviale et intuitive, vous pourrez gérer facilement les demandes de
-                    congés de vos employés et avoir une vision globale sur les disponibilités de chacun. Fini les tracas
-                    de
-                    la gestion manuelle des congés, notre application vous permettra de gagner un temps précieux et
-                    d'améliorer la productivité de votre entreprise.
-                </p>
-                <p>Notre application de gestion des congés est également dotée d'un calendrier centralisé qui vous
-                    permettra
-                    d'avoir une vue d'ensemble sur les congés planifiés de tous vos employés.
-                    <br> Vous pourrez visualiser les périodes de congés déjà accordées, les congés à venir et les
-                    disponibilités de chaque membre de votre équipe. Vous pourrez ainsi organiser efficacement le
-                    travail et
-                    répartir les tâches en fonction des disponibilités de chacun.
-                </p>
-                <p>Vos données sont sauvegardées de manière sécurisée et vous avez la possibilité de configurer les
-                    droits d'accès pour chaque utilisateur. <br> De plus, notre application est compatible avec tous les
-                    types de congés (annuels, maternité, cumulé,circonstance, etc.) et peut être adaptée aux
-                    spécificités de votre entreprise. <br> Alors n'attendez plus, choisissez notre application de
-                    gestion des congés et prenez le contrôle total sur la gestion des congés dans votre entreprise!</p>
-
-                <hr>
-                <div class="link"><a href="{% url 'loginUser' %}" class="btn btn-info"> Rejoindre maintenant</a></div>
+            <div class="publicite-liste">
+                <div class="img-publicite">
+                    <img src="{% static 'img/SEO2316-thumb.png' %}" alt="">
+                </div>
+                <div class="texte-publicite">
+                    <h2>Disponibilité des membres</h2>
+                    <p>Notre application de gestion des congés est également dotée d'un calendrier centralisé qui vous
+                        permettra
+                        d'avoir une vue d'ensemble sur les congés planifiés de tous vos employés.
+                        <br> Vous pourrez visualiser les périodes de congés déjà accordées, les congés à venir et les
+                        disponibilités de chaque membre de votre équipe. Vous pourrez ainsi organiser efficacement le
+                        travail et
+                        répartir les tâches en fonction des disponibilités de chacun.
+                    </p>
+                </div>
+            </div>
+            <div class="publicite-liste">
+                <div class="img-publicite">
+                    <img src="{% static 'img/imge-agent.jpg' %}" alt="">
+                </div>
+                <div class="texte-publicite">
+                    <h2>Sécurité des données</h2>
+                    <p>Vos données sont sauvegardées de manière sécurisée et vous avez la possibilité de configurer les
+                        droits d'accès pour chaque utilisateur. <br> De plus, notre application est compatible avec tous
+                        les
+                        types de congés (annuels, maternité, cumulé,circonstance, etc.) et peut être adaptée aux
+                        spécificités de votre entreprise. <br> Alors n'attendez plus, choisissez notre application de
+                        gestion des congés et prenez le contrôle total sur la gestion des congés dans votre entreprise!
+                    </p>
+                </div>
             </div>
         </div>
+
     </div>
 
 </section>

@@ -1,7 +1,8 @@
+
 <style>
     * {
-        padding: 0;
-        margin: 0;
+        padding: 0px;
+        margin: 0px;
         box-sizing: border-box;
     }
 
@@ -34,12 +35,21 @@
 
     header nav .menu li {
         list-style: none;
+        margin: 5px;
+    }
+    header nav .menu li a{
+        color: rgb(22, 135, 155);
     }
     header nav .menu li #login{
         padding: 10px;
         color: white;
         text-decoration: none;
         margin-right: 25px;
+        background-color: teal;
+        border-radius: 2px;
+    }
+    header nav .menu li #login:hover{
+        background-color: teal;
     }
     header nav .menu li a{
         margin-right: 15px;
@@ -79,7 +89,7 @@
     }
 
     /*Media*/
-    @media(max-width:510px){
+    @media(max-width:810px){
         header nav .menu {
             display: none;
         }
@@ -107,18 +117,26 @@
         position: absolute;
         transform: rotate(-45deg);
     }
-    header nav .menu.responsive{
+    header nav .menu li {
+        list-style: none;
+        margin: 15px;
+    }
+    header nav .menu li a{
+        color: white;
+    }
+    header nav .menu.actives{
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        background-color: rgb(33, 99, 153);
+        background-color: rgb(17, 58, 92);
         flex-direction: column;
-        position: absolute;
+        z-index: 0;
         width: 100%;
-        height: 165px;
-        top: 80px;
+        height: auto;
         padding: 15px;
-        z-index: 10000px;
+        position: absolute;
+        top: 100%;
+        width: 100%;
 
     }
     }
@@ -142,9 +160,12 @@
         <ul class="menu">
             {% if user.is_authenticated %}
             <li><a href="{% url 'changePassword' %}">Changer Mot de passe</a></li>
-            <li><a href="{% url 'logoutUser' %}" class="btn btn-info" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            <li><a href="{% url 'logoutUser' %}" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
-            <li><a href="{% url 'loginUser' %}" class="btn btn-info" id="login"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="{% url 'appropos' %}">Appropos</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'loginUser' %}" id="login"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>
@@ -158,7 +179,7 @@
     burgers.addEventListener('click',()=>{
         burgers.classList.toggle('active');
         burger_spans.classList.toggle('active');
-        menus.classList.toggle('responsive');
+        menus.classList.toggle('actives');
     });
 </script>
 
