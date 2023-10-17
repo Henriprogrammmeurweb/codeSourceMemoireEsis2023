@@ -148,6 +148,38 @@
         padding: 10px;
     }
 
+    .conges{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+    .conges .message-conges{
+        width: 98%;
+    }
+    .conges .message-conges{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .conges .message-conges .img-1{
+      
+        margin: 5px;
+        
+    }
+    .conges .img-1 img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+    .conges .texte{
+        width: 70%;
+        text-align: justify;
+        margin: 5px;
+    }
+
+
 
 
     /*Media screen*/
@@ -272,14 +304,23 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="choix">
-        <div class="img">
-            
+    <div class="conges">
+        <div class="message-conges">
+            <div class="img-1">
+                <img src="{% static 'img/user.jpg' %}" alt="">
+            </div>
+            <div class="texte">
+                <p>Nous tenons à vous informer que vos jours de congé sont entièrement rémunérés. Nous comprenons l'importance d'avoir du temps libre pour se reposer, se ressourcer et passer du temps avec vos proches. Ainsi, lorsque vous prenez des congés, vous continuerez à recevoir votre salaire habituel, sans aucune réduction. Cela fait partie de notre engagement envers le bien-être de nos employés, car nous croyons fermement que des travailleurs heureux et reposés sont plus productifs et épanouis.
+                </p>
+                <p>Nous vous remercions pour votre dévouement et votre engagement envers notre entreprise. Nous croyons fermement que vous méritez d'être compensés pleinement pour vos jours de congé, et c'est pourquoi nous avons pris cette mesure. N'hésitez pas à contacter le département des ressources humaines si vous avez des questions ou des préoccupations concernant cette politique. Votre bien-être est notre priorité et nous continuerons à travailler pour créer un environnement propice à votre épanouissement personnel et professionnel.</p>
+                <hr>
+            </div>
         </div>
     </div>
 
 </section>
+
+
 
 {% endblock content %}
