@@ -39,18 +39,20 @@
     }
     header nav .menu li a{
         color: rgb(22, 135, 155);
+        text-decoration: none;
+    }
+    header nav .menu li a:hover{
+        color: rgb(240, 143, 79);
     }
     header nav .menu li #login{
         padding: 10px;
         color: white;
         text-decoration: none;
         margin-right: 25px;
-        background-color: teal;
-        border-radius: 2px;
+       
+        
     }
-    header nav .menu li #login:hover{
-        background-color: teal;
-    }
+
     header nav .menu li a{
         margin-right: 15px;
     }
@@ -65,25 +67,25 @@
         display: none;
     }
     header nav .burger span{
-        width: 38px;
+        width: 32px;
         height: 3px;
-        background-color: rgb(34, 52, 68);
+        background-color: rgb(68, 154, 224);
     }
     header nav .burger::before{
         content: "";
         position: absolute;
-        width: 38px;
+        width: 32px;
         height: 3px;
-        background-color: rgb(34, 52, 68);
+        background-color: rgb(68, 154, 224);
         transform: translateY(7px);
 
     }
     header nav .burger::after{
         content: "";
         position: absolute;
-        width: 38px;
+        width: 32px;
         height: 3px;
-        background-color: rgb(34, 52, 68);
+        background-color: rgb(68, 154, 224);
         transform: translateY(-7px);
 
     }
@@ -160,12 +162,12 @@
         <ul class="menu">
             {% if user.is_authenticated %}
             <li><a href="{% url 'changePassword' %}">Changer Mot de passe</a></li>
-            <li><a href="{% url 'logoutUser' %}" id="login"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
+            <li><a href="{% url 'logoutUser' %}" id="login" class="btn btn-info"><i class="fa fa-user-circle" aria-hidden="true"></i> Se Deconnecter</a></li>
             {% else %}
             <li><a href="/">Accueil</a></li>
             <li><a href="{% url 'appropos' %}">Appropos</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="{% url 'loginUser' %}" id="login"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
+            <li><a href="{% url 'loginUser' %}" id="login" class="btn btn-info"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>
