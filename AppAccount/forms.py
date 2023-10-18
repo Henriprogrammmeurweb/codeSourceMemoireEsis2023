@@ -21,3 +21,9 @@ class Formpassword_reset(PasswordResetForm):
 class FormSetPassword(SetPasswordForm):
     new_password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
     new_password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
+
+
+class FormContact(forms.Form):
+    nom=forms.CharField(widget=forms.TextInput(attrs={"class":'form-control'}))
+    email=forms.CharField(widget=forms.EmailInput(attrs={"class":'form-control'}))
+    message=forms.CharField(widget=forms.Textarea(attrs={"class":'form-control', 'rows':'3'}))

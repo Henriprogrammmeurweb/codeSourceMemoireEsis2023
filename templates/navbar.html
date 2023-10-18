@@ -166,7 +166,7 @@
             {% else %}
             <li><a href="/">Accueil</a></li>
             <li><a href="{% url 'appropos' %}">Appropos</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
             <li><a href="{% url 'loginUser' %}" id="login" class="btn btn-info"> <i class="fa fa-user-circle" aria-hidden="true"></i> Se connecter</a></li>
             {% endif %}
         </ul>

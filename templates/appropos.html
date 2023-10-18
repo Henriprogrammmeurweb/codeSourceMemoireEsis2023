@@ -11,10 +11,6 @@
         margin-top: 80px;
         background-color: rgb(237, 241, 241);
     }
-    .content .alert{
-        margin-top: 30px;
-
-    }
     .content .contenu{
         margin-top: 55px;
         margin-bottom: 50px;
@@ -39,7 +35,15 @@
     /*Media*/
     @media(max-width:800px){
         .content .contenu{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             width: 95%;
+        }
+        .content .contenu img{
+            width: 95%;
+            margin-right: 0;
         }
     }
 </style>
@@ -47,8 +51,7 @@
 <div class="content">
     <div class="contenu">
         <img src="{% static 'img/1697450100852~2.jpg' %}" alt="">
-        <h2>Appropos de nous </h2>
-        <p>Bienvenue sur TakeLeave ! Notre objectif est de simplifier et d'optimiser le processus de demande et de gestion des congés pour les entreprises. Que vous soyez un employeur ou un employé, nous sommes là pour vous aider à organiser efficacement vos congés et à minimiser toute confusion ou frustration liée à ce processus.</p>
+        <p> <span style="color: teal;">Appropos de nous de TakeLeave !</span> Notre objectif est de simplifier et d'optimiser le processus de demande et de gestion des congés pour les entreprises. Que vous soyez un employeur ou un employé, nous sommes là pour vous aider à organiser efficacement vos congés et à minimiser toute confusion ou frustration liée à ce processus.</p>
         <p>Notre équipe regroupe des experts en gestion des ressources humaines et en développement d'applications web, ce qui nous permet de fournir une solution complète et adaptée à vos besoins spécifiques. Nous comprenons les défis auxquels vous êtes confrontés lorsqu'il s'agit de planifier et de gérer les congés de votre personnel, et nous sommes là pour vous accompagner à chaque étape.</p>
         <p>Les employés peuvent simplement se connecter à leur compte et soumettre leurs demandes en quelques clics. Ils peuvent également consulter leur solde de congés disponibles, suivre le statut de leurs demandes et recevoir des notifications automatiques pour les rappeler des dates importantes.</p>
         <p>Pour les gestionnaires, notre système offre une vision globale des demandes de congés de l'ensemble de l'entreprise. Cela permet une meilleure allocation des ressources et une planification plus précise, en minimisant les conflits d'horaires et en garantissant que les opérations se déroulent sans heurts même pendant les périodes de forte demande.</p>

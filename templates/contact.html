@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 80px;
+        background-color: rgb(237, 241, 241);
+    }
+    .content .message{
+        margin-top: 35px;
+    }
+    h2{
+        font-weight: normal;
+        color: rgb(101, 143, 221);
+        font-size: 18px;
+    }
+    .content .contenu{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background-color: white;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 98%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .content .contenu .numero-email{
+        width: 30%;
+    }
+    .content .contenu .numero-email p img{
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+    .content .contenu form{
+        width: 60%;
+        margin-left: 15px;
+    }
+    .content .contenu form button{
+        margin-top: 15px;
+        background-color: rgb(116, 81, 235);
+        color: white;
+        padding: 10px;
+    }
+</style>
+
+
+
+
+<div class="content">
+    <div class="message">
+        <h2>Contactez-nous</h2>
+    </div>
+    <div class="contenu">
+        <div class="numero-email">
+            <h2>Nos contacts</h2>
+            <p> <img src="{% static 'img/iconePhonr.png' %}" alt="">Téléphone :  <a href="tel:+243819328364">+243819328364</a></p>
+           
+            <p> <img src="{% static 'img/email.png' %}" alt=""> Email : <a href="mailto:kiukahenri@gmail.com">kiukahenri@gmail.com</a> </p>
+            
+        </div>
+        <form action="" method="post">
+            <h2>Envoyer directement un message</h2>
+            {% csrf_token %}
+            {{form}}
+            <button class="btn btn-block">Envoyer votre message</button>
+        </form>
+    </div>
+</div>
+  
+{% endblock content %}

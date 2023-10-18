@@ -88,7 +88,7 @@
         padding: 15px;
     }
 
-    .publicite .publicite-liste {
+    .publicite .publicite-site .publicite-liste {
 
         display: flex;
         justify-content: flex-start;
@@ -183,50 +183,137 @@
 
 
     /*Media screen*/
-    @media(max-width:900px) {
-        .description {
-            height: auto;
-            padding: 15px;
-            line-height: 20px;
-
-
-        }
-
-    }
-
     @media(max-width:980px) {
-        .publicite {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-
-
-        }
-
-        .publicite .publicite-liste {
-            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        .description{
+            margin-top: 78px;
+            height: auto;
+            background-color: #152948;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding-bottom: 15px;
-        }
-
-        .publicite .publicite-liste .img-publicite {
-            width: 90%;
-            margin-right: 15px;
-        }
-
-        .publicite .publicite-liste .img-publicite img {
-            width: 100%;
+            line-height: 22px;
+           
+            
 
         }
-
-        .publicite .publicite-liste .texte-publicite {
-            width: 90%;
+        .description .texte-description{
+            padding: 15px;
         }
+        .description .texte-description p{
+           text-align: justify;
+           
     }
+        .description .img {
+            height: 100%;
+            margin-top:0;
+            margin-right: 0;
+            width: 96%;
+            
+    }
+
+    .description .img img {
+        height: 100%;
+        width: 100%;
+        border: none;
+    }
+    .description .texte-description .link a{
+        margin-top: 15px;
+        width: 70%;
+    }
+    .publicite {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 15px;
+
+
+
+
+    }
+
+    .publicite .publicite-site {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 98%;
+        padding: 15px;
+    }
+
+    .publicite .publicite-site .publicite-liste {
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 15px;
+        margin-top: 15px;
+        width: 100%;
+        margin: 8px;
+    }
+
+    .publicite .publicite-liste .img-publicite {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .publicite .publicite-liste .img-publicite img {
+        width: 65px;
+        height: 100%;
+        border: none;
+        border-radius: 1px;
+
+    }
+
+    .publicite .publicite-liste .img-publicite h2 {
+        font-weight: bold;
+        color: #585859;
+        font-size: 17px;
+    }
+
+
+    .publicite .publicite-liste .texte-publicite {
+        padding: 8px;
+        height: auto;
+        background-color: #fdffff;
+        color: #585859;
+        border-radius: 5px;
+
+    }
+    .conges{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+    .conges .message-conges{
+        width: 98%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .conges .message-conges .img-1{
+        margin: 5px;
+        
+    }
+    .conges .img-1 img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+    .conges .texte{
+        width: 95%;
+        text-align: justify;
+        margin: 5px;
+    }
+   
+}
 </style>
 
 

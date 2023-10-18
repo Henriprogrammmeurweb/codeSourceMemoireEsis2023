@@ -73,5 +73,9 @@ def changePassword(request):
 def appropos(request):
     return render(request, "appropos.html")
 
+def contact(request):
+    form=forms.FormContact()
+    return render(request, "contact.html", {"form":form})
+
 
 
