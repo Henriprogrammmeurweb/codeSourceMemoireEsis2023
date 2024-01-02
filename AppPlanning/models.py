@@ -24,13 +24,16 @@ class Annee(models.Model):
 
 
 class Planning(models.Model):
-    personnel=models.ForeignKey(Personnel, on_delete=models.PROTECT, blank=True, null=True)
+    personnel=models.ForeignKey(Personnel, on_delete=models.PROTECT)
     service=models.ForeignKey(Service, on_delete=models.PROTECT, blank=True, null=True)
     annee=models.ForeignKey(Annee, on_delete=models.CASCADE)
     date_debut=models.DateField()
     date_fin=models.DateField()
     date_creation=models.DateTimeField(auto_now_add=True)
     date_modification=models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering=['-date_creation']
 
 
 
