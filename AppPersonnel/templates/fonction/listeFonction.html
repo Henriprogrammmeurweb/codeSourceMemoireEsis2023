@@ -114,8 +114,8 @@
               
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelFonction' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.designation}}</a></td>
-                <td>{{liste_object.service}}</td>
+                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelFonction' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.designation|truncatewords:2}}</a></td>
+                <td>{{liste_object.service|truncatewords:2}}</td>
                 <td><a href="{% url 'listePersonnelFonction' liste_object.id %}">Personnels</a></td>
                 <td>{{liste_object.date_creation}}</td>
                 <td>{{liste_object.date_modification}}</td>

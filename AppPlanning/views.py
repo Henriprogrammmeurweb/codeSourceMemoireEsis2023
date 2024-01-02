@@ -40,8 +40,6 @@ def planningUser(request, id):
 @permission_required('AppPlanning.add_planning', raise_exception=True)
 def ajoutPlanning(request):
     fonction_user=Fonction.objects.filter(personnel=request.user)
-    print(fonction_user)
-    print(len(fonction_user))
     if len(fonction_user) == 0:
         return render(request, "error/page_403.html")
     form=forms.FormAjoutPlanningConge(request=request)
@@ -55,10 +53,12 @@ def ajoutPlanning(request):
             testePlanningPersonnel=models.Planning.objects.filter(personnel=personnel, annee=annee).exists()
             if testePlanningPersonnel:
                 messages.warning(request, "Ce personnel a déjà été planfié dans cette année !")
+            elif date_fin < date_debut:
+                messages.warning(request, "La date de début supérieure à celle de fin !") 
             elif date_debut < annee.date_debut:
-                messages.warning(request, "La date de debut ou de fin de ce planning est inférieure à la date de debut de cette année !")
+                messages.warning(request, "La date de debut est inférieure à la date de debut de cette année !")
             elif date_fin > annee.date_fin :
-                messages.warning(request, "La date de fin ou de fin de ce planning est supérieure à la date de fin de cette année")
+                messages.warning(request, "La date de fin est supérieure à la date de fin de cette année")
             else:
                 form.save()
                 messages.warning(request, "Planification enregistrée !")
@@ -88,10 +88,13 @@ def modifPlanning(request,id):
             annee=form.cleaned_data['annee']
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
-            if date_debut < annee.date_debut:
-                messages.warning(request, "La date de debut de ce planning est inférieure à la date de debut de cette année !")
+            personnel=form.cleaned_data['personnel']
+            if date_fin < date_debut:
+                messages.warning(request, "La date de début est supérieure à celle de fin !") 
+            elif date_debut < annee.date_debut:
+                messages.warning(request, "La date de debut est inférieure à la date de debut de cette année !")
             elif date_fin > annee.date_fin :
-                messages.warning(request, "La date de fin de ce planning est supérieure à la date de fin de cette année")
+                messages.warning(request, "La date de fin est supérieure à la date de fin de cette année")
             else:
                 form.save()
                 messages.warning(request, "Planification Modifiée !")

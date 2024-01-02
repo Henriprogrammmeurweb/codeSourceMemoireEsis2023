@@ -3,9 +3,10 @@
  <style>
     .content{
         display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 206px;
+        justify-content:flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 1%;
         
     }
     .content  .contenus{
@@ -16,7 +17,6 @@
         justify-content: flex-start;
         align-items:flex-start;
         flex-wrap: wrap;
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
         padding: 10px;
         margin-right: 20px;
         
@@ -86,7 +86,7 @@
                     <input type="text" name="recherche" class="form-control" required
                     placeholder="Rechercher ici..........." id="search">
                 </form>        
-            <p>Liste des Fonctions</p>
+            <p>Liste des Personenels qui exercice la Fonction de : {{get_id.designation}} au Service : {{get_id.service}}</p>
             </div>
             <table class="table table-hover table-responsive">
                 
@@ -136,7 +136,7 @@
               
               {% empty %}
               <tr>
-                <td colspan="5">Pas des Fonctions dans la Base de données</td>
+                <td colspan="5">Pas des Personnels dans la Base de données</td>
               </tr>
                 
                 </tbody>
