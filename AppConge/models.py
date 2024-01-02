@@ -6,7 +6,7 @@ import datetime
 
 
 class Conge(models.Model):
-    personnel = models.ForeignKey(Personnel, on_delete=models.CASCADE)
+    personnel = models.ForeignKey(Personnel, on_delete=models.PROTECT)
     titre = models.CharField(max_length=255)
     NATURE_CONGE = (
         ("Circonstance", "Circonstance"),
