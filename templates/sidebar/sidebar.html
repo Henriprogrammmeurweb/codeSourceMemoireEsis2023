@@ -1,0 +1,369 @@
+{% load static %}
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    header nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 90px;
+        background-color: white;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        z-index: 1;
+        margin-bottom: 5px;
+        
+    }
+    header nav .logo {
+            width: 130px;
+            height: 75px;
+        }
+    header nav .logo img{
+        
+       
+        margin-top: 5px;
+        width: 100%;
+        height: 100%;
+    }
+    header nav .burger{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 35px;
+        width: 35px;
+        cursor: pointer;
+        display: none;
+        
+    }
+    header nav .burger span{
+        width: 35px;
+        height: 2px;
+        background-color: teal;
+    }
+    header nav .burger::before{
+        content: "";
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: teal;
+        transform: translateY(-7px);
+    }
+    header nav .burger::after{
+        content: "";
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: teal;
+        transform: translateY(7px);
+    }
+    header nav .menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    header nav .menu li{
+        list-style: none;
+    }
+    header nav .menu li #login{
+        padding: 10px;
+        color: #7451eb;
+        text-decoration: none;
+        margin-right: 25px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid #7451eb;
+        font-size: 16px;
+        border-radius: 1px;
+        border-radius: 5px;
+    }
+
+    .burger-aside{
+        background-color: white;
+        height: 65px;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-bottom: 10px;
+        filter: brightness(.89);
+        display: none;
+    }
+    .burger-aside .burgers{
+        height: 100%;
+        width: 40px;
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .burger-aside .burgers span{
+        width: 100%;
+        height: 3px;
+        background-color: teal;
+    }
+    .burger-aside .burgers::before{
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        background-color: teal;
+        transform: translateY(7px);
+    }
+    .burger-aside .burgers::after{
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        background-color: teal;
+        transform: translateY(-7px);
+    }
+    aside{
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        width: 200px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 20px;
+        margin-right: 15px;
+        float: left;
+        overflow: auto;
+        position: sticky;
+        top: 0;
+        min-height: 100vh;
+
+    }
+    aside .titre h5 a{
+        text-decoration: none;
+    }
+    aside .titre h5{
+       color: teal;
+       font-size: 14px;
+    }
+    aside .menus ul li{
+        list-style: none;
+        margin-top: 15px;
+    }
+    aside .menus ul li a{
+    
+      text-decoration: none;
+      color: rgb(51, 53, 51);
+    }
+
+
+
+
+    @media(max-width:600px){
+    header nav .menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+    }
+    header nav .menu.responsive{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+        position: absolute;
+        top: 95px;
+        background-color: #535974;
+        width: 100%;
+        height: auto;
+        z-index: 10000;
+    }
+
+    header nav .burger{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 35px;
+        width: 35px;
+        cursor: pointer;
+        margin-right: 20px;
+        
+    }
+    header nav .burger span{
+        width: 35px;
+        height: 2px;
+        background-color: teal;
+    }
+    header nav .burger::before{
+        content: "";
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: teal;
+        transform: translateY(-7px);
+    }
+    header nav .burger::after{
+        content: "";
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: teal;
+        transform: translateY(7px);
+    }
+    }
+
+
+    @media(max-width:1135px){
+        .burger-aside{
+        background-color: rgb(8, 67, 102);
+        height: 65px;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-bottom: 10px;
+        filter: brightness(.89);
+        display: block;
+    }
+    .burger-aside .burgers{
+        height: 100%;
+        width: 35px;
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .burger-aside .burgers span{
+        width: 35px;
+        height: 2px;
+        background-color: white;
+    }
+    .burger-aside .burgers::before{
+        content: "";
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: white;
+        transform: translateY(7px);
+    }
+    .burger-aside .burgers::after{
+        content: "";
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: white;
+        transform: translateY(-7px);
+    }
+        aside{
+            display: none;
+        }
+        aside.responsive{
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        width: 200px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        padding-top: 20px;
+        margin-right: 15px;
+        float: none;
+        overflow: auto;
+        position: absolute;
+        z-index: 1000;
+        background-color: #fff;
+        top: 161px;
+        }
+        aside .menus ul li a{
+    
+    
+    color: black;
+  }
+  aside .titre h5 a{
+       color: black;
+    }
+    }
+</style>
+
+
+<header>
+    <nav>
+        <div class="logo">
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}"><img src="{% static 'assets/img/dps_logo.png' %}" alt=""></a>
+            {% else %}
+            <a href="/"><img src="{% static 'assets/img/dps_logo.png' %}" alt=""></a>
+            {% endif %}
+        </div>
+        <div class="burger">
+            <span></span>
+        </div>
+        <ul class="menu">
+           {% if user.is_authenticated %}
+           <li><a href="{% url 'changePassword' %}" id="login" class="btn">Mot de passe</a></li>
+           <li><a href="{% url 'logoutUser' %}" id="login" class="btn">Se Deconnecter</a></li>
+           {% else %}
+           <li><a href="{% url 'loginUser' %}" id="login" class="btn">Se Connecter</a></li>
+           {% endif %}
+        </ul>
+    </nav>
+</header>
+    {% if user.is_authenticated %}
+    <div class="burger-aside">
+        <div class="burgers">
+            <span></span>
+        </div>
+    </div>
+      <aside class="aside">
+        <div class="titre">
+            <hr>
+            <h5><a href="{% url 'dashboard' %}">Tableau de Bord</a></h5>
+            <hr>
+        </div>
+        <div class="menus">
+            <ul class="liste-menu">
+                {% if perms.AppConge.view_conge %}
+                <li><a href="{% url 'dashboard' %}">Accueil</a></li>
+                <hr>
+                <li><a href="{% url 'CongeUser' %}">Congés</a></li>
+                <hr>
+                {% endif %}
+                {% if perms.AppPlanning.view_annee %}
+                <li><a href="{% url 'listeAnnee' %}">Planning</a></li>
+                <hr>
+                {% endif %}
+                {% if perms.AppAccount.view_personnel %}
+                <li><a href="{% url 'listePersonnel' %}">Personnels</a></li>
+                <hr>
+                {% endif %}
+                <li><a href="{% url 'ProfilUser' %}">Profils</a></li>
+                <hr>
+            </ul>
+        </div>
+      </aside>
+    {% endif %}
+
+
+
+<script>
+    let burgers=document.querySelector('.burgers');
+    let burgers_span=document.querySelector('.burgers span');
+    let aside=document.querySelector('.aside');
+
+    burgers.addEventListener("click",()=>{
+        burgers.classList.toggle('active');
+        burgers_span.classList.toggle('active');
+        aside.classList.toggle('responsive');
+    });
+</script>
+
+
+<script>
+    let burger=document.querySelector('.burger');
+    let burger_span=document.querySelector('.burger span');
+    let menu=document.querySelector('.menu');
+
+    burger.addEventListener("click",()=>{
+        burger.classList.toggle('active');
+        burger_span.classList.toggle('active');
+        menu.classList.toggle('responsive');
+    });
+</script>
+

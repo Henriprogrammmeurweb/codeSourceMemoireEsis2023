@@ -1,52 +1,120 @@
 {% extends "base/base.html" %}
 {% block content %}
-
-<style>
-    .content{
+ <style>
+    .content {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 7px;
+
+    }
+
+    .content .contenus {
+        margin-top: 15px;
+    }
+
+    .content .contenu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 20px;
+
+    }
+
+    .content .contenu .link {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        width: 100%;
+    }
+
+    .content .contenu form {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
         align-items: flex-start;
         flex-direction: column;
-        padding: 50px;
-        margin-top: 100px;
-        
     }
-    .content .titre p{
-        color: rgb(29, 84, 147);
-        margin-bottom: 8px;
-        font-weight: bold;
+
+    .content .contenu form input {
+        width: 100%;
+        border: 1px solid cadetblue;
+        margin-bottom: 10px;
+        padding: 25px;
     }
-    .content .titre a{
-        margin-bottom: 8px;
+
+    .content .contenu .link a {
+        margin-bottom: 20px;
+        margin: 7px;
+        padding: 20px;
+    }
+
+    .content .contenu table {
+        width: 100%;
+    }
+
+    .content .contenu table tr th {
+        background-color: rgb(18, 89, 131);
+        color: white;
+    }
+
+
+    @media(max-width:1135px) {
+        .content {
+            display: flex;
+        justify-content: center;
+        align-items: center;
+            margin-left: 0;
+            
+        }
+    .content  .contenus{
+        margin-top: 15px;
+        width: 95%;
     }
     .content .contenu{
+        display: flex;
+        justify-content: flex-start;
+        align-items:flex-start;
+        flex-wrap: wrap;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin-right: 0;
         width: 100%;
         
     }
-    .content .contenu .rechercher button{
-        margin-top: 8px;
-        margin-bottom: 8px;
+    .content .contenus .contenu table{
+        width: 100%;
     }
-    .content .contenu table tr th{
-        background-color: rgb(16, 44, 76);
-        color: white;
     }
-</style>
-  
+ </style>
+
 
 <div class="content">
-    <div class="contenu">
-        <div class="rechercher">
-            <form action="" method="get">
-                <input type="text" name="recherche" placeholder="Rechecher un congé" class="form-control" required>
-                <button type="submit" class="btn btn-success btn-block">Rechecher</button>
+        <div class="contenu">
+            <div class="link">
+                <a href="{% url 'ajoutConge' %}" class="btn btn-info">Demander les Congés</a>
+                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+                <a href="{% url 'congeAttente' %}" class="btn btn-success">Liste des Congés en attente</a>
+                {% endif %}
+                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+                <a href="{% url 'consulterCongeEncours' %}" class="btn btn-dark">Liste des Congés encours</a>
+                {% endif %}
+                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+                <a href="{% url 'listeApprobationRejet' %}" class="btn btn-primary">Listes des Approbations</a>
+                {% endif %}
+            </div>
+            <form action="" method="GET">
+                <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
+                    id="search">
             </form>
-        </div>
-        <div class="titre">
-            <a href="{% url 'ajoutConge' %}" class="btn btn-dark btn-block">Demander un Congé</a>
-            <p>Liste des Congés Approuvés</p>
-        </div>
-        <table class="table tabele-responsive table-bordered">
+            <p>Liste des Congés approuvés</p>
+            <table class="table table-hover table-responsive">
+                
             <tr>
                 <th>N°</th>
                 <th>Titre</th>
@@ -55,35 +123,56 @@
                 <th>Réponse</th>
                 <th>Jours</th>
                 <th>Jours consomés</th>
-                <th>Jours restants</th>
+                <th>Date_creation</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
-            {% for liste_object in liste_object %}
+                
+                {% for liste_object in liste_object %}
+                <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.titre}}</a></td>
+                <td><a href="#">{{liste_object.conge.titre|truncatewords:1}}</a></td>
                 <td>{{liste_object.conge.motif|truncatewords:1}}</td>
                 <td>{{liste_object.conge.nature}}</td>
-                <td>{{liste_object.conge.getReponseConge|truncatewords:1}}</td>
+                <td>{{liste_object.conge.getReponseConge}}</td>
                 <td>{{liste_object.conge.getNombreJours}}</td>
                 <td>{{liste_object.conge.get_JoursConsomes}}</td>
-                <td>{{liste_object.conge.get_reste_jours}}</td>
+                <td>{{liste_object.conge.date_creation}}</td>
+                
 
                 {% if liste_object.conge.get_conge_demander %}
                     <td style="color: red;">Action Interdite</td>
                     <td style="color: red;">Action Interdite</td>
                   {% else %}
-                  <td><a href="{% url 'modifConge' liste_object.id  %}" class="btn btn-success">Modifier</a></td>
-                  <td><a href="{% url 'suppConge' liste_object.id %}" class="btn btn-danger">Supprimer</a></td>
+                  <td><a href="{% url 'modifConge' liste_object.id  %}">Modifier</a></td>
+                  <td><a href="{% url 'suppConge' liste_object.id %}">Supprimer</a></td>
                 {% endif %}
               </tr>
               {% empty %}
               <tr>
                 <td colspan="5">Pas des congés dans la Base de données</td>
               </tr>
-            {% endfor %}
-        </table>
-    </div>
+                
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
 </div>
+
+<script>
+
+    $(document).ready(function(){
+       $("#search").on("keyup", function(){
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function(){
+             $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value)>-1)
+          });
+       });
+    });
+ 
+ </script>
+  
 {% endblock content %}
+

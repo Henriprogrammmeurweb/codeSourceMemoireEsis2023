@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Permission
-from abc import ABC
 from AppPersonnel.models import Grade, Fonction
 
 
@@ -46,7 +45,7 @@ class Personnel(AbstractUser):
     
     @property
     def getPersonnel(self):
-        return f'{self.username}-{self.postnom}-{self.prenom}'
+        return f'{self.username} {self.postnom} {self.prenom}'
     
 
        

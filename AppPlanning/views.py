@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.auth.decorators import login_required, permission_required
 from .import models
+from django.contrib import messages
 from AppAccount.models import Personnel
 from AppPersonnel.models import Service, Fonction
 from .import forms
@@ -38,6 +40,8 @@ def planningUser(request, id):
 @permission_required('AppPlanning.add_planning', raise_exception=True)
 def ajoutPlanning(request):
     fonction_user=Fonction.objects.filter(personnel=request.user)
+    print(fonction_user)
+    print(len(fonction_user))
     if len(fonction_user) == 0:
         return render(request, "error/page_403.html")
     form=forms.FormAjoutPlanningConge(request=request)
@@ -50,17 +54,17 @@ def ajoutPlanning(request):
             date_fin=form.cleaned_data['date_fin']
             testePlanningPersonnel=models.Planning.objects.filter(personnel=personnel, annee=annee).exists()
             if testePlanningPersonnel:
-                sweetify.info(request, "Ce personnel a déjà été planfié dans cette année !")
+                messages.warning(request, "Ce personnel a déjà été planfié dans cette année !")
             elif date_debut < annee.date_debut:
-                sweetify.info(request, "La date de debut ou de fin de ce planning est inférieure à la date de debut de cette année !")
+                messages.warning(request, "La date de debut ou de fin de ce planning est inférieure à la date de debut de cette année !")
             elif date_fin > annee.date_fin :
-                sweetify.info(request, "La date de fin ou de fin de ce planning est supérieure à la date de fin de cette année")
+                messages.warning(request, "La date de fin ou de fin de ce planning est supérieure à la date de fin de cette année")
             else:
                 form.save()
-                sweetify.success(request, "Planification enregistrée !")
+                messages.warning(request, "Planification enregistrée !")
                 form=forms.FormAjoutPlanningConge(request=request)
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormAjoutPlanningConge(request=request)
     return render(request, "planning/ajoutPlanning.html", {"form":form})
@@ -73,8 +77,10 @@ def ajoutPlanning(request):
 def modifPlanning(request,id):
     get_id=models.Planning.objects.get(id=id)
     fonction_user=Fonction.objects.filter(personnel=request.user)
-    if len(fonction_user) == 0:
-        return render(request, "error/page_403.html")
+    service_user=Service.objects.filter(fonction__personnel=request.user)
+    for service in service_user:
+        if len(fonction_user) == 0 or service != get_id.service:
+            return render(request, "error/page_403.html")
     form=forms.FormModifPlanningConge(request=request, instance=get_id)
     if request.method == "POST":
         form=forms.FormModifPlanningConge(request.POST, request=request, instance=get_id)
@@ -83,15 +89,15 @@ def modifPlanning(request,id):
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
             if date_debut < annee.date_debut:
-                sweetify.info(request, "La date de debut de ce planning est inférieure à la date de debut de cette année !")
+                messages.warning(request, "La date de debut de ce planning est inférieure à la date de debut de cette année !")
             elif date_fin > annee.date_fin :
-                sweetify.info(request, "La date de fin de ce planning est supérieure à la date de fin de cette année")
+                messages.warning(request, "La date de fin de ce planning est supérieure à la date de fin de cette année")
             else:
                 form.save()
-                sweetify.success(request, "Planification Modifiée !")
+                messages.warning(request, "Planification Modifiée !")
                 return redirect('listePlanning')
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormModifPlanningConge(request=request, instance=get_id)
     return render(request, "planning/changePlanning.html", {"form":form})
@@ -102,13 +108,15 @@ def modifPlanning(request,id):
 def suppPlanning(request,id):
     get_id=models.Planning.objects.get(id=id)
     fonction_user=Fonction.objects.filter(personnel=request.user)
-    if len(fonction_user) == 0:
-        return render(request, "error/page_403.html")
+    service_user=Service.objects.filter(fonction__personnel=request.user)
+    for service in service_user:
+        if len(fonction_user) == 0 or service != get_id.service:
+            return render(request, "error/page_403.html")
     if request.method == "POST":
         get_id.delete()
-        sweetify.success(request, "Planning supprimé !")
+        messages.warning(request, "Planning supprimé !")
         return redirect('listePlanning')
-    return render(request, "planning/suppPlanning.html")
+    return render(request, "planning/suppPlanning.html", {"get_id":get_id})
 
 
 @login_required
@@ -131,13 +139,13 @@ def ajoutAnnee(request):
             date_debut=form.cleaned_data['date_debut']
             date_fin=form.cleaned_data['date_fin']
             if date_debut > date_fin :
-                sweetify.info(request, "Date debut supérieure à la date de fin !")
+                messages.warning(request, "Date debut supérieure à la date de fin !")
             else:
                 form.save()
-                sweetify.success(request, "Année enregistrée avec succès !")
+                messages.warning(request, "Année enregistrée avec succès !")
                 form=forms.FormAjoutAnnee()
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormAjoutAnnee()
     return render(request, "annee/ajoutAnnee.html",{"form":form})
@@ -157,10 +165,10 @@ def modifAnnee(request,id):
         form=forms.FormAjoutAnnee(request.POST, instance=get_id)
         if form.is_valid():
             form.save()
-            sweetify.success(request, "Année modifiée avec succès !")
+            messages.warning(request, "Année modifiée avec succès !")
             return redirect('listeAnnee')
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormAjoutAnnee(instance=get_id)
     return render(request, "annee/modifAnnee.html",{"form":form})
@@ -176,7 +184,7 @@ def suppAnnee(request,id):
         return render(request, 'error/page_403.html')
     if request.method == "POST":
         get_id.delete()
-        sweetify.info(request, "Année modifiée a été supprimée !")
+        messages.warning(request, " cette Année a été supprimée !")
         return redirect('listeAnnee')
     return render(request, "annee/suppAnnee.html",{"get_id":get_id})
 
@@ -186,19 +194,21 @@ def suppAnnee(request,id):
 @permission_required('AppPlanning.view_planning', raise_exception=True)
 def planningAnnee(request, id):
     get_id=models.Annee.objects.get(id=id)
-    liste_object=models.Planning.objects.filter(annee=get_id)
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Planning.objects.filter(personnel__username__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "planning/planningAnnee.html", {"liste_object":liste_object})
+    liste_object=models.Planning.objects.filter(annee=get_id, service__fonction__personnel=request.user)
     context={
         "get_id":get_id,
         'liste_object':liste_object
     }
     return render(request, "planning/planningAnnee.html", context)
 
+
+@login_required
+def planningOneUser(request):
+    liste_object=models.Planning.objects.filter(personnel=request.user)
+    context={
+        "liste_object":liste_object
+    }
+    return render(request, "planning/planningOneUser.html", context)
 
 @login_required
 @permission_required("AppPlanning.view_annee")

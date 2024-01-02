@@ -5,8 +5,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: teal;
-        margin-top: 134px;
+        background-color: rgb(23, 59, 82);
+        height: 100vh;
     }
     .content .contenu{
         display: flex;
@@ -15,28 +15,36 @@
         flex-direction: column;
         background-color: white;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        width: 90%;
+        width: 410px;
         margin-top: 30px;
         margin-bottom: 30px;
-        padding: 10px;
+        padding: 20px;
         border-radius: 5px;
     }
     .content .contenu form{
         width: 98%;
+        
     }
     .content .contenu form button{
         margin-top: 8px;
-        margin-bottom: 8px;
+        padding: 15px;
     }
 </style>
 
 <div class="content">
     <div class="contenu">
         <p style="color: teal;">Voulez-vous modifier le service {{get_id.designation}}</p>
+            <div class="messages">
+                {% for message in messages %}
+                  <div class="alert alert-warning" role="alert">
+                    <p>{{message}}</p>
+                  </div>
+                {% endfor %}
+            </div>
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{form}}
-            <button type="submit" class="btn btn-danger btn-block">Valider les Modifications</button>
+            <button type="submit" class="btn btn-info btn-block">Modifier</button>
             <a href="{% url 'listeService' %}" class="btn btn-dark btn-block">Ne pas modifier</a>
         </form>
     </div>

@@ -4,15 +4,16 @@ from .import views
 
 urlpatterns=[
     path("liste-planning", views.listePlanning, name="listePlanning"),
-    path('planning/<str:id>/User', views.planningUser, name="planningUser"),
+    path('planningUser=<str:id>', views.planningUser, name="planningUser"),
     path('ajout-planning', views.ajoutPlanning,name="ajoutPlanning"),
-    path('modif/<str:id>/Planning', views.modifPlanning, name="modifPlanning"),
-    path('supp/<str:id>/Planning', views.suppPlanning,name="suppPlanning"),
+    path('modifPlanning=<str:id>', views.modifPlanning, name="modifPlanning"),
+    path('suppPlanning=<str:id>', views.suppPlanning,name="suppPlanning"),
     path('liste-annee', views.listeAnnee, name='listeAnnee'),
     path('ajout-annee', views.ajoutAnnee, name="ajoutAnnee"),
-    path('modif/<str:id>/Annee', views.modifAnnee, name="modifAnnee"),
-    path('supp/<str:id>/Annee', views.suppAnnee, name='suppAnnee'),
-    path('planning/<str:id>/Annee', views.planningAnnee, name='planningAnnee'),
+    path('modifAnnee=<str:id>', views.modifAnnee, name="modifAnnee"),
+    path('suppAnnee=<str:id>', views.suppAnnee, name='suppAnnee'),
+    path('planningAnnee=<str:id>', views.planningAnnee, name='planningAnnee'),
+    path('planningOneUser', views.planningOneUser, name="planningOneUser"),
 
     #---------------PDF-----------------
     path('pdf-planning/<str:id>/annee', views.PDFplanningAnnee, name="planning-annee")

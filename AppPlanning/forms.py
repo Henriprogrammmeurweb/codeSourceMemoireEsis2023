@@ -9,8 +9,8 @@ class FormAjoutPlanningConge(forms.ModelForm):
         super(FormAjoutPlanningConge, self).__init__(*args, **kwargs)
         service=models.Service.objects.filter(fonction__personnel=self.request.user)
         annee=models.Annee.objects.exclude(date_fin__lt=datetime.date.today())
-        for i in service:
-            personnel=models.Personnel.objects.filter(fonction__service=i)
+        for services in service:
+            personnel=models.Personnel.objects.filter(fonction__service=services)
             self.fields['personnel'].queryset=personnel
         self.fields['annee'].queryset=annee
 

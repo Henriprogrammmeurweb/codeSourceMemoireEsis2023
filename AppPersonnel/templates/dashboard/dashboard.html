@@ -1,184 +1,312 @@
 {% extends "base/base.html" %}
 {% block content %}
-
-
 <style>
-    .content{
+    .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+
+    }
+
+    .content .dashboard {
+        margin-top: 15px;
+    }
+
+    .content .contenu {
         display: flex;
         justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 134px;
-    }
-    .content .contenu{
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        padding: 5px;
-        display: flex;
-        justify-content:center;
         align-items: center;
         flex-wrap: wrap;
-        margin-bottom: 25px;
-        width: 98%;
-        
-        
-    }
-    .content .contenu .conge{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        background-color: rgb(14, 68, 94);
-        color: white;
-        margin: 10px;
-    }
-    .content .contenu a{
-        text-decoration: none;
-    }
-    .content .contenu .conge:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    .content .contenu .approbation{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        color: white;
-        margin: 10px;
-        background-color: rgb(14, 68, 94);
-    }
-    .content .contenu .approbation:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    .content .contenu .rejeter{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        color: white;
-        margin: 10px;
-        background-color: rgb(14, 68, 94);
-    }
-    .content .contenu .rejeter:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    .content .contenu .encours{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        color: white;
-        margin: 10px;
-        background-color: rgb(14, 68, 94);
-    }
-    .content .contenu .encours:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    .content .contenu .attente{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        background-color: rgb(14, 68, 94);
-        color: white;
-        margin: 10px;
-    }
-    .content .contenu .attente:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    .content .contenu .retourconfirme{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        background-color: rgb(14, 68, 94);
-        color: white;
-        margin: 10px;
-    }
-    .content .contenu .retourconfirme:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    .content .contenu .retourNonconfirme{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 200px;
-        height: 100px;
-        background-color: rgb(14, 68, 94);
-        color: white;
-        margin: 10px;
-    }
-    .content .contenu .retourNonconfirme:hover{
-        background-color: rgb(201, 108, 47);
-    }
-    
-    
-</style>
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin-right: 20px;
 
+    }
+
+    .content .contenu .activite-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(59, 115, 128);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(140, 139, 128);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(29, 72, 92);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-4 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(140, 139, 128);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-5 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(71, 99, 113);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-6 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(59, 115, 128);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-7 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(71, 99, 113);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite-8 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 220px;
+        height: 100px;
+        background-color: rgb(76, 84, 117);
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 8px;
+    }
+    .content .contenu .activite:hover {
+        background-color: #d78c7d;
+        color: white;
+    }
+
+    .content .contenu a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .trasanction {
+        margin: 14px 8px 0px 0px;
+    }
+
+    .content-trans {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.25);
+        width: 98%;
+
+    }
+    .content .contenu .search input {
+        margin-bottom: 8px;
+        height: 50px;
+        border: 1px solid #7451eb;
+
+    }
+    .content-trans .contenu-trans {
+        width: 100%;
+    }
+    .content-trans .contenu-trans table th {
+        background-color: #5c7585;
+        color: #fff;
+        font-size: 14px;
+    }
+
+
+    @media(max-width:1135px) {
+        .content {
+            margin-left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+        }
+
+        .content .dashboard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 95%;
+            margin: 10px;
+        }
+
+        .content .contenu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+            padding: 0;
+            margin-right: 0;
+            
+
+        }
+
+
+
+    }
+</style>
 <div class="content">
-    {% if user.is_authenticated %}
-    <div class="message">
-       <p>Salut {{user.prenom}} {{user.username}} et bienvenue sur ton Tableau de Bord</p>
+    <div class="dashboard">
+        {% if user.is_authenticated %}
+        <p>Salut : <span style="color: rgb(214, 97, 199);">{{user.getPersonnel}}</span></p>
+        {% endif %}
+        <p>Bienvenue sur ton Tableau de Bord</p>
+        <div class="contenu">
+            <a href="{% url 'CongeUser' %}">
+                <div class="activite-1">
+                    <p>Tous les Congés</p>
+                    <p>{{nombreConge}}</p>
+                </div>
+            </a>
+            <a href="{% url 'congeApprouve' %}">
+                <div class="activite-2">
+                    <p>Congés Approuvés</p>
+                    <p>{{nombreApprouve}}</p>
+                </div>
+            </a>
+            <a href="{% url 'congeRejet' %}">
+                <div class="activite-3">
+                    <p>Congés Rejetés</p>
+                    <p>{{nombreRejet}}</p>
+                </div>
+            </a>
+            <a href="{% url 'congeEncours' %}">
+                <div class="activite-4">
+                    <p>Congés encours</p>
+                    <p>{{nombreEncours}}</p>
+                </div>
+            </a>
+            <a href="{% url 'congeAttenteUser' %}">
+                <div class="activite-5">
+                    <p>Congés en attente</p>
+                    <p>{{nombreAttente}}</p>
+                </div>
+            </a>
+            <a href="{% url 'planningOneUser' %}">
+                <div class="activite-6">
+                    <p>Mes Planifications</p>
+                    <p>{{panningsUser}}</p>
+                </div>
+            </a>
+            <a href="{% url 'listePersonnel' %}">
+                <div class="activite-7">
+                    <p>Personnels</p>
+                    <p>{{personnel}}</p>
+                </div>
+            </a>
+            <a href="{% url 'listeAnnee' %}">
+                <div class="activite-8">
+                    <p>Planification ✅</p>
+                    <p>{{plannings}}</p>
+                </div>
+            </a>
+        </div>
     </div>
-    {% endif %}
-    <div class="contenu">
-        <a href="{% url 'CongeUser' %}">
-            <div class="conge">
-                <p>Congés</p>
-                <p>{{nombreConge}}</p>
+
+
+
+    <div class="trasanction">
+        <div class="last-trans">
+            <p>Tes 5 dernières Demandes des Congés</p>
+        </div>
+    </div>
+    <div class="content-trans">
+        <div class="contenu-trans">
+            <div class="table table-responsive table-hover">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Titre</th>
+                            <th>Motif</th>
+                            <th>Nature</th>
+                            <th>Réponse</th>
+                            <th>Jours</th>
+                            <th>Jours consomés</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+
+
+                    {% for liste_object in liste_object %}
+                    <tbody id="myTable">
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a
+                                    href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a>
+                            </td>
+                            <td>{{liste_object.motif|truncatewords:1}}</td>
+                            <td>{{liste_object.nature}}</td>
+                            {% if liste_object.getReponseConge %}
+                            <td>{{liste_object.getReponseConge}}</td>
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
+                            <td>{{liste_object.getNombreJours}}</td>
+                            <td>{{liste_object.get_JoursConsomes}}</td>
+
+                            {% if liste_object.get_conge_demander %}
+                            <td style="color: red;">Action Interdite</td>
+                            <td style="color: red;">Action Interdite</td>
+                            {% else %}
+                            <td><a href="{% url 'modifConge' liste_object.id  %}">Modifier</a></td>
+                            <td><a href="{% url 'suppConge' liste_object.id %}">Supprimer</a></td>
+                            {% endif %}
+
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10">Pas des Congés dans la Base de données</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
             </div>
-        </a>
-        <a href="{% url 'congeApprouve' %}">
-            <div class="approbation">
-                <p>Approuvés</p>
-                <p>{{nombreApprouve}}</p>
-            </div>
-        </a>
-        <a href="{% url 'congeRejet' %}">
-            <div class="rejeter">
-                <p>Rejetés</p>
-                <p>{{nombreRejet}}</p>
-            </div>
-        </a>
-        <a href="{% url 'congeEncours' %}">
-            <div class="encours">
-                <p>En cours</p>
-                <p>{{nombreEncours}}</p>
-            </div>
-        </a>
-        <a href="{% url 'congeAttenteUser' %}">
-            <div class="attente">
-                <p>En attentes</p>
-                <p>{{nombreAttente}}</p>
-            </div>
-        </a>
-        <a href="">
-            <div class="retourconfirme">
-                <p>Retour ✅</p>
-                <p>{{retourConfirme}}</p>
-            </div>
-        </a>
-        <a href="">
-            <div class="retourNonconfirme">
-                <p>Retour ⛔</p>
-                <p>-</p>
-            </div>
-        </a>
+        </div>
     </div>
 </div>
-  
-
-
 {% endblock content %}

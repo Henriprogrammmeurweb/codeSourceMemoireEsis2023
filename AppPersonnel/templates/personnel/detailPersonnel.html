@@ -1,70 +1,153 @@
 {% extends "base/base.html" %}
 {% load static %}
 {% block content %}
-
 <style>
+    .profils{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 7px;
+        
+    }
     .content {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: flex-start;
         flex-direction: column;
-        padding: 50px;
-        margin-top: 100px;
-        background-color: rgb(64, 77, 85);
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        padding-left: 35px;
+        padding-top: 30px;
 
-    }
-
-    .content .titre p {
-        color: white;
-        margin-bottom: 8px;
-        text-decoration: underline;
-        margin-top: 35px;
-
-    }
-
-    .content .titre a {
-        margin-bottom: 8px;
     }
 
     .content .contenu {
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
-        width: 90%;
-
-    }
-    .content .contenu .menu{
-        width: 800px;
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-    }
-    .content .contenu .photo{
-        width: 500px;
-        height: 450px;
-        border-radius: 5px;
-        overflow:hidden;
-        margin-left: 80px;
-    }
-    .content .contenu .photo .img{
-        width: 100%;
-        height: 100%;
-    }
-    .content .contenu .photo .img img{
-        object-fit: cover;
-        object-position: center center;
-        width: 100%;
-        height: 100%;
-    }
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 20px;
+        margin-top: 15px;
     
 
-    .content .contenu li {
+    }
+
+    .content .contenu .link {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        width: 100%;
+    }
+
+    .content .contenu form {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .content .contenu form input {
+        width: 100%;
+        border: 1px solid cadetblue;
+        margin-bottom: 10px;
+        padding: 25px;
+    }
+
+    .content .contenu .link a {
+        margin-bottom: 20px;
+        margin: 7px;
+        padding: 20px;
+    }
+
+    .content .contenu table {
+        width: 100%;
+    }
+
+    .content .contenu table tr th {
+        background-color: rgb(106, 118, 126);
         color: white;
+    }
+
+    .content-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 25px;
+    }
+
+    .content-img .img {
+        width: 190px;
+        height: 190px;
+        margin-bottom: 50px;
+
+
+    }
+
+    .content-img .img img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    .content-img .img p {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+
+    @media(max-width:530px) {
+    .profils{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 7px;
+
+    }
+    .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        width: 100%;
+        padding-left: 35px;
+        padding-top: 30px;
+
+    }
     }
 </style>
 
+<div class="profils">
+    <div class="content-img">
+        {% if user.is_authenticated %}
+        <div class="img">
+                {% if get_personnel.photo %}
+                    <img src="{{get_personnel.photo.url}}" alt="">
+                {% else %}
+                <img src="{% static 'assets/img/userlogo.png' %}" alt="">
+                {% endif %}
+            <hr>
+            <p>Crée dépuis : {{get_personnel.date_creation}}</p>
+        </div>
 
-<div class="content">
-    <div class="contenu">
-        <ul class="info">
+        {% endif %}
+    </div>
+    <div class="content">
+        <div class="titre">
+            <p>Informations du Personnel</p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="infos-personnels">
+            <ul>
             <li>Nom : {{get_personnel.username}}</li>
             <li>PostNom : {{get_personnel.postnom}}</li>
             <li>Prénom : {{get_personnel.prenom}}</li>
@@ -112,19 +195,25 @@
             {% endif %}
             <li>Date creation : {{get_personnel.date_creation}}</li>
             <li>Date Modification : {{get_personnel.date_modification}}</li>
-            <hr style="background-color: white;width: 300px;">
-        </ul>
-        <div class="photo">
-            <div class="img">
-                {% if get_personnel.photo %}
-                    <img src="{{get_personnel.photo.url}}" alt="">
-                {% else %}
-                <img src="{% static 'img/images.png' %}" alt="">
-                {% endif %}
-            </div>
+              </ul>
+            <hr>
         </div>
+        {% endif %}
     </div>
 </div>
-{% endblock content %}
 
+<script>
+
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>
+
+{% endblock content %}
 

@@ -1,65 +1,145 @@
 {% extends "base/base.html" %}
 {% block content %}
-
-<style>
-    .content{
+ <style>
+    .content {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 7px;
+
+    }
+
+    .content .contenus {
+        margin-top: 15px;
+    }
+
+    .content .contenu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 20px;
+        width: 100%;
+
+    }
+
+    .content .contenu .link {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        width: 100%;
+    }
+
+    .content .contenu form {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
         align-items: flex-start;
         flex-direction: column;
-        padding: 50px;
-        margin-top: 100px;
-        
     }
-    .content .titre p{
-        color: rgb(29, 84, 147);
-        margin-bottom: 8px;
-        font-weight: bold;
+
+    .content .contenu form input {
+        width: 100%;
+        border: 1px solid cadetblue;
+        margin-bottom: 10px;
+        padding: 25px;
     }
-    .content .titre a{
-        margin-bottom: 8px;
+
+    .content .contenu .link a {
+        margin-bottom: 20px;
+        margin: 7px;
+        padding: 20px;
+    }
+
+    .content .contenu table {
+        width: 100%;
+    }
+
+    .content .contenu table tr th {
+        background-color: rgb(18, 89, 131);
+        color: white;
+    }
+
+
+    @media(max-width:1135px) {
+        .content {
+            display: flex;
+        justify-content: center;
+        align-items: center;
+            margin-left: 0;
+            
+        }
+    .content  .contenus{
+        margin-top: 15px;
+        width: 95%;
     }
     .content .contenu{
+        display: flex;
+        justify-content: flex-start;
+        align-items:flex-start;
+        flex-wrap: wrap;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin-right: 0;
         width: 100%;
         
     }
-    .content .contenu .rechercher button{
-        margin-top: 8px;
-        margin-bottom: 8px;
+    .content .contenus .contenu table{
+        width: 100%;
     }
-    .content .contenu table tr th{
-        background-color: rgb(16, 44, 76);
-        color: white;
     }
-</style>
-  
+ </style>
+
 
 <div class="content">
-    <div class="contenu">
-        <div class="rechercher">
-            <form action="" method="get">
-                <input type="text" name="recherche" placeholder="Rechecher un congé" class="form-control" required>
-                <button type="submit" class="btn btn-success btn-block">Rechecher</button>
+        <div class="contenu">
+            <div class="link">
+                <a href="{% url 'approuveRejetConge' %}" class="btn btn-info">Répondre aux demandes</a>
+            </div>
+            <form action="" method="GET">
+                <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
+                    id="search">
             </form>
-        </div>
-        <div class="titre">
-            <a href="{% url 'approuveRejetConge' %}" class="btn btn-dark btn-block">Répondre aux demandes des Congés</a>
-            <a href="{% url 'listeApprobationRejet' %}" class="btn btn-info btn-block">Mes Approbations</a>
-            <p>Liste des Congés en Attente</p>
-        </div>
-        <table class="table tabele-responsive table-bordered">
+            <p>Liste des Congés en attente de Confirmation </p>
+            <table class="table table-hover table-responsive">
+                
             <tr>
                 <th>N°</th>
                 <th>Personnel</th>
+                <th>Service</th>
+                <th>Fonction</th>
+                <th>Grade</th>
                 <th>Titre</th>
                 <th>Motif</th>
                 <th>Nature</th>
                 <th>Date Création</th>
             </tr>
-            {% for liste_object in liste_object %}
+                
+                {% for liste_object in liste_object %}
+                <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{liste_object.personnel.getPersonnel}}</td>
+                {% if liste_object.personnel.fonction %}
+                <td>{{liste_object.personnel.fonction.service}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if liste_object.personnel.fonction %}
+                <td>{{liste_object.personnel.fonction.designation}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if liste_object.personnel.grade %}
+                <td>{{liste_object.personnel.grade}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+
                 <td><a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre}}</a></td>
                 <td>{{liste_object.motif|truncatewords:3}}</td>
                 <td>{{liste_object.nature}}</td>
@@ -67,12 +147,28 @@
               </tr>
               {% empty %}
               <tr>
-                <td colspan="5">Pas des demandes actuellement</td>
+                <td colspan="5">Pas des congés dans la Base de données</td>
               </tr>
-            {% endfor %}
-        </table>
-    </div>
+                
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
 </div>
 
+<script>
 
+    $(document).ready(function(){
+       $("#search").on("keyup", function(){
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function(){
+             $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value)>-1)
+          });
+       });
+    });
+ 
+ </script>
+  
 {% endblock content %}
+

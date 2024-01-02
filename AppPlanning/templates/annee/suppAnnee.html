@@ -1,45 +1,102 @@
 {% extends "base/base.html" %}
 {% block content %}
 <style>
-    .content{
+    .content {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: teal;
-        margin-top: 134px;
+        margin-left: 206px;
+        background-color: rgb(23, 59, 82);
+        height: 100vh;
+        
+
     }
-    .content .contenu{
+
+    .content  .contenus{
+        margin-top: 15px;
+    }
+
+    .content .contenu {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: white;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        width: 400px;
-        margin-top: 30px;
-        margin-bottom: 30px;
         padding: 10px;
+        margin-right: 20px;
         border-radius: 5px;
+        width: 420px;
+        background-color: #fff;
+
     }
-    .content .contenu form{
-        width: 98%;
+    .content .contenu .titre{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
     }
-    .content .contenu form button{
-        margin-top: 8px;
-        margin-bottom: 8px;
+
+    .content .contenu form {
+        width: 100%;
+    }
+
+    .content .contenu form button {
+        margin-top: 10px;
+    }
+
+
+
+    @media(max-width:1135px) {
+        .content {
+            display: flex;
+        justify-content: center;
+        align-items: center;
+            margin-left: 0;
+            
+        }
+        .content .contenus{
+            width: 95%;
+        }
+        .content .contenus .contenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin-right: 0;
+        border-radius: 5px;
+        width: 100%;
+        
+
+    }
+
     }
 </style>
 
+
 <div class="content">
-    <div class="contenu">
-        <p style="color: teal;">Voulez-vous vraiment supprimer cette année :  {{get_id.personnel.username}}</p>
-        <form action="" method="post" novalidate>
-            {% csrf_token %}
-            {{form}}
-            <button type="submit" class="btn btn-danger btn-block">Confirmer la suppression</button>
+    <div class="contenus">
+        <div class="message">
+            {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                <p>{{message}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="contenu">
+            <div class="titre">
+        <p style="color: teal;">Voulez-vous vraiment supprimer cette Année  {{get_id.designation}}</p>
+            </div>
+            <form action="" method="post">
+                <hr>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-block">Confirmer la suppression</button>
             <a href="{% url 'listeAnnee' %}" class="btn btn-success btn-block">Ne pas supprimer</a>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-  
+
 {% endblock content %}

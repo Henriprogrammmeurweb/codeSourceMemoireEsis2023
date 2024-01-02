@@ -3,12 +3,17 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from .import models
 import sweetify
 from .import forms
 
 
 def index(request):
+    if request.user.is_authenticated :
+        return redirect('dashboard')
     return render(request, 'index/index.html')
+
+
 
 def loginUser(request):
     if request.user.is_authenticated :
@@ -22,12 +27,7 @@ def loginUser(request):
             user=authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                if request.user.approbateur :
-                    return redirect('congeAttente')
-                elif request.user.is_superuser or request.user.sbgr:
-                    return redirect('listePersonnel')
-                else:
-                    return redirect('dashboard')
+                return redirect('dashboard')
             else:
                 messages.error(request, "Authentification échouée Merci de ressayer !")
         else:
@@ -63,7 +63,7 @@ def changePassword(request):
             messages.info(request, "Vous êtes maintenant deconnecté, votre mot de passe a été changé, connectez-vous à nouveau !")
             return redirect('loginUser')
         else:
-            sweetify.error(request, "Impossible !")
+            messages.error(request, "Formulaire invalide, veuillez renseigner les champs correctement !")
     else:
         form=forms.FormChangePassword(request.user)
     return render(request, "password/passwordchange.html",{"form":form})
@@ -78,4 +78,6 @@ def contact(request):
     return render(request, "contact.html", {"form":form})
 
 
-
+@login_required
+def ProfilUser(request):
+    return render(request, "profil/profilUser.html")

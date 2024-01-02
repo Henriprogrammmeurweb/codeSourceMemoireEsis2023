@@ -1,51 +1,109 @@
 {% extends "base/base.html" %}
 {% block content %}
 <style>
-    .content{
+    .content {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgb(64, 77, 85);
-        margin-top: 134px;
+        margin-left: 206px;
+        padding-bottom: 60px;
+        background-color: rgb(23, 59, 82);
+        height: 100vh;
+       
+
     }
-    .content .contenu{
+
+    .content  .contenus{
+        margin-top: 15px;
+    }
+
+    .content .contenus .contenu {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: white;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        width: 90%;
-        margin-top: 30px;
-        margin-bottom: 30px;
         padding: 10px;
+        margin-right: 20px;
         border-radius: 5px;
+        width: 420px;
+        background-color: #fff;
+        
+
     }
-    .content .contenu form{
-        width: 98%;
+    .content .contenus .contenu .titre{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
     }
-    .content .contenu form button{
-        margin-top: 8px;
+
+    .content .contenus .contenu form {
+        width: 100%;
+    }
+
+    .content .contenus .contenu form button {
+        margin-top: 10px;
+    }
+
+    @media(max-width:1135px) {
+        .content {
+            display: flex;
+        justify-content: center;
+        align-items: center;
+            margin-left: 0;
+            
+        }
+        .content .contenus{
+            width: 95%;
+        }
+        .content .contenus .contenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin-right: 0;
+        border-radius: 5px;
+        width: 100%;
+        
+
+    }
+
     }
 </style>
 
+
 <div class="content">
-    <div class="contenu">
-        <p style="color: teal;">Planifier les congés des Personnels</p>
-        <form action="" method="post" novalidate>
-            {% csrf_token %}
-            <label for="personnel">Personnel</label>
-            {{form.personnel}}
-           <label for="annee">Année</label>
-            {{form.annee}}
-            <label for="date_debut">Date debut</label>
-            {{form.date_debut}}
-            <label for="date_fin">Date fin</label>
-            {{form.date_fin}}
-            <button type="submit" class="btn btn-danger btn-block">Enregistrer</button>
-            <button type="reset" class="btn btn-dark btn-block">Recommencer</button>
-        </form>
+    <div class="contenus">
+        <div class="message">
+            {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                <p>{{message}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="contenu">
+            <div class="titre">
+                <p>Planifier les Congés</p>
+            </div>
+            <form action="" method="post">
+                <hr>
+                {% csrf_token %}
+                <label for="personnel">Personnel</label>
+                {{form.personnel}}
+                <label for="annee">Année</label>
+                {{form.annee}}
+                <label for="date_debut">Date debut</label>
+                {{form.date_debut}}
+                <label for="date_fin">Date fin</label>
+                {{form.date_fin}}
+                <button type="submit" class="btn btn-info btn-block">Planifier</button>
+            </form>
+        </div>
     </div>
 </div>
-  
+
 {% endblock content %}

@@ -1,9 +1,11 @@
+import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission
-from AppConge.models import Demande,Conge, Retour
+from AppConge.models import Demande,Conge
 from django.contrib import messages
 from AppAccount.models import Personnel
+from AppPlanning.models import Planning
 import sweetify
 from .import forms
 from .import models
@@ -17,16 +19,22 @@ def dashboard(request):
     nombreConge=Conge.objects.filter(personnel=request.user).count()
     nombreApprouve=Demande.objects.filter(conge__personnel=request.user, approbation=True).count()
     nombreRejet=Demande.objects.filter(conge__personnel=request.user, approbation=False).count()
-    nombreEncours=Demande.objects.exclude(approbation=False).exclude(id__in=Retour.objects.filter().values_list("demande__id",flat=True)).filter(conge__personnel=request.user).count()
+    nombreEncours=Demande.objects.exclude(approbation=False).exclude(conge__date_fin__lt=datetime.date.today()).filter(conge__personnel=request.user).count()
     nombreAttente=Conge.objects.exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True)).filter(personnel=request.user).count()
-    retourConfirme=Retour.objects.filter(demande__conge__personnel=request.user).count()
+    plannings=Planning.objects.filter(service__fonction__personnel=request.user).count()
+    panningsUser=Planning.objects.filter(personnel=request.user).count()
+    personnel=Personnel.objects.count()
+    liste_object=Conge.objects.filter(personnel=request.user)[:5]
     context={
         "nombreConge":nombreConge,
         "nombreApprouve":nombreApprouve,
         "nombreRejet":nombreRejet,
         "nombreAttente":nombreAttente,
         "nombreEncours":nombreEncours,
-        "retourConfirme":retourConfirme
+        "liste_object":liste_object,
+        "plannings":plannings,
+        "personnel":personnel,
+        'panningsUser':panningsUser
     }
     return render(request, 'dashboard/dashboard.html', context)
 
@@ -34,12 +42,6 @@ def dashboard(request):
 @permission_required("AppPersonnel.view_service", raise_exception=True)
 def listeService(request):
     liste_object=models.Service.objects.all().order_by('designation')
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Service.objects.filter(designation__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "service/listeservice.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -55,14 +57,14 @@ def ajoutService(request):
             designation=form.cleaned_data['designation']
             verification=models.Service.objects.filter(designation=designation).exists()
             if verification:
-                sweetify.error(request, f"Le service {designation} exite déjà !")
+                messages.warning(request, f"Le service {designation} exite déjà !")
             else:
                 new_service=models.Service.objects.create(designation=designation)
                 new_service.save()
-                sweetify.success(request, f"Service {designation} crée avec succès !")
+                messages.warning(request, f"Service {designation} crée avec succès !")
                 form=forms.FormAddService()
         else:
-            sweetify.error(request, "Impossible d'ajouté ce Service")
+            messages.warning(request, "Impossible d'ajouté ce Service")
     else:
         form=forms.FormAddService()
     return render(request, "service/ajoutService.html",{"form":form})
@@ -78,13 +80,13 @@ def modifService(request,id):
             designation=form.cleaned_data['designation']
             verification=models.Service.objects.filter(designation=designation).exists()
             if verification:
-                sweetify.error(request, f"Le service {designation} exite déjà tu n'as pas apporté des Modifications!")
+                messages.error(request, f"Le service {designation} exite déjà tu n'as pas apporté des Modifications!")
             else:
                 form.save()
-                sweetify.success(request, f"Service {get_id.designation} Modifier avec succès !")
+                messages.success(request, f"Service {get_id.designation} Modifier avec succès !")
                 return redirect('listeService')
         else:
-            sweetify.error(request, "Impossible d'ajouté ce Service")
+            messages.error(request, "Impossible d'ajouté ce Service")
     else:
         form=forms.FormAddService(instance=get_id)
     return render(request, "service/modifService.html",{"form":form, "get_id":get_id})
@@ -97,9 +99,12 @@ def modifService(request,id):
 def suppService(request,id):
     get_id=models.Service.objects.get(id=id)
     if request.method == "POST":
-        get_id.delete()
-        sweetify.success(request, f"Service {get_id.designation} supprimer avec succès !")
-        return redirect('listeService')
+        try:
+            get_id.delete()
+            messages.warning(request, f"Service {get_id.designation} supprimé avec succès !")
+            return redirect('listeService')
+        except:
+            messages.warning(request, "Impossible de supprimer un objet déjà lié !")
     return render(request, 'service/suppServiceConfirm.html',{"get_id":get_id})
 
 @login_required
@@ -118,12 +123,6 @@ def listePersonnelService(request,id):
 @permission_required("AppAccount.view_personnel", raise_exception=True)
 def listePersonnel(request):
     liste_object=Personnel.objects.all().order_by('-date_creation')
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=Personnel.objects.filter(username__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "personnel/listePersonnel.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -194,9 +193,9 @@ def ajoutPersonnel(request):
             sbgr=form.cleaned_data['sbgr']
             planificateur=form.cleaned_data['planificateur']
             if len(password) < 6:
-                sweetify.info(request, "Le mot de passe doit être au moins de 6 caractère !")
+                messages.warning(request, "Le mot de passe doit être au moins de 6 caractère !")
             elif password.isdigit():
-                sweetify.info(request, "Le mot de passe ne doit être composé de chiffre et de lettre !")
+                messages.warning(request, "Le mot de passe ne doit être composé de chiffre et de lettre !")
             elif demandeur == True:
                 new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
                                                             sexe=sexe, grade=grade, fonction=fonction, date_naissance=date_naissance, date_engagement=date_engagement,
@@ -211,7 +210,7 @@ def ajoutPersonnel(request):
                 new_personnel.user_permissions.add(suppRetourConge)
                 new_personnel.user_permissions.add(viewRetourConge)
                 new_personnel.save()
-                sweetify.success(request, "Personnel demandeur de congé crée !")
+                messages.warning(request, "Personnel demandeur de congé crée !")
                 form=forms.FormAddPersonnel()
             elif planificateur == True :
                 new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
@@ -231,7 +230,7 @@ def ajoutPersonnel(request):
                 new_personnel.user_permissions.add(viewPlanning)
                 new_personnel.user_permissions.add(suppPlanning)
                 new_personnel.save()
-                sweetify.success(request, "Personnel Planificateur de congé créé !")
+                messages.warning(request, "Personnel Planificateur de congé créé !")
                 form=forms.FormAddPersonnel()
             elif approbateur == True :
                 new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
@@ -251,7 +250,7 @@ def ajoutPersonnel(request):
                 new_personnel.user_permissions.add(viewDemande)
                 new_personnel.user_permissions.add(suppDemande)
                 new_personnel.save()
-                sweetify.success(request, "Personnel approbateur des congés créé")
+                messages.warning(request, "Personnel approbateur des congés créé")
                 form=forms.FormAddPersonnel()
             else:
                 new_personnel=Personnel.objects.create_user(matricule=matricule, email=email.lower(), username=username,postnom=postnom,prenom=prenom,
@@ -259,10 +258,10 @@ def ajoutPersonnel(request):
                                                             salaire=salaire,prime=prime,etat_civil=etat_civil,password=password,is_active=is_active,is_superuser=is_superuser,
                                                             demandeur=demandeur, approbateur=approbateur, consulteur=consulteur, sbgr=sbgr)
                 new_personnel.save()
-                sweetify.success(request, "Personnel ajouté avec succès !")
+                messages.warning(request, "Personnel ajouté avec succès !")
                 form=forms.FormAddPersonnel()
         else:
-            sweetify.error(request, "Personnel non ajouté  !")
+            messages.warning(request, "Personnel non ajouté  !")
     else:
         form=forms.FormAddPersonnel()
     return render(request, "personnel/ajoutPersonnel.html",{"form":form})
@@ -276,10 +275,10 @@ def modifPersonnel(request,id):
         form=forms.FormChangePersonnel(request.POST, request.FILES,instance=get_personnel)
         if form.is_valid():
             form.save()
-            sweetify.success(request, "Information d'un Personnel changée avec succès !")
+            messages.warning(request, "Information d'un Personnel changée avec succès !")
             return redirect('listePersonnel')
         else:
-            sweetify.error(request,"Informations non changées !")
+            messages.error(request,"Informations non changées !")
     else:
         form=forms.FormChangePersonnel(instance=get_personnel)
     return render(request, "personnel/modifPersonnel.html",{"form":form})
@@ -290,9 +289,12 @@ def modifPersonnel(request,id):
 def suppPersonnel(request,id):
     get_personnel=Personnel.objects.get(id=id)
     if request.method == "POST":
-        get_personnel.delete()
-        sweetify.success(request, f"Personnel {get_personnel.username}-{get_personnel.postnom} supprimé !" )
-        return redirect('listePersonnel')
+        try:
+            get_personnel.delete()
+            messages.warning(request, f"Personnel {get_personnel.username}-{get_personnel.postnom} supprimé !" )
+            return redirect('listePersonnel')
+        except:
+            messages.warning(request,"Impossible de supprimer ce personnel !")
     context={
         "get_personnel":get_personnel
     }
@@ -303,12 +305,6 @@ def suppPersonnel(request,id):
 @permission_required("AppPersonnel.view_fonction", raise_exception=True)
 def listeFonction(request):
     liste_object=models.Fonction.objects.all().order_by('-date_creation')
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Fonction.objects.filter(designation__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "fonction/listeFonction.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -323,15 +319,16 @@ def ajoutFonction(request):
         form=forms.FormAddFonction(request.POST)
         if form.is_valid():
             designation=form.cleaned_data['designation']
-            verification=models.Fonction.objects.filter(designation=designation).exists()
+            service=form.cleaned_data['service']
+            verification=models.Fonction.objects.filter(designation=designation, service=service).exists()
             if verification:
-                sweetify.info(request, "Cette fonction existe déjà !")
+                messages.warning(request, "Cette fonction existe déjà !")
             else:
                 form.save()
-                sweetify.success(request, "Fonction enregistrée !")
+                messages.warning(request, "Fonction enregistrée !")
                 form=forms.FormAddFonction()
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormAddFonction()
     return render(request, "fonction/ajoutFonction.html",{"form":form})
@@ -346,11 +343,17 @@ def modifFonction(request,id):
     if request.method == "POST" :
         form=forms.FormEditerFonction(request.POST,instance=get_id)
         if form.is_valid():
-            form.save()
-            sweetify.success(request, f"La fonction {get_id.designation} a été modifiée !")
-            return redirect('listeFonction')
+            designation=form.cleaned_data['designation']
+            service=form.cleaned_data['service']
+            verification=models.Fonction.objects.filter(designation=designation, service=service).exists()
+            if verification:
+                messages.warning(request, "Cette fonction existe déjà !")
+            else:
+                form.save()
+                messages.warning(request, f"La fonction {get_id.designation} a été modifiée !")
+                return redirect('listeFonction')
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         get_id=models.Fonction.objects.get(id=id)
     context={
@@ -364,9 +367,12 @@ def modifFonction(request,id):
 def suppFonction(request,id):
     get_id=models.Fonction.objects.get(id=id)
     if request.method == "POST":
-        get_id.delete()
-        sweetify.info(request, f"La fonction {get_id.designation} a été supprimée !")
-        return redirect('listeFonction')
+        try:
+            get_id.delete()
+            messages.warning(request, f"La fonction {get_id.designation} a été supprimée !")
+            return redirect('listeFonction')
+        except:
+            messages.warning(request, "Impossible de supprimer cette Fonction !")
     return render(request, "fonction/confirmSuppFonction.html",{"get_id":get_id})
 
 
@@ -386,12 +392,6 @@ def listePersonnelFonction(request,id):
 @permission_required("AppPeronnel.view_grade",raise_exception=True)
 def listeGrade(request):
     liste_object=models.Grade.objects.all().order_by('-date_creation')
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Grade.objects.filter(designation__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "grade/listeGrade.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -405,10 +405,10 @@ def ajoutGrade(request):
         form=forms.FormAddGrade(request.POST)
         if form.is_valid():
             form.save()
-            sweetify.success(request, "Grade enregistré avec succès !")
+            messages.warning(request, "Grade enregistré avec succès !")
             form=forms.FormAddGrade()
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormAddGrade()
     return render(request, "grade/ajoutGrade.html",{"form":form})
@@ -423,10 +423,10 @@ def modifGrade(request,id):
         form=forms.FormAddGrade(request.POST,instance=get_id)
         if form.is_valid():
             form.save()
-            sweetify.info(request, "Grade modifié avec succès !")
+            messages.warning(request, "Grade modifié avec succès !")
             return redirect('listeGrade')
         else:
-            sweetify.error(request, 'Formulaire invalide !')
+            messages.warning(request, 'Formulaire invalide !')
     return render(request, 'grade/modifGrade.html',{"form":form,"get_id":get_id})
 
 
@@ -441,6 +441,6 @@ def suppGrade(request,id):
     get_id=models.Grade.objects.get(id=id)
     if request.method == "POST":
         get_id.delete()
-        sweetify.info(request, "Grade supprimé avec succès !")
+        messages.warning(request, "Grade supprimé avec succès !")
         return redirect('listeGrade')
     return render(request, "grade/suppGrade.html",{"get_id":get_id})

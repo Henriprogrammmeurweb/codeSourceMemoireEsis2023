@@ -1,57 +1,124 @@
 {% extends "base/base.html" %}
 {% block content %}
-
 <style>
     .content {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: flex-start;
-        flex-direction: column;
-        padding: 50px;
-        margin-top: 100px;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 7px;
 
     }
 
-    .content .titre p {
-        color: rgb(29, 84, 147);
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
-
-    .content .titre a {
-        margin-bottom: 8px;
+    .content .contenus {
+        margin-top: 15px;
     }
 
     .content .contenu {
-        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 20px;
 
     }
 
-    .content .contenu .rechercher button {
-        margin-top: 8px;
-        margin-bottom: 8px;
+    .content .contenu .link {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        width: 100%;
+    }
+
+    .content .contenu form {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .content .contenu form input {
+        width: 100%;
+        border: 1px solid cadetblue;
+        margin-bottom: 10px;
+        padding: 25px;
+    }
+
+    .content .contenu .link a {
+        margin-bottom: 20px;
+        margin: 7px;
+        padding: 20px;
+    }
+
+    .content .contenu table {
+        width: 100%;
     }
 
     .content .contenu table tr th {
-        background-color: rgb(16, 44, 76);
+        background-color: rgb(18, 89, 131);
         color: white;
+    }
+
+
+    @media(max-width:1135px) {
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 0;
+
+        }
+
+        .content .contenus {
+            margin-top: 15px;
+            width: 95%;
+        }
+
+        .content .contenu {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+            padding: 10px;
+            margin-right: 0;
+            width: 100%;
+
+        }
+
+        .content .contenus .contenu table {
+            width: 100%;
+        }
     }
 </style>
 
 
 <div class="content">
     <div class="contenu">
-        <div class="rechercher">
-            <form action="" method="get">
-                <input type="text" name="recherche" placeholder="Rechecher un service" class="form-control" required>
-                <button type="submit" class="btn btn-success btn-block">Rechecher</button>
-            </form>
+        <div class="link">
+            <a href="{% url 'ajoutPersonnel' %}" class="btn btn-info">Ajouter un Personnel</a>
+            <a href="{% url 'listeService' %}" class="btn btn-success">Listes Services</a>
+            <a href="{% url 'listeFonction' %}" class="btn btn-dark">Listes Fonctions</a>
+            <a href="{% url 'listeGrade' %}" class="btn btn-primary">Listes Grades</a>
         </div>
-        <div class="titre">
-            <a href="{% url 'ajoutPersonnel' %}" class="btn btn-dark btn-block">Ajouter un Personnel</a>
-            <p>Liste des Personnels</p>
-        </div>
-        <table class="table tabele-responsive table-bordered">
+        <form action="" method="GET">
+            <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
+                id="search">
+        </form>
+        <p class="box-title mb-0">Liste des Personnels</p>
+            <div class="messages">
+                {% for message in messages %}
+                  <div class="alert alert-warning" role="alert">
+                    <p>{{message}}</p>
+                  </div>
+                {% endfor %}
+            </div>
+        <table class="table table-hover table-responsive">
+
             <tr>
                 <th>N°</th>
                 <th>Nom</th>
@@ -61,47 +128,67 @@
                 <th>Sexe</th>
                 <th>Service</th>
                 <th>Fonction</th>
-                <th>Grade</th>
+                <th>Actif</th>
+                <th>Date_creation</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
+
             {% for liste_object in liste_object %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i>
-                        {{liste_object.username}}</a></td>
-                <td>{{liste_object.postnom}}</td>
-                <td>{{liste_object.prenom}}</td>
-                {% if liste_object.matricule %}
-                <td>{{liste_object.matricule}}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-                <td>{{liste_object.sexe}}</td>
-                {% if liste_object.fonction.service %}
-                <td>{{liste_object.fonction.service}}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-                {% if liste_object.fonction.designation %}
-                <td>{{liste_object.fonction.designation}}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-                {% if liste_object.grade %}
-                <td>{{liste_object.grade}}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-                <td><a href="{% url 'modifPersonnel' liste_object.id %}" class="btn btn-success">Modifier</a></td>
-                <td><a href="{% url 'suppPersonnel' liste_object.id %}" class="btn btn-danger">Supprimer</a></td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="11">Pas des Personnels dans la Base de données</td>
-            </tr>
+            <tbody id="myTable">
+
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i
+                                class="fa fa-user-circle" aria-hidden="true"></i>
+                            {{liste_object.username}}</a></td>
+                    <td>{{liste_object.postnom}}</td>
+                    <td>{{liste_object.prenom}}</td>
+                    {% if liste_object.matricule %}
+                    <td>{{liste_object.matricule}}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                    <td>{{liste_object.sexe}}</td>
+                    {% if liste_object.fonction.service %}
+                    <td>{{liste_object.fonction.service}}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                    {% if liste_object.fonction %}
+                    <td>{{liste_object.fonction.designation}}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                    <td>{{liste_object.is_active}}</td>
+                    <td>{{liste_object.date_creation|truncatewords:1}}</td>
+                    <td><a href="{% url 'modifPersonnel' liste_object.id %}">Modifier</a></td>
+                    <td><a href="{% url 'suppPersonnel' liste_object.id %}">Supprimer</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="11">Pas des Personnels dans la Base de données</td>
+                </tr>
+
+            </tbody>
             {% endfor %}
         </table>
     </div>
+
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>
+
 {% endblock content %}

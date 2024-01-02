@@ -9,10 +9,13 @@ urlpatterns = [
     path('', include("AppAccount.urls")),
     path('personnel/', include('AppPersonnel.urls')),
     path('conge/', include('AppConge.urls')),
-    path('conge/planning/', include('AppPlanning.urls'))
+    path('planning/', include('AppPlanning.urls'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 handler403 = "AppAccount.views.page403"
 handler404 = "AppAccount.views.page404"
 handler500 = "AppAccount.views.page500"
+
+
+

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
 from ProjectGestionPersonnel.settings import EMAIL_HOST
+from django.contrib import messages
 import datetime
 from .import forms
 from .import models
@@ -15,12 +16,6 @@ import sweetify
 @permission_required('AppConge.view_conge', raise_exception=True)
 def CongeUser(request):
     liste_object=models.Conge.objects.filter(personnel=request.user)
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Conge.objects.filter(titre__icontains=recherche, personnel=request.user)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "conge/congeuser.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -33,14 +28,19 @@ def ajoutConge(request):
     if request.method == "POST":
         form=forms.FormAjoutConge(request.POST)
         if form.is_valid():
-            conge=form.save(commit=False)
-            conge.personnel=request.user
-            conge.save()
-            sweetify.success(request, 
-                             "Votre demande de congé a été envoyé aux approbateurs,vous recevrez une réponse dans un bref delai")
-            form=forms.FormAjoutConge()
+            date_debut=form.cleaned_data['date_debut']
+            date_fin=form.cleaned_data['date_fin']
+            if date_fin < date_debut :
+                messages.warning(request, "Date de fin inférieure à la date début !")
+            else:
+                conge=form.save(commit=False)
+                conge.personnel=request.user
+                conge.save()
+                messages.warning(request, 
+                                "Votre demande de congé a été envoyé aux approbateurs")
+                form=forms.FormAjoutConge()
         else:
-            sweetify.error(request, "Demande non envoyée merci de ressayer plus tard !")
+            messages.error(request, "Demande non envoyée merci de ressayer plus tard !")
     else:
         form=forms.FormAjoutConge()
     return render(request, "conge/ajoutConge.html",{"form":form})
@@ -50,17 +50,22 @@ def ajoutConge(request):
 def modifConge(request,id):
     get_conge=models.Conge.objects.get(id=id)
     demande=models.Demande.objects.filter(conge=get_conge).exists()
-    if demande :
+    if demande or get_conge.personnel != request.user:
         return render(request, 'error/page_403.html')
     form=forms.FormAjoutConge(instance=get_conge)
     if request.method == "POST":
         form=forms.FormAjoutConge(request.POST, instance=get_conge)
         if form.is_valid():
-            conge=form.save(commit=False)
-            conge.personnel=request.user
-            conge.save()
-            sweetify.success(request, "Votre demande de congé a été envoyé aux approbateurs, vous recevrez une réponse dans un bref delai")
-            return redirect('CongeUser')
+            date_debut=form.cleaned_data['date_debut']
+            date_fin=form.cleaned_data['date_fin']
+            if date_fin < date_debut :
+                messages.warning(request, "Date de fin inférieure à la date début !")
+            else:
+                conge=form.save(commit=False)
+                conge.personnel=request.user
+                conge.save()
+                messages.warning(request, "Votre demande de congé a été envoyé aux approbateurs")
+                return redirect('CongeUser')
         else:
             sweetify.error(request, "Demande non envoyée merci de ressayer plus tard !")
     else:
@@ -72,11 +77,11 @@ def modifConge(request,id):
 def suppConge(request,id):
     get_conge=models.Conge.objects.get(id=id)
     demande=models.Demande.objects.filter(conge=get_conge).exists()
-    if demande :
+    if demande or get_conge.personnel != request.user:
         return render(request, 'error/page_403.html')
     if request.method == "POST":
         get_conge.delete()
-        sweetify.success(request, f"Demande de conge {get_conge.titre} supprimé avec succès !")
+        messages.warning(request, f"Demande de conge {get_conge.titre} supprimé avec succès !")
         return redirect('CongeUser')
     return render(request, "conge/confirmSupp.html",{"get_conge":get_conge})
 
@@ -85,6 +90,8 @@ def suppConge(request,id):
 @permission_required('AppConge.view_conge', raise_exception=True)
 def detailConge(request,id):
     get_conge=models.Conge.objects.get(id=id)
+    if get_conge.personnel != request.user:
+        return render(request, 'error/page_403.html')
     context={
         "get_conge":get_conge
     }
@@ -108,61 +115,16 @@ def approuveRejetConge(request):
     if request.method == "POST":
         form=forms.FormAddApprobation(request.POST)
         if form.is_valid():
-            approbation=form.cleaned_data['approbation']
-            date_debut=form.cleaned_data['date_debut']
-            date_fin=form.cleaned_data['date_fin']
-            if approbation == False and  date_debut != date_fin :
-                sweetify.info(request, "La date de début doit être identique à la date de fin !")
-            elif approbation == False and date_debut != datetime.date.today():
-                sweetify.info(request, "La date de début doit être égale à la date d'aujourd'hui !")
-            elif approbation == False and date_fin != datetime.date.today():
-                sweetify.info(request, "La date de fin doit être identique à la date d'aujourd'hui !")
-            elif date_fin < date_debut :
-                sweetify.info(request, "Date de fin inférieure à la date début !")
-            else:
-                form.save()
-                sweetify.success(request, "Merci d'avoir fourni une réponse à cette demande")
-                form=forms.FormAddApprobation()
+            form.save()
+            messages.warning(request, "Merci d'avoir fourni une réponse à cette demande")
+            form=forms.FormAddApprobation()
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormAddApprobation()
     return render(request, "approbation/approuveRejetConge.html", {"form":form})
 
- 
-
-@login_required
-@permission_required("AppConge.view_retour", raise_exception=True)
-def listeRetourConge(request):
-    liste_object=models.Retour.objects.filter(personnel=request.user).order_by('-date_creation')
-    context={
-        'liste_object':liste_object
-    }
-    return render(request, 'retour/listeRetourConge.html', context)
-
-
-@login_required
-@permission_required("AppConge.add_retour", raise_exception=True)
-def confirmRetourConge(request):
-    form=forms.FormRetourConge(request=request)
-    if request.method == "POST":
-        form=forms.FormRetourConge(request.POST,request=request)
-        if form.is_valid():
-            confimer_retour=form.cleaned_data['confimer_retour']
-            if confimer_retour == False:
-                sweetify.info(request, "Veuillez cocher la case")
-            else:
-                retour=form.save(commit=False)
-                retour.personnel=request.user
-                retour.save()
-                sweetify.success(request, "Retour confirmé bon Travail !")
-                form=forms.FormRetourConge(request=request)
-        else:
-            sweetify.error(request, "Formulaire invalide !")
-    else:
-        form=forms.FormRetourConge(request=request)
-    return render(request, "retour/confirmRetourConge.html",{"form":form})
-
+    
 
 @login_required
 @permission_required('AppConge.view_conge', raise_exception=True)
@@ -186,13 +148,7 @@ def congeRejet(request):
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def congeEncours(request):
-    liste_object=models.Demande.objects.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True)).filter(conge__personnel=request.user)
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Conge.objects.exclude.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True)).filter(conge__personnel=request.user, titre__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "conge/congeAttenteUser.html", {"liste_object":liste_object})
+    liste_object=models.Demande.objects.exclude(approbation=False).exclude(conge__date_fin__lt=datetime.date.today()).filter(conge__personnel=request.user)
     context={
         "liste_object":liste_object
     }
@@ -201,12 +157,6 @@ def congeEncours(request):
 @login_required
 def congeAttenteUser(request):
     liste_object=models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).filter(personnel=request.user)
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).filter(titre__icontains=recherche, personnel=request.user)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "conge/congeAttenteUser.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -217,12 +167,6 @@ def congeAttenteUser(request):
 @permission_required("AppConge.view_demande", raise_exception=True)
 def listeApprobationRejet(request):
     liste_object=models.Demande.objects.all().order_by('-date_creation')
-    if request.method == "GET":
-        recherche=request.GET.get('recherche')
-        if recherche:
-            liste_object=models.Demande.objects.filter(conge__personnel__username__icontains=recherche)
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "approbation/listeApprobationRejet.html", {"liste_object":liste_object})
     context={
         "liste_object":liste_object
     }
@@ -236,19 +180,11 @@ def modifApprobationRejet(request,id):
     if request.method == "POST":
         form=forms.FormChangeApprobation(request.POST,instance=get_id)
         if form.is_valid():
-            approbation=form.cleaned_data['approbation']
-            date_debut=form.cleaned_data['date_debut']
-            date_fin=form.cleaned_data['date_fin']
-            if approbation == False and  date_debut != date_fin :
-                sweetify.info(request, "La date de début doit être identique à la date de fin !")
-            elif date_fin < date_debut :
-                sweetify.info(request, "Date de fin inférieure à la date début !")
-            else:
-                form.save()
-                sweetify.success(request, "Cette Réponse a été Modifiée")
-                return redirect('listeApprobationRejet')
+            form.save()
+            messages.warning(request, "Cette Réponse a été Modifiée")
+            return redirect('listeApprobationRejet')
         else:
-            sweetify.error(request, "Formulaire invalide !")
+            messages.warning(request, "Formulaire invalide !")
     else:
         form=forms.FormChangeApprobation(instance=get_id)
     context={
@@ -263,7 +199,7 @@ def suppDemande(request,id):
     get_id=models.Demande.objects.get(id=id)
     if request.method == "POST":
         get_id.delete()
-        sweetify.info(request, "La réponse à cette demande a été supprimée !")
+        messages.warning(request, "La réponse à cette demande a été supprimée !")
         return redirect('listeApprobationRejet')
     return render(request, "approbation/suppDemande.html", {"get_id":get_id})
 
@@ -278,14 +214,7 @@ def detailDemande(request,id):
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def consulterCongeEncours(request):
-    liste_object=models.Demande.objects.exclude(approbation=False).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True))
-    if request.method == "GET":
-        date_debut=request.GET.get('date-debut')
-        date_fin=request.GET.get('date-fin')
-        if date_debut and date_fin:
-            liste_object=models.Demande.objects.filter(approbation=True, date_debut__range=(date_debut, date_fin)).exclude(id__in=models.Retour.objects.filter().values_list("demande__id",flat=True))
-            sweetify.success(request, 'Résultats de la recheche')
-            return render(request, "conge/consulterCongeEncours.html", {"liste_object":liste_object})
+    liste_object=models.Demande.objects.exclude(approbation=False).exclude(conge__date_fin__lt=datetime.date.today())
     context={
         "liste_object":liste_object
     }
