@@ -25,13 +25,18 @@
 
     }
 
-    .content .contenu .link {
+   .content .contenu .link {
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
         padding-bottom: 15px;
         width: 100%;
+        flex-wrap: wrap;
     }
+    .content .contenu .link a{
+        width: 250px;
+    }
+
 
     .content .contenu form {
         width: 100%;
@@ -67,9 +72,10 @@
     @media(max-width:1135px) {
         .content {
             display: flex;
-        justify-content: center;
-        align-items: center;
-            margin-left: 0;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+            margin-right: 5px;
             
         }
     .content  .contenus{

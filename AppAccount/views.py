@@ -81,3 +81,7 @@ def contact(request):
 @login_required
 def ProfilUser(request):
     return render(request, "profil/profilUser.html")
+
+@login_required
+def guideUser(request):
+    return render(request, "guide/guideUser.html")

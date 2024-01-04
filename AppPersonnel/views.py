@@ -122,7 +122,7 @@ def listePersonnelService(request,id):
 @login_required
 @permission_required("AppAccount.view_personnel", raise_exception=True)
 def listePersonnel(request):
-    liste_object=Personnel.objects.all().order_by('-date_creation')
+    liste_object=Personnel.objects.all().order_by('username')
     context={
         "liste_object":liste_object
     }
@@ -275,7 +275,7 @@ def modifPersonnel(request,id):
         form=forms.FormChangePersonnel(request.POST, request.FILES,instance=get_personnel)
         if form.is_valid():
             form.save()
-            messages.warning(request, "Information d'un Personnel changée avec succès !")
+            messages.warning(request, f"Information de {get_personnel.getPersonnel} changée avec succès !")
             return redirect('listePersonnel')
         else:
             messages.error(request,"Informations non changées !")
@@ -291,7 +291,7 @@ def suppPersonnel(request,id):
     if request.method == "POST":
         try:
             get_personnel.delete()
-            messages.warning(request, f"Personnel {get_personnel.username}-{get_personnel.postnom} supprimé !" )
+            messages.warning(request, f"Personnel {get_personnel.getPersonnel} supprimé !" )
             return redirect('listePersonnel')
         except:
             messages.warning(request,"Impossible de supprimer ce personnel !")
@@ -440,7 +440,22 @@ def modifGrade(request,id):
 def suppGrade(request,id):
     get_id=models.Grade.objects.get(id=id)
     if request.method == "POST":
-        get_id.delete()
-        messages.warning(request, "Grade supprimé avec succès !")
-        return redirect('listeGrade')
+        try:
+            get_id.delete()
+            messages.warning(request, "Grade supprimé avec succès !")
+            return redirect('listeGrade')
+        except:
+            messages.warning(request, "Impossible de supprimer ce grade !")
     return render(request, "grade/suppGrade.html",{"get_id":get_id})
+
+
+@login_required
+@permission_required("AppAccount.view_personnel",raise_exception=True)
+def listePersonnelGrade(request,id):
+    get_id=models.Grade.objects.get(id=id)
+    liste_object=Personnel.objects.filter(grade=get_id)
+    context={
+        "get_id":get_id,
+        'liste_object':liste_object
+    }
+    return render(request, "grade/listePersonnelGrade.html",context)

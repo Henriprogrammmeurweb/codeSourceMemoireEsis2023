@@ -3,11 +3,10 @@
  <style>
     .content{
         display: flex;
-        justify-content: flex-start;
+        justify-content:flex-start;
         align-items: flex-start;
-        margin-left: 206px;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        margin-right: 15px;
+        margin-right: 1%;
         
     }
     .content  .contenus{
@@ -82,30 +81,24 @@
     <div class="contenus">
         <div class="contenu">
             <div class="link">
-                <a href="{% url 'ajoutFonction' %}" class="btn btn-info">Ajouter une Fonction</a>
+                <a href="{% url 'ajoutGrade' %}" class="btn btn-info">Ajouter un Grade</a>
 
                 <form action="" method="GET">
                     <input type="text" name="recherche" class="form-control" required
                     placeholder="Rechercher ici..........." id="search">
                 </form>        
-            <p>Liste des Fonctions</p>
-            <div class="messages">
-                {% for message in messages %}
-                  <div class="alert alert-warning" role="alert">
-                    <p>{{message}}</p>
-                  </div>
-                {% endfor %}
-            </div>
+            <p>Liste des Personenels ayant les Grades de : {{get_id.designation}}</p>
             </div>
             <table class="table table-hover table-responsive">
                 
             <tr>
                 <th>N°</th>
-                <th>Designation</th>
-                <th>Service</th>
                 <th>Personnels</th>
-                <th>Date Création</th>
-                <th>Date Modification</th>
+                <th>Matricule</th>
+                <th>Sexe</th>
+                <th>Service</th>
+                <th>Fonction</th>
+                <th>Grade</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -115,18 +108,36 @@
               
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelFonction' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.designation|truncatewords:2}}</a></td>
-                <td>{{liste_object.service|truncatewords:2}}</td>
-                <td><a href="{% url 'listePersonnelFonction' liste_object.id %}">Personnels</a></td>
-                <td>{{liste_object.date_creation}}</td>
-                <td>{{liste_object.date_modification}}</td>
-                <td><a href="{% url 'modifFonction' liste_object.id %}" >Modifier</a></td>
-                <td><a href="{% url 'suppFonction' liste_object.id %}">Supprimer</a></td>
+                <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i>
+                        {{liste_object.getPersonnel}}</a></td>
+                {% if liste_object.matricule %}
+                <td>{{liste_object.matricule}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                <td>{{liste_object.sexe}}</td>
+                {% if liste_object.fonction.service %}
+                <td>{{liste_object.fonction.service}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if liste_object.fonction.designation %}
+                <td>{{liste_object.fonction.designation}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if liste_object.grade %}
+                <td>{{liste_object.grade}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                 <td><a href="{% url 'modifPersonnel' liste_object.id %}">Modifier</a></td>
+                <td><a href="{% url 'suppPersonnel' liste_object.id %}" >Supprimer</a></td>
               </tr>
               
               {% empty %}
               <tr>
-                <td colspan="5">Pas des Fonctions dans la Base de données</td>
+                <td colspan="5">Pas des Personnels dans la Base de données</td>
               </tr>
                 
                 </tbody>

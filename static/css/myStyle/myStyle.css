@@ -18,8 +18,9 @@ table tr th{
     background-color: rgb(18, 89, 131);
     color: white;
 }
-.content .contenus .contenu .link a{
+.content .contenu .link a{
     padding: 20px;
+    
 }
 .content .contenus .contenu .link input{
     padding: 25px;

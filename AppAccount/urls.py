@@ -17,6 +17,7 @@ urlpatterns=[
     path('appropos-de-nous', views.appropos, name="appropos"),
     path('contact', views.contact, name="contact"),
     path('Profil-user', views.ProfilUser, name="ProfilUser"),
+    path('guide-user', views.guideUser, name="guideUser"),
 
     #reinitialisation du mot de password utilisateur
     path('account/password_reset/', PasswordResetView.as_view(template_name='reset_password/password_reset.html', form_class=forms.Formpassword_reset),name='password_reset'),

@@ -198,6 +198,9 @@
         height: 2px;
         background-color: teal;
     }
+    header nav .burger span.active{
+        display: none;
+    }
     header nav .burger::before{
         content: "";
         position: absolute;
@@ -206,6 +209,10 @@
         background-color: teal;
         transform: translateY(-7px);
     }
+    header nav .burger.active::before{
+        position: absolute;
+        transform: rotate(45deg);
+    }
     header nav .burger::after{
         content: "";
         position: absolute;
@@ -213,6 +220,10 @@
         height: 2px;
         background-color: teal;
         transform: translateY(7px);
+    }
+    header nav .burger.active::after{
+        position: absolute;
+        transform: rotate(-45deg);
     }
     header nav .menu li{
         margin-top: 8px;
@@ -250,6 +261,9 @@
         height: 2px;
         background-color: white;
     }
+    .burger-aside .burgers span.active{
+        display: none;
+    }
     .burger-aside .burgers::before{
         content: "";
         position: absolute;
@@ -258,6 +272,10 @@
         background-color: white;
         transform: translateY(7px);
     }
+    .burger-aside .burgers.active::before{
+        position: absolute;
+        transform: rotate(45deg);
+    }
     .burger-aside .burgers::after{
         content: "";
         position: absolute;
@@ -265,6 +283,10 @@
         height: 2px;
         background-color: white;
         transform: translateY(-7px);
+    }
+    .burger-aside .burgers.active::after{
+        position: absolute;
+        transform: rotate(-45deg);
     }
         aside{
             display: none;
@@ -352,6 +374,8 @@
                 <hr>
                 {% endif %}
                 <li><a href="{% url 'ProfilUser' %}">Profils</a></li>
+                <hr>
+                <li><a href="{% url 'guideUser' %}">Guide</a></li>
                 <hr>
             </ul>
         </div>
