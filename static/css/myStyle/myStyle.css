@@ -18,6 +18,10 @@ table tr th{
     background-color: rgb(18, 89, 131);
     color: white;
 }
+.content .contenus .contenu .link a{
+    width: 250px;
+    padding: 20px;
+}
 .content .contenu .link a{
     padding: 20px;
     
