@@ -64,11 +64,11 @@ class Conge(models.Model):
         reponse = [ligne.approbation for ligne in demande]
         for reponses in reponse:
             if reponses == False:
-                return 0
+                return f"0 Jour"
             elif reponses == True and self.date_debut == self.date_fin:
-                return 1
+                return f"1 Jour"
             elif self.date_debut > date.today() and reponses == True:
-                return "dans le futur"
+                return f"dans le futur"
             elif reponses == True and self.date_fin > date.today():
                 return date.today() - self.date_debut
             elif reponses == True and self.date_fin == date.today():
