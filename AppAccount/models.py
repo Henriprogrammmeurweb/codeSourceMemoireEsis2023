@@ -46,6 +46,10 @@ class Personnel(AbstractUser):
     @property
     def getPersonnel(self):
         return f'{self.username} {self.postnom} {self.prenom}'
+
+    @property
+    def getPersonnelLogin(self):
+        return f'{self.prenom.lower()} {self.username.lower()}'
     
 
        

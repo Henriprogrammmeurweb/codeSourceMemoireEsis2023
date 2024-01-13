@@ -22,8 +22,6 @@
             height: 75px;
         }
     header nav .logo img{
-        
-       
         margin-top: 5px;
         width: 100%;
         height: 100%;
@@ -65,6 +63,11 @@
         justify-content: center;
         align-items: center;
     }
+    header nav .menu span{
+        margin-right: 8px;
+        color: #317bac;
+        text-transform: capitalize;
+    }
     header nav .menu li{
         list-style: none;
     }
@@ -73,6 +76,44 @@
         text-decoration: none;
         font-size: 14px;
         margin: 8px;
+    }
+    header nav .menu .img-user{
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+        cursor: pointer;
+    }
+    header nav .menu .img-user img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center center;
+    }
+    header nav .menu .action-user{
+        display: none;
+        position: relative;
+        
+    }
+    header nav .menu .action-user.active{
+        display: block;
+        position: absolute;
+        content: "";
+        top: 113px;
+        background-color: #fff;
+        width: 200px;
+        right: 0;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.15);
+        padding: 9px 0px 0px 0px;
+        z-index: 10000;
+        
+    }
+    header nav .menu .action-user.active li a{
+        color: rgb(99, 124, 172);
+        margin-left: 15px;
+    }
+    header nav .menu .action-user.active li a:hover{
+        color: #9c6ec7;
     }
     header nav .menu li #login{
         padding: 10px;
@@ -161,86 +202,11 @@
     }
     aside .menus .liste-menu li a{
       text-decoration: none;
-      color: rgb(51, 53, 51);
+      color: rgb(79, 92, 117);
     }
 
 
 
-
-    @media(max-width:600px){
-    header nav .menu{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        display: none;
-    }
-    header nav .menu.responsive{
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 20px;
-        position: absolute;
-        top: 112px;
-        background-color: #535974;
-        width: 100%;
-        height: auto;
-        z-index: 10000;
-    }
-
-    header nav .burger{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 35px;
-        width: 35px;
-        cursor: pointer;
-        margin-right: 20px;
-        
-    }
-    header nav .burger span{
-        width: 35px;
-        height: 2px;
-        background-color: teal;
-    }
-    header nav .burger span.active{
-        display: none;
-    }
-    header nav .burger::before{
-        content: "";
-        position: absolute;
-        width: 35px;
-        height: 2px;
-        background-color: teal;
-        transform: translateY(-7px);
-    }
-    header nav .burger.active::before{
-        position: absolute;
-        transform: rotate(45deg);
-    }
-    header nav .burger::after{
-        content: "";
-        position: absolute;
-        width: 35px;
-        height: 2px;
-        background-color: teal;
-        transform: translateY(7px);
-    }
-    header nav .burger.active::after{
-        position: absolute;
-        transform: rotate(-45deg);
-    }
-    header nav .menu li{
-        margin-top: 8px;
-    }
-    header nav .menu li a{
-        color:#fff;
-        text-decoration: none;
-        font-size: 14px;
-        margin-top: 8px;
-    }
-    }
 
 
     @media(max-width:1135px){
@@ -335,13 +301,29 @@
             <a href="/"><img src="{% static 'img/dps_logo.png' %}" alt=""></a>
             {% endif %}
         </div>
-        <div class="burger">
-            <span></span>
-        </div>
-        <ul class="menu">
-           {% if user.is_authenticated %}
-           <li><a href="{% url 'changePassword' %}" id="login" class="btn">Mot de passe</a></li>
-           <li><a href="{% url 'logoutUser' %}" id="login" class="btn">Se Deconnecter</a></li>
+        <ul class="menu menu-active">
+            {% if user.is_authenticated %}
+            <span>{{user.getPersonnelLogin}}</span>
+            {% if user.photo %}
+              <div class="img-user">
+                <img src="{{user.photo.url}}" alt="">
+              </div>
+            {% else %}
+                <div class="img-user">
+                    <img src="{% static 'assets/img/userlogo.png' %}" alt="">
+                </div>
+            {% endif %}
+            <div class="action-user">
+                <hr>
+                <li><a href="{% url 'ProfilUser' %}">Profils</a></li>
+                <hr>
+                <li><a href="{% url 'guideUser' %}">Guide</a></li>
+                <hr>
+                <li><a href="{% url 'changePassword' %}"  >Mot de passe</a></li>
+                <hr>
+                <li><a href="{% url 'logoutUser' %}" >Se Deconnecter</a></li>
+                <hr>
+            </div>
            {% else %}
            <li><a href="/"><span class="fa fa-home"></span> Accueil</a></li>
            <li><a href="#"><span class="fa fa-bars"></span> Appropos</a></li>
@@ -379,10 +361,7 @@
                 <li><a href="{% url 'listePersonnel' %}">Personnels</a></li>
                 <hr>
                 {% endif %}
-                <li><a href="{% url 'ProfilUser' %}">Profils</a></li>
-                <hr>
-                <li><a href="{% url 'guideUser' %}">Guide</a></li>
-                <hr>
+
             </ul>
         </div>
       </aside>
@@ -390,30 +369,40 @@
 
 
 
+
+
 <script>
-
-    /*Responsive sidebar media screen*/
-    let burgers=document.querySelector('.burgers');
-    let burgers_span=document.querySelector('.burgers span');
-    let aside=document.querySelector('.aside');
-
-    burgers.addEventListener("click",()=>{
-        burgers.classList.toggle('active');
-        burgers_span.classList.toggle('active');
-        aside.classList.toggle('responsive');
+    function ToggleInfoUserDisplay(){
+        let body=document.querySelector('body')
+        let img_user=document.querySelector('.img-user');
+        let action_user=document.querySelector('.action-user');
+        img_user.addEventListener('click',()=>{
+            action_user.classList.toggle('active');
     });
+    }
+
+// Appel de Fonction
+ToggleInfoUserDisplay()
+
 </script>
 
-<script>
-    /*Responsive header media screen*/
-    let burger=document.querySelector('.burger');
-    let burger_span=document.querySelector('.burger span');
-    let menu=document.querySelector('.menu');
 
-    burger.addEventListener("click",()=>{
-        burger.classList.toggle('active');
-        burger_span.classList.toggle('active');
-        menu.classList.toggle('responsive');
-    });
+<script>
+    function ToggleSideMediaQuery(){
+        /*Responsive sidebar media screen*/
+        let burgers=document.querySelector('.burgers');
+        let burgers_span=document.querySelector('.burgers span');
+        let aside=document.querySelector('.aside');
+
+        burgers.addEventListener("click",()=>{
+            burgers.classList.toggle('active');
+            burgers_span.classList.toggle('active');
+            aside.classList.toggle('responsive');
+        });
+    }
+
+
+ToggleSideMediaQuery()
+
 </script>
 

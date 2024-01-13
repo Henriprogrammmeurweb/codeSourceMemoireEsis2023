@@ -49,6 +49,7 @@
             Si le Congé a été accordé, la réponse sera congé accordé ✅, sinon la réponse sera congé rejeté ❌
             </p>
         </div>
+        {% if user.approbateur or user.is_superuser %}
         <div class="desc-fonctionnement">
             <h5>Pour les Approbateurs</h5>
             <p>L'approbateur de congé est un Personnel reconnu de l'établissement et qui a un compte sur notre Site qui peut se connecter et demander un ou plusieurs Congés et qui a également le Droit d'accorder ou de rejeter les Congés des Certains Personnels au cas où la possibilité d'accorder les Congés n'est plus. <br>
@@ -56,25 +57,33 @@
             S'il y a  la possibilité d'accorder les Congés alors il faut cocher la case approbation ✅ et la réponse sera congé accordé ✅ sinon il faut laisser la case non cochée et la réponse sera congé rejeté ❌
             </p>
         </div>
+        {% endif %}
+        {% if user.planificateur or user.is_superuser %}
         <div class="desc-fonctionnement">
             <h5>Pour les Planificateurs</h5>
             <p>Le Planificateur de congé est un Personnel reconnu de l'établissement et qui a un compte sur notre Site qui peut se connecter et demander un ou plusieurs Congés et qui a également le Droit de planifier les Congés des Personnels qui sont sous sa reponsabilité c'est-à-dire du même service que lui uniquement au cours d'une année.
            Quand une nouvelle année arrive, les Administrateurs emettent celle-ci et on peut alors commencer à planifier les Congés des Personnels de son Service par les ayant Droits et la Personne pour qui le Congé est planifié recevra un message dans sa Boite Email. <br>
             </p>
         </div>
+        {% endif %}
+        {% if user.consulteur or user.is_superuser %}
         <div class="desc-fonctionnement">
             <h5>Pour les Consulteurs</h5>
             <p>Le Consulteur de congé est un Personnel reconnu de l'établissement et qui a un compte sur notre Site qui peut se connecter et demander un ou plusieurs Congés et qui a également le Droit de consulter les Congés encours des Personnels afin de les arleter de la fin de leur congé s'il reste pratiquement 10 jours avant la date de fin de leur congé.
            Quand il alerte les Personnels dont l'intervalle de leur date de fin de congé se trouve dans la même optique que les lignes qui suvent recevront les messages dans leurs Boites Email. <br>
             </p>
         </div>
+        {% endif %}
+        
+        {% if user.is_superuser %}
         <div class="desc-fonctionnement">
             <h5>Pour les Administrateurs</h5>
             <p>Les Administrateurs sont les utilsateurs qui ont tous les Droits sur le Site d'effctuer n'importe quelle opération, ajout, suppression, modification et affichage des certaines Données sensibles. Il faut ainsi noter que lors de la création d'un Personnel, ce dernier ne peut avoir qu'un seul profil pas deux au même moment car, les permissions lui sont accordées au moment de la création de son compte dans un premier temps.<br>
             Même si vous cocher toutes les cases au même moment seule la première sera prise en compte par notre système, alors il faut signifier au Personnel pour qui le Compte est crée de son Profil sinon l'accès lui sera impossible ❗
             </p>
         </div>
-    
+        {% endif %}
+              
     </div>
 </section>
   
