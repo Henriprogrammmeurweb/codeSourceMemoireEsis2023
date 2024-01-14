@@ -368,23 +368,20 @@
 
 
 <script>
-    function ToggleInfoUserDisplay(){
-        let body=document.querySelector('body')
+    (function ToggleInfoUser(){
         let img_user=document.querySelector('.img-user');
         let action_user=document.querySelector('.action-user');
         img_user.addEventListener('click',()=>{
             action_user.classList.toggle('active');
     });
-    }
+    })();
 
-// Appel de Fonction
-ToggleInfoUserDisplay()
 
 </script>
 
 
 <script>
-    function ToggleSideMediaQuery(){
+    (function ToggleSiderMediaQuery(){
         /*Responsive sidebar media screen*/
         let burgers=document.querySelector('.burgers');
         let burgers_span=document.querySelector('.burgers span');
@@ -395,10 +392,7 @@ ToggleInfoUserDisplay()
             burgers_span.classList.toggle('active');
             aside.classList.toggle('responsive');
         });
-    }
-
-
-ToggleSideMediaQuery()
+    })();
 
 </script>
 
