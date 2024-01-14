@@ -9,6 +9,7 @@ from .import forms
 
 
 def index(request):
+    """Page d'accueil du Site"""
     if request.user.is_authenticated :
         return redirect('dashboard')
     return render(request, 'index/index.html')
@@ -16,6 +17,7 @@ def index(request):
 
 
 def loginUser(request):
+    """Connexion de l'utilisateur au système """
     if request.user.is_authenticated :
         return redirect('dashboard')
     form=forms.FormLogin()
@@ -38,23 +40,28 @@ def loginUser(request):
 
 @login_required
 def logoutUser(request):
+    """Deconnexion du Personnel"""
     logout(request)
     messages.info(request, "Vous êtes déconnecté !")
     return redirect('loginUser')
 
 def page403(request, exception):
+    """Page 403 personnalisée permissions requises"""
     return render(request, "error/page_403.html")
 
 
 def page404(request, exception):
+    """Page 404 personnalisé page introuvable !"""
     return render(request, "error/page_404.html")
 
 def page500(request):
+    """Page 500 Personnalisé erreur du Serveur"""
     return render(request, "error/page_500.html")
 
 
 @login_required
 def changePassword(request):
+    """Changement du Mot de passe du Personnel"""
     form=forms.FormChangePassword(request.user)
     if request.method == "POST":
         form=forms.FormChangePassword(request.user, request.POST)
@@ -71,17 +78,21 @@ def changePassword(request):
 
 
 def appropos(request):
+    """Appropos de l'éblissement"""
     return render(request, "appropos.html")
 
 def contact(request):
+    """Page des Contacts"""
     form=forms.FormContact()
     return render(request, "contact.html", {"form":form})
 
 
 @login_required
 def ProfilUser(request):
+    """Profil du personnel/Informations"""
     return render(request, "profil/profilUser.html")
 
 @login_required
 def guideUser(request):
+    """Guide d'utilisation descriptif du site !"""
     return render(request, "guide/guideUser.html")

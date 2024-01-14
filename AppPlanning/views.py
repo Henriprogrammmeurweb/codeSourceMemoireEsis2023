@@ -15,6 +15,7 @@ import sweetify
 @login_required
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
+    """Liste des Planification des Congés des Personnels par An"""
     liste_object=models.Planning.objects.filter(personnel=request.user)
     liste_annee=models.Annee.objects.all().order_by('-date_creation')
 
@@ -27,6 +28,7 @@ def listePlanning(request):
 @login_required
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def planningUser(request, id):
+    """Lite des Planifications des Congés pour chaque Personnels"""
     get_id=models.Annee.objects.get(id=id)
     liste_object=models.Planning.objects.filter(annee=get_id, service__fonction__personnel=request.user)
     context={
@@ -39,6 +41,7 @@ def planningUser(request, id):
 @login_required
 @permission_required('AppPlanning.add_planning', raise_exception=True)
 def ajoutPlanning(request):
+    """Insertion des planifications des Congés des Personnels"""
     fonction_user=Fonction.objects.filter(personnel=request.user)
     if len(fonction_user) == 0:
         return render(request, "error/page_403.html")
@@ -75,6 +78,7 @@ def ajoutPlanning(request):
 @login_required
 @permission_required('AppPlanning.change_planning', raise_exception=True)
 def modifPlanning(request,id):
+    """Modification des Plannification des Congés des Personnels"""
     get_id=models.Planning.objects.get(id=id)
     fonction_user=Fonction.objects.filter(personnel=request.user)
     service_user=Service.objects.filter(fonction__personnel=request.user)
@@ -109,6 +113,7 @@ def modifPlanning(request,id):
 @login_required
 @permission_required('AppPlanning.delete_planning', raise_exception=True)
 def suppPlanning(request,id):
+    """Suppression des Planification des Congés"""
     get_id=models.Planning.objects.get(id=id)
     fonction_user=Fonction.objects.filter(personnel=request.user)
     service_user=Service.objects.filter(fonction__personnel=request.user)
@@ -125,6 +130,7 @@ def suppPlanning(request,id):
 @login_required
 @permission_required('AppPlanning.view_annee', raise_exception=True)
 def listeAnnee(request):
+    """Liste des Années dans la Base de données"""
     liste_object=models.Annee.objects.all().order_by('-date_creation')
     context={
         "liste_object":liste_object
@@ -135,6 +141,7 @@ def listeAnnee(request):
 @login_required
 @permission_required('AppPlanning.add_annee', raise_exception=True)
 def ajoutAnnee(request):
+    """Ajout des Années dans la Base données"""
     form=forms.FormAjoutAnnee()
     if request.method == "POST":
         form=forms.FormAjoutAnnee(request.POST)
@@ -159,6 +166,7 @@ def ajoutAnnee(request):
 @login_required
 @permission_required('AppPlanning.change_annee', raise_exception=True)
 def modifAnnee(request,id):
+    """Modification des années dans la Base de données"""
     get_id=models.Annee.objects.get(id=id)
     annee=models.Planning.objects.filter(annee=get_id).exists()
     if annee :
@@ -181,6 +189,7 @@ def modifAnnee(request,id):
 @login_required
 @permission_required('AppPlanning.delete_annee', raise_exception=True)
 def suppAnnee(request,id):
+    """Suppression des Années dans la Base de données"""
     get_id=models.Annee.objects.get(id=id)
     annee=models.Planning.objects.filter(annee=get_id).exists()
     if annee :
@@ -196,6 +205,7 @@ def suppAnnee(request,id):
 @login_required
 @permission_required('AppPlanning.view_planning', raise_exception=True)
 def planningAnnee(request, id):
+    """Liste des Planifications des Congés par An"""
     get_id=models.Annee.objects.get(id=id)
     liste_object=models.Planning.objects.filter(annee=get_id, service__fonction__personnel=request.user)
     context={
@@ -207,6 +217,7 @@ def planningAnnee(request, id):
 
 @login_required
 def planningOneUser(request):
+    """Liste des Planifications des Congés pour chaque Personnel"""
     liste_object=models.Planning.objects.filter(personnel=request.user)
     context={
         "liste_object":liste_object
@@ -216,6 +227,7 @@ def planningOneUser(request):
 @login_required
 @permission_required("AppPlanning.view_annee")
 def PDFplanningAnnee(request, id):
+    """Génération des PDF de Planification des Congés par AN"""
     get_id=models.Annee.objects.get(id=id)
     liste_object=models.Planning.objects.filter(annee=get_id)
     template_path = 'annee/planning_pdf.html'

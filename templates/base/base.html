@@ -5,21 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Division Proviciale de la Santé du Haut-Katanga, Gestion des Personnels, des Congés de leurs planifications">
+    <title>Takeleave-Dps-Haut-Katanga</title>
+    <!-- Link des fichier static -->
     <link rel="shortcut icon" href="{% static 'img/icon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/myStyle/myStyle.css' %}">
     <script src="{% static 'plugins/bower_components/jquery/dist/jquery.min.js' %}"></script>
-    <title>Takeleave-Dps-Haut-Katanga</title>
 </head>
 <body>
 
+    <!-- Inclusion de sidebar dans le fichier de Base -->
     {% include "sidebar/sidebar.html" %}
-
+    
+    
     {% block content %}
     
     {% endblock content %}
-
     
+    
+    <!-- Inclusion du pied de page dans le fichier de Base -->
     {% include "footer/footer.html" %}
     
 </body>

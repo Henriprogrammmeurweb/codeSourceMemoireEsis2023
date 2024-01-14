@@ -14,6 +14,7 @@ from . import models
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def dashboard(request):
+    """Tableau Bord des Personnels"""
     nombreConge = Conge.objects.filter(personnel=request.user).count()
     nombreApprouve = Demande.objects.filter(
         conge__personnel=request.user, approbation=True
@@ -57,6 +58,7 @@ def dashboard(request):
 @login_required
 @permission_required("AppPersonnel.view_service", raise_exception=True)
 def listeService(request):
+    """Liste des Services de l'établissement"""
     liste_object = models.Service.objects.all().order_by("designation")
     context = {"liste_object": liste_object}
     return render(request, "service/listeservice.html", context)
@@ -65,6 +67,7 @@ def listeService(request):
 @login_required
 @permission_required("AppPersonnel.add_view", raise_exception=True)
 def ajoutService(request):
+    """Ajout des Services dans la base de données """
     form = forms.FormAddService()
     if request.method == "POST":
         form = forms.FormAddService(request.POST)
@@ -90,6 +93,7 @@ def ajoutService(request):
 @login_required
 @permission_required("AppPersonnel.add_view", raise_exception=True)
 def modifService(request, id):
+    """Modification des Services dans la Base de données"""
     get_id = models.Service.objects.get(id=id)
     form = forms.FormAddService(instance=get_id)
     if request.method == "POST":
@@ -122,6 +126,7 @@ def modifService(request, id):
 @login_required
 @permission_required("AppPersonnel.delete_conge", raise_exception=True)
 def suppService(request, id):
+    """Suppression des Services dans la Base de données"""
     get_id = models.Service.objects.get(id=id)
     if request.method == "POST":
         try:
@@ -138,6 +143,7 @@ def suppService(request, id):
 @login_required
 @permission_required("AppPersonnel.view_personnel", raise_exception=True)
 def listePersonnelService(request, id):
+    """Liste des Personnels par Service"""
     get_id = models.Service.objects.get(id=id)
     liste_object = Personnel.objects.filter(fonction__service=get_id)
     context = {"get_id": get_id, "liste_object": liste_object}
@@ -147,6 +153,7 @@ def listePersonnelService(request, id):
 @login_required
 @permission_required("AppAccount.view_personnel", raise_exception=True)
 def listePersonnel(request):
+    """Liste des Tous les Personnels dans la Base de Données"""
     liste_object = Personnel.objects.all().order_by("username")
     context = {"liste_object": liste_object}
     return render(request, "personnel/listePersonnel.html", context)
@@ -155,6 +162,7 @@ def listePersonnel(request):
 @login_required
 @permission_required("AppAccount.view_personnel", raise_exception=True)
 def detailPersonnel(request, id):
+    """Detail sur les Information du Personnel"""
     get_personnel = Personnel.objects.get(id=id)
     context = {"get_personnel": get_personnel}
     return render(request, "personnel/detailPersonnel.html", context)
@@ -163,6 +171,7 @@ def detailPersonnel(request, id):
 @login_required
 @permission_required("AppAccount.add_personnel", raise_exception=True)
 def ajoutPersonnel(request):
+    """Creation des Comptes des Personnels dans la Base de données"""
     # Liste des permissions pour utilisateur
     ajoutConge = Permission.objects.get(codename="add_conge")
     changeConge = Permission.objects.get(codename="change_conge")
@@ -357,6 +366,7 @@ def ajoutPersonnel(request):
 @login_required
 @permission_required("AppAccount.change_personnel", raise_exception=True)
 def modifPersonnel(request, id):
+    """Modification des Informations des Personels dans la Base de données"""
     get_personnel = Personnel.objects.get(id=id)
     form = forms.FormChangePersonnel(instance=get_personnel)
     if request.method == "POST":
@@ -380,6 +390,7 @@ def modifPersonnel(request, id):
 @login_required
 @permission_required("AppPersonnel.delete_view", raise_exception=True)
 def suppPersonnel(request, id):
+    """Suppression des Personnels dans la Base de données"""
     get_personnel = Personnel.objects.get(id=id)
     if request.method == "POST":
         try:
@@ -397,6 +408,7 @@ def suppPersonnel(request, id):
 @login_required
 @permission_required("AppPersonnel.view_fonction", raise_exception=True)
 def listeFonction(request):
+    """Liste des Fonctions qui se trouvent dans les services de l'Etablissement"""
     liste_object = models.Fonction.objects.all().order_by("-date_creation")
     context = {"liste_object": liste_object}
     return render(request, "fonction/listeFonction.html", context)
@@ -405,6 +417,7 @@ def listeFonction(request):
 @login_required
 @permission_required("AppPersonnel.add_fonction", raise_exception=True)
 def ajoutFonction(request):
+    """Ajout des Fontions dans la Base de données"""
     form = forms.FormAddFonction()
     if request.method == "POST":
         form = forms.FormAddFonction(request.POST)
@@ -430,6 +443,7 @@ def ajoutFonction(request):
 @login_required
 @permission_required("AppPersonnel.change_fonction", raise_exception=True)
 def modifFonction(request, id):
+    """Modification des Fontions"""
     get_id = models.Fonction.objects.get(id=id)
     form = forms.FormEditerFonction(instance=get_id)
     if request.method == "POST":
@@ -459,6 +473,7 @@ def modifFonction(request, id):
 @login_required
 @permission_required("AppPersonnel.delete_fonction", raise_exception=True)
 def suppFonction(request, id):
+    """Suppression des Fonctions qui sont dans la Base de données"""
     get_id = models.Fonction.objects.get(id=id)
     if request.method == "POST":
         try:
@@ -475,6 +490,7 @@ def suppFonction(request, id):
 @login_required
 @permission_required("AppAccount.view_personnel", raise_exception=True)
 def listePersonnelFonction(request, id):
+    """Liste des Personnels par Fonction"""
     get_id = models.Fonction.objects.get(id=id)
     liste_object = Personnel.objects.filter(fonction=get_id)
     context = {"get_id": get_id, "liste_object": liste_object}
@@ -484,6 +500,7 @@ def listePersonnelFonction(request, id):
 @login_required
 @permission_required("AppPeronnel.view_grade", raise_exception=True)
 def listeGrade(request):
+    """Liste des Grades des Personnels de l'etablissement"""
     liste_object = models.Grade.objects.all().order_by("-date_creation")
     context = {"liste_object": liste_object}
     return render(request, "grade/listeGrade.html", context)
@@ -492,6 +509,7 @@ def listeGrade(request):
 @login_required
 @permission_required("AppPersonnel.view_conge", raise_exception=True)
 def ajoutGrade(request):
+    """Ajout des Grades des Personnels dans la Base de données"""
     form = forms.FormAddGrade()
     if request.method == "POST":
         form = forms.FormAddGrade(request.POST)
@@ -509,6 +527,7 @@ def ajoutGrade(request):
 @login_required
 @permission_required("AppPersonnel.change_conge", raise_exception=True)
 def modifGrade(request, id):
+    """Modification des Grades des Personnels dans la Base de données"""
     get_id = models.Grade.objects.get(id=id)
     form = forms.FormAddGrade(instance=get_id)
     if request.method == "POST":
@@ -525,6 +544,7 @@ def modifGrade(request, id):
 @login_required
 @permission_required("AppPersonnel.delete_conge", raise_exception=True)
 def suppGrade(request, id):
+    """Suppression des Grades dans la Base données des données"""
     get_id = models.Grade.objects.get(id=id)
     if request.method == "POST":
         try:
@@ -539,6 +559,7 @@ def suppGrade(request, id):
 @login_required
 @permission_required("AppAccount.view_personnel", raise_exception=True)
 def listePersonnelGrade(request, id):
+    """Liste des Personnels par Grade"""
     get_id = models.Grade.objects.get(id=id)
     liste_object = Personnel.objects.filter(grade=get_id)
     context = {"get_id": get_id, "liste_object": liste_object}

@@ -14,6 +14,7 @@ import sweetify
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def CongeUser(request):
+    """Recuperation de liste des congés de l'utilisateur"""
     liste_object = models.Conge.objects.filter(personnel=request.user)
     context = {"liste_object": liste_object}
     return render(request, "conge/congeuser.html", context)
@@ -22,6 +23,7 @@ def CongeUser(request):
 @login_required
 @permission_required("AppConge.add_conge", raise_exception=True)
 def ajoutConge(request):
+    """Insertion de Congé dans la Base de données et envoi chez les approbation/signals.py"""
     form = forms.FormAjoutConge()
     if request.method == "POST":
         form = forms.FormAjoutConge(request.POST)
@@ -48,6 +50,7 @@ def ajoutConge(request):
 @login_required
 @permission_required("AppConge.change_conge", raise_exception=True)
 def modifConge(request, id):
+    """Modification de la demande de Congés avant la réponse"""
     get_conge = models.Conge.objects.get(id=id)
     demande = models.Demande.objects.filter(conge=get_conge).exists()
     if demande or get_conge.personnel != request.user:
@@ -78,6 +81,7 @@ def modifConge(request, id):
 @login_required
 @permission_required("AppConge.delete_conge", raise_exception=True)
 def suppConge(request, id):
+    """Suppression de la demande de Congé !"""
     get_conge = models.Conge.objects.get(id=id)
     demande = models.Demande.objects.filter(conge=get_conge).exists()
     if demande or get_conge.personnel != request.user:
@@ -94,6 +98,7 @@ def suppConge(request, id):
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def detailConge(request, id):
+    """Detail de la demande de Congé"""
     get_conge = models.Conge.objects.get(id=id)
     if get_conge.personnel != request.user:
         return render(request, "error/page_403.html")
@@ -104,6 +109,7 @@ def detailConge(request, id):
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def congeAttente(request):
+    """Liste des Congés en attente de confirmation/reponse"""
     liste_object = models.Conge.objects.exclude(
         id__in=models.Demande.objects.filter().values_list("conge__id", flat=True)
     )
@@ -114,6 +120,7 @@ def congeAttente(request):
 @login_required
 @permission_required("AppConge.add_demande", raise_exception=True)
 def approuveRejetConge(request):
+    """Approbation ou rejet de demande des Congés !"""
     form = forms.FormAddApprobation()
     if request.method == "POST":
         form = forms.FormAddApprobation(request.POST)
@@ -133,6 +140,7 @@ def approuveRejetConge(request):
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def congeApprouve(request):
+    """Liste des Congés approuvés par personnel !"""
     liste_object = models.Demande.objects.filter(
         approbation=True, conge__personnel=request.user
     )
@@ -143,6 +151,7 @@ def congeApprouve(request):
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def congeRejet(request):
+    """Liste des Congés Rejetés par personnel"""
     liste_object = models.Demande.objects.filter(
         approbation=False, conge__personnel=request.user
     )
@@ -153,6 +162,7 @@ def congeRejet(request):
 @login_required
 @permission_required("AppConge.view_conge", raise_exception=True)
 def congeEncours(request):
+    """Liste des Congés encours par utilisateur"""
     liste_object = (
         models.Demande.objects.exclude(approbation=False)
         .exclude(conge__date_fin__lt=datetime.date.today())
@@ -164,6 +174,7 @@ def congeEncours(request):
 
 @login_required
 def congeAttenteUser(request):
+    """Liste des Congés en attente par personnel"""
     liste_object = models.Conge.objects.exclude(
         id__in=models.Demande.objects.filter().values_list("conge__id", flat=True)
     ).filter(personnel=request.user)
@@ -174,6 +185,7 @@ def congeAttenteUser(request):
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def listeApprobationRejet(request):
+    """Liste des réponses aux demandes des Congés"""
     liste_object = models.Demande.objects.all().order_by("-date_creation")
     context = {"liste_object": liste_object}
     return render(request, "approbation/listeApprobationRejet.html", context)
@@ -182,6 +194,7 @@ def listeApprobationRejet(request):
 @login_required
 @permission_required("AppConge.change_demande", raise_exception=True)
 def modifApprobationRejet(request, id):
+    """Modification de la réponse aux demandes congés des Personnels"""
     get_id = models.Demande.objects.get(id=id)
     form = forms.FormChangeApprobation(instance=get_id)
     if request.method == "POST":
@@ -201,6 +214,7 @@ def modifApprobationRejet(request, id):
 @login_required
 @permission_required("AppConge.delete_demande", raise_exception=True)
 def suppDemande(request, id):
+    """Suppression de la réponse aux demandes des Congés des Personnels"""
     get_id = models.Demande.objects.get(id=id)
     if request.method == "POST":
         get_id.delete()
@@ -212,6 +226,7 @@ def suppDemande(request, id):
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def detailDemande(request, id):
+    """Detail ou description sur les demandes des Congés des Personnels"""
     get_id = models.Demande.objects.get(id=id)
     return render(request, "approbation/detailDemande.html", {"get_id": get_id})
 
@@ -219,6 +234,7 @@ def detailDemande(request, id):
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def consulterCongeEncours(request):
+    """Consultation de demande des Congés approuvée encours """
     liste_object = models.Demande.objects.exclude(approbation=False).exclude(
         conge__date_fin__lt=datetime.date.today()
     )
@@ -229,6 +245,7 @@ def consulterCongeEncours(request):
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def sendEmail(request):
+    """Declechement des alertes pour les demandes des Congés approuvées qui tendent vers la fin !"""
     liste_demande = models.Demande.objects.exclude(
         date_fin__lt=datetime.date.today()
     ).filter(approbation=True)
