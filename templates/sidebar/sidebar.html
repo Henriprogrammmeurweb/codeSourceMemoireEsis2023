@@ -78,8 +78,8 @@
         margin: 8px;
     }
     header nav .menu .img-user{
-        width: 50px;
-        height: 50px;
+        width: 56px;
+        height: 56px;
         margin-right: 12px;
         cursor: pointer;
     }
@@ -89,6 +89,8 @@
         border-radius: 50%;
         object-fit: cover;
         object-position: center center;
+        border: 1px solid cornflowerblue;
+        
     }
     header nav .menu .action-user{
         display: none;
@@ -211,7 +213,7 @@
 
     @media(max-width:1135px){
         .burger-aside{
-        background-color: rgb(8, 67, 102);
+        background-color: rgb(79, 120, 182);
         height: 65px;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
         margin-bottom: 10px;
@@ -304,15 +306,9 @@
         <ul class="menu menu-active">
             {% if user.is_authenticated %}
             <span>{{user.getPersonnelLogin}}</span>
-            {% if user.photo %}
-              <div class="img-user">
-                <img src="{{user.photo.url}}" alt="">
-              </div>
-            {% else %}
-                <div class="img-user">
-                    <img src="{% static 'assets/img/userlogo.png' %}" alt="">
-                </div>
-            {% endif %}
+            <div class="img-user">
+                <img src="{% static 'assets/img/userlogo.png' %}" alt="">
+            </div>
             <div class="action-user">
                 <hr>
                 <li><a href="{% url 'ProfilUser' %}">Profils</a></li>
