@@ -97,6 +97,11 @@
         position: relative;
         
     }
+    header nav .menu .img-user:hover{
+        transform: scale(1.1);
+        transition-duration: 0.2s;
+        
+    }
     header nav .menu .action-user.active{
         display: block;
         position: absolute;
@@ -298,11 +303,7 @@
 <header>
     <nav>
         <div class="logo">
-            {% if user.is_authenticated %}
             <a href="{% url 'dashboard' %}"><img src="{% static 'img/dps_logo.png' %}" alt=""></a>
-            {% else %}
-            <a href="/"><img src="{% static 'img/dps_logo.png' %}" alt=""></a>
-            {% endif %}
         </div>
         <ul class="menu menu-active">
             {% if user.is_authenticated %}
@@ -321,11 +322,6 @@
                 <li><a href="{% url 'logoutUser' %}" >Se Deconnecter</a></li>
                 <hr>
             </div>
-           {% else %}
-           <li><a href="/"><span class="fa fa-home"></span> Accueil</a></li>
-           <li><a href="#"><span class="fa fa-bars"></span> Appropos</a></li>
-           <li><a href="#"><span class="fa fa-phone"></span> Contact</a></li>
-           <li><a href="{% url 'loginUser' %}" id="login" class="btn">Se Connecter</a></li>
            {% endif %}
         </ul>
     </nav>
@@ -376,6 +372,8 @@
 
 
 <script>
+
+
     (function ToggleInfoUser(){
         let img_user=document.querySelector('.img-user');
         let action_user=document.querySelector('.action-user');

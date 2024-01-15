@@ -1,110 +1,47 @@
-{% extends "base/base.html" %}
+{% extends "baseIndexLogin/baseIndexLogin.html" %}
 {% load static %}
 {% block content %}
+  
+
 <style>
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
+        font-weight: normal;
     }
 
-    .index {
-        padding-bottom: 25px;
-
-
-    }
-
-
-    .description {
-        margin-top: 5px;
-        height: 370px;
-        background-color: rgb(44, 61, 77);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 15px;
-
-
-
-
-    }
-
-    .description .texte-description {
-        width: 56%;
-
-    }
-
-    .description .texte-description h5,
-    h6,
-    a,
-    hr {
-        margin-left: 25px;
-        color: #fff;
-    }
-
-
-    .description .texte-description p {
-        font-size: 14px;
-        margin-left: 25px;
-        color: #fff;
-    }
-
-    .description .texte-description hr {
-        background-color: #fff;
-        width: 20%;
-    }
-
-    .description .texte-description a {
-        padding: 16px;
-        margin-left: 25px;
-
-    }
-
-    .description .texte-description a:hover {
-        transform: rotate(-1deg);
-        transition: all;
-        transition-duration: 0.5s;
-        background-color: #4684aa;
-        border: none;
-    }
-
-    .description .img {
-        width: 40%;
-        height: 350px;
-        margin-right: 8px;
-        margin-bottom: 2px;
-
-
-
-    }
-
-    .description .img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-
-
-
-    }
-
-    .titre {
+    .index .titles{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 30px;
         text-align: center;
-
+        margin-top: 75px;
     }
-
-    .titre h5 {
-        font-size: 16px;
+    .index .titles h1{
+        color: #60a5fa;
     }
-
-    .titre h5 span {
-        color: #4684aa;
-
+    .index .titles h1 span{
+        color: #c084fc;
+        
+    }
+    .index .titles p{
+        color: #fff;
+        font-size: 15px;
+        font-weight: normal;
+    }
+    .index .titles #dps{
+        font-size: 18px;
+    }
+    .index .titles a{
+        padding: 14px;
+        background-color: #5b2a8d;
+        color: #fff;
+        margin-top: 20px;
+    }
+    .index .titles a:hover{
+        background-color: #643097;
     }
 
     .fonctionnnement {
@@ -112,7 +49,7 @@
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        background-color: #fff;
+        margin-top: 70px;
     }
 
     .fonctionnnement .liste-app {
@@ -123,29 +60,29 @@
         width: 290px;
         margin: 15px;
         text-align: center;
-        border: 1px solid rgb(218, 221, 221);
+        border: 1px solid #444444;
         padding: 25px;
         border-radius: 2px;
-
+        background-color: #13131b;
+        border-radius: 5px;
 
     }
 
     .fonctionnnement .liste-app:hover {
         cursor: pointer;
-        transform: scale(1.1);
-        transition-duration: 0.2s;
-        border-bottom: 1px solid rgb(92, 154, 205);
+        border-color:rgb(92, 154, 205);
     }
 
     .fonctionnnement .liste-app .texte-fonctionnement h5 {
         font-size: 14px;
-        color: teal;
+        color: rgb(92, 154, 205);
         margin-top: 8px;
         text-align: center;
     }
 
     .fonctionnnement .liste-app .texte-fonctionnement p {
         font-size: 14px;
+        color: #fff;
     }
 
     .fonctionnnement .liste-app .img {
@@ -160,173 +97,46 @@
         object-position: center center;
     }
 
-    .link-connect {
+    .start{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
+        margin-top: 55px;
+        margin-bottom: 55px;
+        text-align: center;
+    }
+    .start .start-process{
+        text-align: center;
+    }
+    .start .start-process p{
+        color: #fff;
+    }
+    .start .start-process p span{
+        color: #c084fc;
+    }
+    .start .start-process a{
+        padding: 14px;
+        background-color: #5b2a8d;
+        color: #fff;
+    }
+    .start .start-process a:hover{
+        background-color: #643097;
+    }
+    .index .localisation{
+        display: flex;
+        justify-content:center;
+        align-items: flex-start;
+    }
+    .index .localisation .img{
+        width: 420px;
+    }
+    .index .localisation .img img{
+        width: 100%;
+        object-fit: cover;
+        object-position: center center;
     }
 
-    .link-connect a {
-        margin-top: 15px;
-        margin-left: 0;
-        padding: 10px;
-        color: #28a745;
-        text-decoration: none;
-        border: 1px solid #28a745;
-        font-size: 16px;
-        border-radius: 5px;
-
-    }
-
-    .link-connect a:hover {
-        transform: rotate(-2deg);
-        transition: all;
-        transition-duration: 0.5s;
-    }
-
-
-
-
-
-    /*Media screen*/
-    @media(max-width:980px) {
-
-        .description {
-
-            height: auto;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            line-height: 15px;
-            filter: brightness(.89);
-            padding-bottom: 10px;
-
-
-
-        }
-
-        .description .texte-description {
-            width: 95%;
-            margin-top: 30px;
-        }
-
-        .description .texte-description h5,
-        h6,
-        a,
-        hr {
-            margin-left: 5px;
-            color: #fff;
-
-        }
-
-        .description .texte-description a {
-            margin-left: 0;
-
-        }
-
-
-        .description .texte-description p {
-            font-size: 15px;
-            margin-left: 5px;
-            color: #fff;
-        }
-
-        .description .img {
-            width: 95%;
-            height: 50%;
-            margin-right: 8px;
-            margin-bottom: 2px;
-            filter: brightness(.89);
-
-
-        }
-
-        .description .img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-
-
-
-        }
-
-        .solution {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 25px;
-        }
-
-        .solution .solution-desc {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column-reverse;
-            margin-top: 15px;
-            border: 1px solid rgb(218, 221, 221);
-            width: 96%;
-            padding: 25px;
-
-        }
-
-        .solution .solution-desc .img-solution {
-            width: 91%;
-            height: 50%;
-            margin-right: 25px;
-        }
-
-        .solution .solution-desc .img-solution img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-        }
-
-        .solution .solution-desc .texte-solution {
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            flex-direction: column;
-        }
-
-        .solution .solution-desc .texte-solution h3 {
-            font-size: 17px;
-            color: rgb(0, 87, 128);
-            text-decoration: underline;
-
-        }
-
-        .solution .solution-desc .texte-solution span {
-            color: #4684aa;
-
-        }
-
-        .solution .solution-desc .texte-solution p {
-            text-align: justify;
-
-        }
-
-        .fonctionnnement .liste-app {
-            width: 415px;
-        }
-
-        .titre {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 30px;
-            text-align: center;
-            padding: 0 2% 2% 0;
-        }
-
-
-    }
 
 
 
@@ -336,7 +146,7 @@
         }
     }
 
-    @media(max-width:656px) {
+    @media(max-width:676px) {
         .fonctionnnement .liste-app {
             width: 96%;
         }
@@ -349,32 +159,17 @@
 </style>
 
 
+
+
 <section class="index">
-
-    <!-- info sur le site -->
-
-    <div class="description">
-        <div class="texte-description">
-            <h5 id="rdc">République Démocratique du Congo</h5>
-            <h5>Ministère de la Santé du Haut-Katanga</h5>
-            <h5>Division Provinciale de la Santé</h5>
-            <p>Lubumbashi</p>
-            <p>Gestion des Personnels, Planning et demande des Congés</p>
-            <p>Salut et Bienvenue à toi </p>
-            <hr>
-            <a href="{% url 'loginUser' %}" class="btn btn-success">Commencer Maintenant</a>
-        </div>
-        <div class="img">
-            <img src="{% static 'img/process.png' %}" alt="rien">
-        </div>
+    <div class="titles">
+        <p id="dps">Division Provinciale de la Santé du Haut-Katanga</p>
+        <!-- <h1><span>Planification et demande des Congés</span> en ligne</h1> -->
+        <p>Alignement des Processus métiers de Gestion des Personnels <br>Planification et demande des Congés</p>
+        <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
     </div>
 
-    <!-- Fin des Informations -->
-
-    <!-- Listes des Services ou Applications -->
-    <div class="titre">
-        <h5><span>Applications</span> & <span>Services</span></h5>
-    </div>
+    <!-- Début des services ou listes applications -->
     <section class="fonctionnnement">
         <div class="liste-app">
             <div class="img">
@@ -429,10 +224,22 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Fin des Services -->
 
+    <section class="start">
+        <div class="start-process">
+            <p>Commencez maintenant les <span>processus de demande ou de planification des Congés</span></p>
+            <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
+        </div>
+    </section>
+
+
+    <section class="localisation">
+        <div class="img">
+            <img src="{% static 'img/process.png' %}" alt="">
+        </div>
+    </section>
+
 </section>
-
-
 {% endblock content %}

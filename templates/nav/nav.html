@@ -1,0 +1,237 @@
+{% load static %}
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-weight: normal;
+    }
+    html{
+        line-height: 1.5;
+    }
+
+    .index {
+        padding-bottom: 25px;
+
+
+    }
+    .ligne{
+        width: 100%;
+        height: 0.5px;
+        background-color: #444444;
+    }
+
+    header nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 110px;
+        padding-top: 10px;
+        background-color: #090911;
+    }
+    header nav .logo{
+        margin-left: 15px;
+        
+    }
+    header nav .logo a{
+        text-decoration: none;
+    }
+    header nav .logo p{
+        color: #c084fc;
+        font-size: x-large;
+        font-weight: bold;
+        
+    }
+    header nav .logo p span{
+        color: #60a5fa;
+        font-weight: bold;
+        
+    }
+    header nav .burger{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 38px;
+        height: 38px;
+        position: relative;
+        cursor: pointer;
+        display: none;
+    }
+    header nav .burger span{
+        width: 36px;
+        height: 2px;
+        background-color: #c084fc;
+        border-radius: 5px;
+    }
+    header nav .burger::before{
+        content: "";
+        position: absolute;
+        transform: translateY(7px);
+        width: 36px;
+        height: 2px;
+        background-color: #c084fc;
+        border-radius: 5px;
+    }
+    header nav .burger::after{
+        content: "";
+        position: absolute;
+        transform: translateY(-7px);
+        width: 36px;
+        height: 2px;
+        background-color: #c084fc;
+        border-radius: 5px;
+    }
+
+
+    header nav .menus{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8px;
+    }
+    header nav .menus li{
+        list-style-type: none;
+        margin: 7px;
+    }
+    header nav .menus li a{
+        text-decoration: none;
+        color: #fff;
+    }
+    header nav .menus li a:hover{
+        color: #37949d;
+    }
+    header nav .menus li #login{
+        border: 1px solid #60a5fa;
+        padding: 13px;
+        color: #60a5fa;
+        border-radius: 5px;
+    }
+    header nav .menus li #login:hover{
+        border: 1px solid #fff;
+    }
+
+
+    @media(max-width:570px){
+        header nav .menus{
+        display: none;
+
+    }
+    header nav .menus.responsives{
+        display: flex;
+        position: absolute;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        background-color:rgb(34, 69, 102) ;
+        right: 0;
+        top: 112px;
+        padding: 15px;
+        width: 210px;
+        margin-right: 0px;
+    }
+    header nav .burger{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 38px;
+        height: 38px;
+        position: relative;
+        cursor: pointer;
+        margin-right: 8px;
+    }
+    header nav .burger span{
+        width: 36px;
+        height: 2px;
+        background-color: #c084fc;
+        border-radius: 5px;
+    }
+    header nav .burger span.active{
+        display: none;
+    }
+    header nav .burger::before{
+        content: "";
+        position: absolute;
+        transform: translateY(7px);
+        width: 36px;
+        height: 2px;
+        background-color: #c084fc;
+        border-radius: 5px;
+    }
+    header nav .burger.active::before{
+        position: absolute;
+        transform: rotate(45deg);
+    }
+    header nav .burger::after{
+        content: "";
+        position: absolute;
+        transform: translateY(-7px);
+        width: 36px;
+        height: 2px;
+        background-color: #c084fc;
+        border-radius: 5px;
+    }
+    header nav .burger.active::after{
+        position: absolute;
+        transform: rotate(-45deg);
+    }
+    header nav .menus li{
+        list-style-type: none;
+        margin-top: 11px;
+    }
+    header nav .menus li a{
+        text-decoration: none;
+        color: #fff;
+    }
+    header nav .menus li #login{
+        border: none;
+        padding: 0px;
+        color: #fff;
+        margin-top: 10px;
+    }
+    header nav .menus li #login:hover{
+        border: none;
+    }
+
+    }
+</style>
+
+<header>
+    <nav>
+        <div class="logo">
+            <a href="/">
+                <p>Conge<span>line</span></p>
+            </a>
+        </div>
+        <div class="burger">
+            <span></span>
+        </div>
+        <ul class="menus">
+            <li><a href="/">Accueil</a></li>
+            <li><a href="#">Appropos</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'loginUser' %}" id="login">Se connecter</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="ligne"></div>
+
+
+
+<script>
+    (function ToogleMenuMedia(){
+        let burger=document.querySelector('.burger');
+        let burger_span=document.querySelector('.burger span');
+        let menus=document.querySelector('.menus');
+        
+
+        burger.addEventListener('click', ()=>{
+            burger.classList.toggle('active');
+            burger_span.classList.toggle('active');
+            menus.classList.toggle('responsives');
+        });
+    })();
+</script>

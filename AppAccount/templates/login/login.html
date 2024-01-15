@@ -1,14 +1,17 @@
-{% extends "base/base.html" %}
+{% extends "baseIndexLogin/baseIndexLogin.html" %}
 {% load static %}
 {% block content %}
 
 <style>
+    hr{
+        color: #fbf9fc;
+    }
     .content{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: #567b9b;
+        background-color: #090911;
         
     }
     .content .alert{
@@ -19,14 +22,15 @@
         margin-top: 55px;
         margin-bottom: 50px;
         padding: 22px;
-        background-color: white;
+        background-color: #13131b;
         border-radius: 5px;
         width: 400px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        border: 1px solid #444444;
+        color: white;
     }
     .content .contenu form{
         width: 100%;
@@ -40,16 +44,22 @@
     .content .contenu form input{
         padding: 22px;
         margin-top: 7px;
+        
+    }
+    .content .contenu form label{
+        margin-top: 7px;
     }
     .content .contenu form button{
         margin-top: 15px;
         color: white;
         border-radius: 2px;
-        background-color: #567b9b;
+        background-color: #5b2a8d;
         padding: 15px;
+        margin-bottom: 20px;
     }
     .content .contenu form a{
-        color: rgb(53, 58, 66);
+        color: #fbf9fc;
+        
     }
 
 
@@ -66,6 +76,7 @@
     <div class="contenu">
         <div class="connexion">
             <p>Accéder à votre compte</p>
+            <p>Congeligne</p>
         </div>
         <hr style="width: 100%;height: 5px;">
         <form action="" method="post" novalidate>
