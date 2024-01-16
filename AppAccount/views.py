@@ -27,7 +27,9 @@ def loginUser(request):
             email=form.cleaned_data['email']
             password=form.cleaned_data['password']
             user=authenticate(email=email, password=password)
-            if user:
+            if not "@" in email:
+                messages.warning(request, "Adresse Email invalide !")
+            elif user:
                 login(request, user)
                 return redirect('dashboard')
             else:
