@@ -95,6 +95,9 @@
         list-style-type: none;
         margin: 7px;
     }
+    header nav .menus li span:hover{
+        color: #37949d;
+    }
     header nav .menus li a{
         text-decoration: none;
         color: #fff;
@@ -210,10 +213,10 @@
             <span></span>
         </div>
         <ul class="menus">
-            <li><a href="/">Accueil</a></li>
-            <li><a href="#">Appropos</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="{% url 'loginUser' %}" id="login">Se connecter</a></li>
+            <li><a href="/"><span class="fa fa-home"></span> Accueil</a></li>
+            <li><a href="#"><span class="fa fa-bars"></span> Appropos</a></li>
+            <li><a href="#"><span class="fa fa-phone"></span> Contact</a></li>
+            <li><a href="{% url 'loginUser' %}" id="login"><span class="fa fa-user"></span> Se connecter</a></li>
         </ul>
     </nav>
 </header>
