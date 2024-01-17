@@ -15,7 +15,7 @@ class FormChangePassword(PasswordChangeForm):
     new_password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
 
 class Formpassword_reset(PasswordResetForm):
-    email=forms.CharField(widget=forms.EmailInput(attrs={"class":'form-control'}))
+    email=forms.CharField(widget=forms.EmailInput(attrs={"class":'form-control', 'placeholder':'Email'}))
 
 
 class FormSetPassword(SetPasswordForm):

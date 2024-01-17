@@ -227,7 +227,7 @@ def ajoutPersonnel(request):
             elif password.isdigit():
                 messages.warning(
                     request,
-                    "Le mot de passe ne doit être composé de chiffre et de lettre !",
+                    "Le mot de passe doit être composé de chiffre et de lettre !",
                 )
             elif demandeur == True:
                 new_personnel = Personnel.objects.create_user(
