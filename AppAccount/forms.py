@@ -19,8 +19,8 @@ class Formpassword_reset(PasswordResetForm):
 
 
 class FormSetPassword(SetPasswordForm):
-    new_password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
-    new_password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control'}))
+    new_password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control', 'placeholder':'Nouveau Mot de passe'}))
+    new_password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":'form-control','placeholder':'Confirmer le Mot de passe'}))
 
 
 class FormContact(forms.Form):
