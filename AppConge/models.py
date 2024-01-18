@@ -104,6 +104,14 @@ class Demande(models.Model):
     def __str__(self):
         return f"Congé : {self.conge.titre}"
 
+    @property
+    def getDateCreation(self):
+        """Cette Méthode permet de vérifier que la demande compte déjà une semaine depuis sa creation"""
+        semaine=self.date_creation.date() + datetime.timedelta(2)
+        if datetime.date.today() > semaine:
+            return "Interdite"
+       
+
 
 
     @property
@@ -112,6 +120,3 @@ class Demande(models.Model):
         if self.approbation == True:
             return "Congé accordé ✅"
         return "Congé rejeté ❌"
-
-
-

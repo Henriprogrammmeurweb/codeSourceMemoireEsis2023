@@ -98,6 +98,8 @@ def ProfilUser(request):
 def ChangeProfil(request, id):
     """Changement ou suppression du Profil/Photo du personnel"""
     get_user=models.Personnel.objects.get(id=id)
+    if get_user != request.user:
+        return render(request,"error/page_403.html")
     form=forms.ChangeProfilUser(instance=get_user)
     if request.method == "POST":
         form=forms.ChangeProfilUser(request.POST, request.FILES, instance=get_user)

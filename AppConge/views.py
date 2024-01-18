@@ -196,6 +196,8 @@ def listeApprobationRejet(request):
 def modifApprobationRejet(request, id):
     """Modification de la réponse aux demandes congés des Personnels"""
     get_id = models.Demande.objects.get(id=id)
+    if get_id.getDateCreation :
+        return render(request, "error/page_403.html")
     form = forms.FormChangeApprobation(instance=get_id)
     if request.method == "POST":
         form = forms.FormChangeApprobation(request.POST, instance=get_id)
@@ -216,6 +218,8 @@ def modifApprobationRejet(request, id):
 def suppDemande(request, id):
     """Suppression de la réponse aux demandes des Congés des Personnels"""
     get_id = models.Demande.objects.get(id=id)
+    if get_id.getDateCreation :
+        return render(request, "error/page_403.html")
     if request.method == "POST":
         get_id.delete()
         messages.warning(request, "La réponse à cette demande a été supprimée !")
@@ -247,13 +251,13 @@ def consulterCongeEncours(request):
 def sendEmail(request):
     """Declechement des alertes pour les demandes des Congés approuvées qui tendent vers la fin !"""
     liste_demande = models.Demande.objects.exclude(
-        date_fin__lt=datetime.date.today()
+        conge__date_fin__lt=datetime.date.today()
     ).filter(approbation=True)
     liste_user = []
     listeUserEmail = ""
     for demande in liste_demande:
         demande_user = models.Demande.objects.filter(
-            date_fin__range=(demande.date_fin - datetime.timedelta(7), demande.date_fin)
+            conge__date_fin__range=(demande.conge.date_fin - datetime.timedelta(7), demande.conge.date_fin)
         )
         for user in demande_user:
             liste_user.append(user.conge.personnel.email)

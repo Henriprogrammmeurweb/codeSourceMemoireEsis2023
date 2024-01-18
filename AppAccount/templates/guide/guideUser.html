@@ -63,7 +63,8 @@
             <h5>Pour les Planificateurs</h5>
             <p>Le Planificateur de congé est un Personnel reconnu de l'établissement et qui a un compte sur notre Site qui peut se connecter et demander un ou plusieurs Congés et qui a également le Droit de planifier les Congés des Personnels qui sont sous sa reponsabilité c'est-à-dire du même service que lui uniquement au cours d'une année.
            Quand une nouvelle année arrive, les Administrateurs emettent celle-ci et on peut alors commencer à planifier les Congés des Personnels de son Service par les ayant Droits et la Personne pour qui le Congé est planifié recevra un message dans sa Boite Email. <br>
-            </p>
+            Une chose est aussi à noter, si un planificateur de congé n'a pas une fonction, sachant que celle-ci est liée à un service dans ce cas, une erreur 403 lui sera levée parce que pour planifier un congé le planificateur doit appartenir à un service.
+        </p>
         </div>
         {% endif %}
         {% if user.consulteur or user.is_superuser %}

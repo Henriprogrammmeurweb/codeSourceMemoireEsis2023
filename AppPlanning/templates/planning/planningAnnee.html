@@ -122,7 +122,9 @@
                 <th>Service</th>
                 <th>Date Début</th>
                 <th>Date Fin</th>
+                <th>Année</th>
                 <th>Total Jours</th>
+                <th>Date_creation</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -131,11 +133,13 @@
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href=""><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.personnel.getPersonnel}}</a></td>
+                <td style="text-transform: uppercase;">{{liste_object.personnel.getPersonnel|truncatewords:2}}</a></td>
                 <td>{{liste_object.service}}</td>
                 <td>{{liste_object.date_debut}}</td>
                 <td>{{liste_object.date_fin}}</td>
+                <td>{{liste_object.annee}}</td>
                 <td>{{liste_object.getNombreJours}}</td>
+                <td>{{liste_object.date_creation}}</td>
                 <td><a href="{% url 'modifPlanning' liste_object.id %}">Modifier</a></td>
                 <td><a href="{% url 'suppPlanning' liste_object.id %}">Supprimer</a></td>
               </tr>

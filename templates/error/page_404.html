@@ -1,18 +1,30 @@
-{% extends "base/base.html" %}
-{% block content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congeline 404</title>
+    <link rel="shortcut icon" href="{% static 'img/icon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/myStyle/myStyle.css' %}">
+</head>
+<body>
+    
+</body>
+</html>
 
 <style>
     .content{
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: teal;
+        background-color: #1d70cf;
         height: 100vh;
         
     }
     .content .contenu{
-        background-color: white;
-        box-shadow: 1px 1px 2px 1px rgba(0, 0,0, 0.25);
         margin-top: 50px;
         margin-bottom: 25px;
         width: 500px;
@@ -21,11 +33,18 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        color: #ffff;
     }
     .content .contenu h5{
-        font-weight: bold;
-        color: red;
-        font-size: 3rem;
+        font-weight: normal;
+        color: #ffff;
+        font-size: 9rem;
+    }
+    .content .contenu a{
+        color: #ffff;
+    }
+    #copy{
+        margin-top: 50px;
     }
 </style>
 
@@ -34,7 +53,8 @@
         <h5>404</h5>
         <p>Page non Trouvée</p>
         <p>Apparement tu es perdue</p>
+        <a href="{% url 'index' %}">Cliquez ici Retour à l'accueil</a>
+        <p id="copy">&copy Tous droits reservés <br>2024 by Henri developer</p>
     </div>
 </div>
   
-{% endblock content %}

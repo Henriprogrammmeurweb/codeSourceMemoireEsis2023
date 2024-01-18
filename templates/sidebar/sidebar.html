@@ -229,7 +229,7 @@
 
     @media(max-width:1135px){
         .burger-aside{
-        background-color: rgb(79, 120, 182);
+        background-color: rgb(24, 38, 59);
         height: 65px;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
         margin-bottom: 10px;
@@ -361,7 +361,7 @@
                 {% if perms.AppConge.view_conge %}
                 <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil</a></li>
                 <hr>
-                <li><a href="{% url 'CongeUser' %}"><span class="fa fa-plane"></span> Congés</a></li>
+                <li><a href="{% url 'CongeUser' %}"><span class="fa fa-blind"></span> Congés</a></li>
                 <hr>
                 {% endif %}
                 {% if perms.AppPlanning.view_annee %}

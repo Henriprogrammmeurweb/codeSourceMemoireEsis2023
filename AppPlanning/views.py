@@ -15,13 +15,11 @@ import sweetify
 @login_required
 @permission_required("AppPlanning.view_planning", raise_exception=True)
 def listePlanning(request):
-    """Liste des Planification des Congés des Personnels par An"""
-    liste_object=models.Planning.objects.filter(personnel=request.user)
-    liste_annee=models.Annee.objects.all().order_by('-date_creation')
+    """Liste des Planification des Congés des Personnels par service"""
+    liste_object=models.Planning.objects.filter(service__fonction__personnel=request.user)
 
     context={
-            "liste_object":liste_object,
-            "liste_annee":liste_annee
+            "liste_object":liste_object
         }
     return render(request, "planning/listePlanning.html",context)
 
@@ -84,7 +82,7 @@ def modifPlanning(request,id):
     fonction_user=Fonction.objects.filter(personnel=request.user)
     service_user=Service.objects.filter(fonction__personnel=request.user)
     for service in service_user:
-        if len(fonction_user) == 0 or service != get_id.service:
+        if len(fonction_user) == 0 or service != get_id.service or get_id.getCongePlanningFini:
             return render(request, "error/page_403.html")
     form=forms.FormModifPlanningConge(request=request, instance=get_id)
     if request.method == "POST":
@@ -119,7 +117,7 @@ def suppPlanning(request,id):
     fonction_user=Fonction.objects.filter(personnel=request.user)
     service_user=Service.objects.filter(fonction__personnel=request.user)
     for service in service_user:
-        if len(fonction_user) == 0 or service != get_id.service:
+        if len(fonction_user) == 0 or service != get_id.service or get_id.getCongePlanningFini:
             return render(request, "error/page_403.html")
     if request.method == "POST":
         get_id.delete()

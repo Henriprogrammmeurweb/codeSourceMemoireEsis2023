@@ -135,8 +135,13 @@
                 <td>{{liste_object.conge.date_debut}}</td>
                 <td>{{liste_object.conge.date_fin}}</td>
                 <td>{{liste_object.conge.date_creation}}</td>
+                {% if liste_object.getDateCreation %}
+                <td style="color: red;">Action Interdite</td>                  
+                <td style="color: red;">Action Interdite</td>
+                {% else %}                  
                 <td><a href="{% url 'modifApprobationRejet' liste_object.id %}">Modifier</a></td>
                 <td><a href="{% url 'suppDemande' liste_object.id %}">Supprimer</a></td>
+                {% endif %}
               </tr>
               {% empty %}
               <tr>

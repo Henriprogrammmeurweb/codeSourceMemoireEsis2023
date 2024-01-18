@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from AppAccount.models import Personnel
 from AppConge.models import Conge
@@ -44,6 +45,13 @@ class Planning(models.Model):
     def getNombreJours(self):
         """Cette méthode permet de calculer le nombre de jour pour chaque planning"""
         return self.date_fin - self.date_debut
+    
+    @property
+    def getCongePlanningFini(self):
+        """Cette Méthode permet de verifier si la date de fin d'une planification est depassée alors modif et delete impossible !"""
+        if self.date_fin < datetime.date.today():
+            return "Interdit"
+
     
     def save(self, *args, **kwargs):
         """Cette Méthode s'appelle à chaque planning pour le service du personnel"""
