@@ -324,13 +324,13 @@
             </div>
             <div class="action-user">
                 <hr>
-                <li><a href="{% url 'ProfilUser' %}">Profils</a></li>
+                <li><a href="{% url 'ProfilUser' %}"><span class="fa fa-user-circle"></span> Profils</a></li>
                 <hr>
-                <li><a href="{% url 'guideUser' %}">Guide</a></li>
+                <li><a href="{% url 'guideUser' %}"><span class="fa fa-book"></span>Guide</a></li>
                 <hr>
-                <li><a href="{% url 'changePassword' %}"  >Mot de passe</a></li>
+                <li><a href="{% url 'changePassword' %}"><span class="fa fa-key"></span>Mot de passe</a></li>
                 <hr>
-                <li><a href="{% url 'logoutUser' %}" >Se Deconnecter</a></li>
+                <li><a href="{% url 'logoutUser' %}"><span class="fa fa-blind"></span> Se Deconnecter</a></li>
                 <hr>
             </div>
            {% endif %}
@@ -359,9 +359,9 @@
         <div class="menus">
             <ul class="liste-menu">
                 {% if perms.AppConge.view_conge %}
-                <li><a href="{% url 'dashboard' %}"><span class="fa fa-home"></span> Accueil</a></li>
+                <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil</a></li>
                 <hr>
-                <li><a href="{% url 'CongeUser' %}"><span class="fa fa-rocket"></span> Congés</a></li>
+                <li><a href="{% url 'CongeUser' %}"><span class="fa fa-plane"></span> Congés</a></li>
                 <hr>
                 {% endif %}
                 {% if perms.AppPlanning.view_annee %}
@@ -369,7 +369,7 @@
                 <hr>
                 {% endif %}
                 {% if perms.AppAccount.view_personnel %}
-                <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-user-circle"></span> Personnels</a></li>
+                <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-address-book"></span> Personnels</a></li>
                 <hr>
                 {% endif %}
 
