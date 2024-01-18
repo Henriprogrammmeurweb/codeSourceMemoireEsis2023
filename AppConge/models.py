@@ -6,6 +6,7 @@ import datetime
 
 
 class Conge(models.Model):
+    """Classe de stocker les demandes des Congés des Personnels"""
     personnel = models.ForeignKey(Personnel, on_delete=models.PROTECT)
     titre = models.CharField(max_length=255)
     NATURE_CONGE = (
@@ -29,11 +30,13 @@ class Conge(models.Model):
 
     @property
     def get_conge_demander(self):
+        """Cette Méthode vérifie si au moins le congé a déjà une réponse"""
         liste_conge_demande = self.demande_set.all()
         return [ligne.conge for ligne in liste_conge_demande]
 
     @property
     def getReponseConge(self):
+        """Cette Méthodes verfie aussi comme la 1ère et vérifie aussi si le délai est dépassé"""
         conge_demande = self.demande_set.all()
         reponse = [ligne.approbation for ligne in conge_demande]
         for reponses in reponse:
@@ -45,11 +48,13 @@ class Conge(models.Model):
 
     @property
     def getNombreJours(self):
+        """Cette Méthodes calcul les nombres des jours pour chaque instance"""
         total = self.date_fin - self.date_debut
         return total
 
     @property
     def getCommentaire(self):
+        """Cette Méthode recupère les commentaires aux demandes des congés"""
         demande = self.demande_set.all()
         liste_formate = ""
         commentaire = [ligne.commentaire for ligne in demande]
@@ -62,6 +67,7 @@ class Conge(models.Model):
 
     @property
     def get_JoursConsomes(self):
+        """Cette Méthode permet de compter le nombres de jour consommés"""
         demande = self.demande_set.all()
         reponse = [ligne.approbation for ligne in demande]
         for reponses in reponse:
@@ -85,6 +91,7 @@ class Conge(models.Model):
 
 
 class Demande(models.Model):
+    """Cette de stocker les réponses aux demandes des congés des Personnels"""
     conge = models.ForeignKey(Conge, on_delete=models.CASCADE)
     commentaire = models.TextField()
     approbation = models.BooleanField(default=False)
@@ -101,6 +108,7 @@ class Demande(models.Model):
 
     @property
     def getReponseConge(self):
+        """Cette Méthode permet de récuperer les réponses de congé"""
         if self.approbation == True:
             return "Congé accordé ✅"
         return "Congé rejeté ❌"

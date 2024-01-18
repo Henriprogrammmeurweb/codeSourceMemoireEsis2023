@@ -4,6 +4,7 @@ import datetime
 
 
 class FormAjoutConge(forms.ModelForm):
+    """Formulaire de demande des congés"""
     class Meta:
         model = models.Conge
         fields = ["titre", "nature", "motif", "date_debut", "date_fin"]
@@ -24,6 +25,7 @@ class FormAjoutConge(forms.ModelForm):
 
 
 class FormAddApprobation(forms.ModelForm):
+    """Formulaire de réponse aux demandes des Congés"""
     def __init__(self, *args, **kwargs):
         super(FormAddApprobation, self).__init__(*args, **kwargs)
         conge_valide = models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).exclude(date_fin__lt=datetime.date.today())
@@ -40,6 +42,7 @@ class FormAddApprobation(forms.ModelForm):
 
 
 class FormChangeApprobation(forms.ModelForm):
+    """Formulaire de changement de demande des Congés"""
     class Meta:
         model = models.Demande
 

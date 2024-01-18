@@ -6,6 +6,7 @@ from AppAccount.models import Personnel
 
 
 class FormAddService(forms.ModelForm):
+    """Formulaire d'ajout de service dans la base de données"""
     class Meta:
         model = models.Service
         fields = ["designation"]
@@ -14,6 +15,7 @@ class FormAddService(forms.ModelForm):
 
 
 class EditerService(forms.ModelForm):
+    """Formulaire de changement des services"""
     class Meta:
         model = models.Service
         fields = ["designation"]
@@ -22,6 +24,7 @@ class EditerService(forms.ModelForm):
 
 
 class FormAddFonction(forms.ModelForm):
+    """"Formulaire d'ajout de demande des congés"""
     class Meta:
         model = models.Fonction
         fields = ["service", "designation"]
@@ -32,6 +35,7 @@ class FormAddFonction(forms.ModelForm):
 
 
 class FormEditerFonction(forms.ModelForm):
+    """Formulaire de modification de Fonction"""
     class Meta:
         model = models.Fonction
         fields = ["service", "designation"]
@@ -42,6 +46,7 @@ class FormEditerFonction(forms.ModelForm):
 
 
 class FormAddGrade(forms.ModelForm):
+    """Formulaire de d'ajout de grade dans la Base données"""
     class Meta:
         model = models.Grade
         fields = ["designation"]
@@ -52,6 +57,7 @@ class FormAddGrade(forms.ModelForm):
 
 
 class FormAddPersonnel(forms.ModelForm):
+    """Formulaire d'ajout des personnels dans la Base de données"""
     class Meta:
         model = Personnel
         fields = [
@@ -103,6 +109,7 @@ class FormAddPersonnel(forms.ModelForm):
 
 
 class FormChangePersonnel(forms.ModelForm):
+    """"Formulaire de changement des personnels dans la base de données"""
     class Meta:
         model = Personnel
         fields = [

@@ -4,6 +4,7 @@ from .import models
 
 
 class FormAjoutPlanningConge(forms.ModelForm):
+    """Formulaire d'ajout de plannification des congés"""
     def __init__(self, *args, **kwargs):
         self.request=kwargs.pop('request')
         super(FormAjoutPlanningConge, self).__init__(*args, **kwargs)
@@ -30,6 +31,7 @@ class FormAjoutPlanningConge(forms.ModelForm):
   
 
 class FormModifPlanningConge(forms.ModelForm):
+    """Formulaire de changement de plannification des Congés"""
     def __init__(self, *args, **kwargs):
         self.request=kwargs.pop('request')
         super(FormModifPlanningConge, self).__init__(*args, **kwargs)
@@ -54,6 +56,7 @@ class FormModifPlanningConge(forms.ModelForm):
 
 
 class FormAjoutAnnee(forms.ModelForm):
+    """Formulaire d'ajout des années dans la Base de données"""
     class Meta:
         model=models.Annee
 

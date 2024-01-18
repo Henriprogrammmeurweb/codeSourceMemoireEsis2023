@@ -6,6 +6,7 @@ from AppPersonnel.models import Grade, Fonction
 
 
 class Personnel(AbstractUser):
+    """Classe permet de stocker les informations des personnels"""
     username=models.CharField(max_length=155)
     postnom=models.CharField(max_length=155)
     prenom=models.CharField(max_length=155)
@@ -45,10 +46,12 @@ class Personnel(AbstractUser):
     
     @property
     def getPersonnel(self):
+        """Cette méthode permet de recuperer les personnels"""
         return f'{self.username} {self.postnom} {self.prenom}'
 
     @property
     def getPersonnelLogin(self):
+        """Cette méthode permet de recuperer les personnels"""
         return f'{self.prenom.lower()} {self.username.lower()}'
     
 

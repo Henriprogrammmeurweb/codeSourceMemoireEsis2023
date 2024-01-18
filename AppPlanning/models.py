@@ -5,6 +5,7 @@ from AppPersonnel.models import Service
 
 
 class Annee(models.Model):
+    """Cette classe permet de stocker les années afin de planifier les congés"""
     designation=models.CharField(max_length=155, unique=True)
     date_debut=models.DateField()
     date_fin=models.DateField()
@@ -14,6 +15,7 @@ class Annee(models.Model):
 
     @property
     def get_anneePlannig(self):
+        """cette Méthode permet de recuperer la liste des annnées"""
         planning=self.planning_set.all()
         liste_annee=[ligne.annee for ligne in planning]
         return liste_annee
@@ -24,6 +26,7 @@ class Annee(models.Model):
 
 
 class Planning(models.Model):
+    """"Cette classe sert à stocker les planifications des congés"""
     personnel=models.ForeignKey(Personnel, on_delete=models.PROTECT)
     service=models.ForeignKey(Service, on_delete=models.PROTECT, blank=True, null=True)
     annee=models.ForeignKey(Annee, on_delete=models.CASCADE)
@@ -39,9 +42,11 @@ class Planning(models.Model):
 
     @property
     def getNombreJours(self):
+        """Cette méthode permet de calculer le nombre de jour pour chaque planning"""
         return self.date_fin - self.date_debut
     
     def save(self, *args, **kwargs):
+        """Cette Méthode s'appelle à chaque planning pour le service du personnel"""
         if not self.service :
             self.service = self.personnel.fonction.service
         return super().save(*args, **kwargs)

@@ -96,6 +96,7 @@ def ProfilUser(request):
 
 @login_required
 def ChangeProfil(request, id):
+    """Changement ou suppression du Profil/Photo du personnel"""
     get_user=models.Personnel.objects.get(id=id)
     form=forms.ChangeProfilUser(instance=get_user)
     if request.method == "POST":
