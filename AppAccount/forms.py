@@ -1,4 +1,5 @@
 from django import forms
+from .import models
 from django.contrib.auth.forms import (PasswordChangeForm,
                                        PasswordResetForm,
                                        SetPasswordForm)
@@ -27,3 +28,10 @@ class FormContact(forms.Form):
     nom=forms.CharField(widget=forms.TextInput(attrs={"class":'form-control'}))
     email=forms.CharField(widget=forms.EmailInput(attrs={"class":'form-control'}))
     message=forms.CharField(widget=forms.Textarea(attrs={"class":'form-control', 'rows':'3'}))
+
+
+class ChangeProfilUser(forms.ModelForm):
+    class Meta:
+        model=models.Personnel
+
+        fields=['photo']

@@ -116,7 +116,7 @@
                 <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                     id="search">
             </form>
-            <p>Liste des Congés que tu as demandé </p>
+            <p>Liste des Congés que tu as demandé</p>
 
             <div class="messages">
                 {% for message in messages %}
@@ -157,7 +157,7 @@
                 <td>{{liste_object.get_JoursConsomes}}</td>
                 <td>{{liste_object.date_creation|truncatewords:1}}</td>
 
-                {% if liste_object.get_conge_demander %}
+                {% if liste_object.get_conge_demander or liste_object.date_fin < dateToday %}
                     <td style="color: red;">Action Interdite</td>
                     <td style="color: red;">Action Interdite</td>
                   {% else %}

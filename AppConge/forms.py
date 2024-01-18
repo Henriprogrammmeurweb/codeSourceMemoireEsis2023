@@ -1,5 +1,6 @@
 from django import forms
 from .import models
+import datetime
 
 
 class FormAjoutConge(forms.ModelForm):
@@ -25,7 +26,7 @@ class FormAjoutConge(forms.ModelForm):
 class FormAddApprobation(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormAddApprobation, self).__init__(*args, **kwargs)
-        conge_valide = models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True))
+        conge_valide = models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).exclude(date_fin__lt=datetime.date.today())
         self.fields["conge"].queryset = conge_valide
 
     class Meta:

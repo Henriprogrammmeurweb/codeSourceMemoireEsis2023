@@ -36,10 +36,12 @@ class Conge(models.Model):
     def getReponseConge(self):
         conge_demande = self.demande_set.all()
         reponse = [ligne.approbation for ligne in conge_demande]
-        for i in reponse:
-            if i == True:
+        for reponses in reponse:
+            if reponses == True:
                 return "Congé accordé ✅"
             return "Congé rejeté ❌"
+        if not self.id in reponse and self.date_fin < datetime.date.today():
+            return "Aucune réponse 🔕"
 
     @property
     def getNombreJours(self):
@@ -68,7 +70,7 @@ class Conge(models.Model):
             elif reponses == True and self.date_debut == self.date_fin:
                 return f"1 Jour"
             elif self.date_debut > date.today() and reponses == True:
-                return f"dans le futur"
+                return f"Pas encore"
             elif reponses == True and self.date_fin > date.today():
                 return date.today() - self.date_debut
             elif reponses == True and self.date_fin == date.today():
@@ -77,6 +79,8 @@ class Conge(models.Model):
                 return self.date_fin - self.date_debut
             else:
                 return 0
+        if not self.id in reponse and self.date_fin < datetime.date.today():
+            return "Delai depassé"
         return "Demande encours"
 
 

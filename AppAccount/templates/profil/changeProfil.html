@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<style>
+    .content{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 20px;
+        margin-right: 8px;
+    }
+    .content form{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 20px;
+        width: 100%;
+    }
+    .content form button{
+        margin-top: 15px;
+        padding: 10px;
+    }
+</style>
+
+
+<div class="content">
+    <div class="texte-content">
+        <p>Changer ou supprimer votre photo</p>
+    </div>
+    <div class="messages">
+        {% for message in messages %}
+          <div class="alert alert-warning" role="alert">
+            <p>{{message}}</p>
+          </div>
+        {% endfor %}
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-info btn-block">Changez ?</button>
+    </form>
+</div>
+  
+{% endblock content %}

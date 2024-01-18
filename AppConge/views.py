@@ -16,7 +16,7 @@ import sweetify
 def CongeUser(request):
     """Recuperation de liste des congés de l'utilisateur"""
     liste_object = models.Conge.objects.filter(personnel=request.user)
-    context = {"liste_object": liste_object}
+    context = {"liste_object": liste_object,"dateToday":datetime.date.today()}
     return render(request, "conge/congeuser.html", context)
 
 
@@ -52,8 +52,8 @@ def ajoutConge(request):
 def modifConge(request, id):
     """Modification de la demande de Congés avant la réponse"""
     get_conge = models.Conge.objects.get(id=id)
-    demande = models.Demande.objects.filter(conge=get_conge).exists()
-    if demande or get_conge.personnel != request.user:
+    demande = models.Demande.objects.filter(conge=get_conge).exists() 
+    if demande or get_conge.personnel != request.user or get_conge.date_fin < datetime.date.today():
         return render(request, "error/page_403.html")
     form = forms.FormAjoutConge(instance=get_conge)
     if request.method == "POST":
@@ -84,7 +84,7 @@ def suppConge(request, id):
     """Suppression de la demande de Congé !"""
     get_conge = models.Conge.objects.get(id=id)
     demande = models.Demande.objects.filter(conge=get_conge).exists()
-    if demande or get_conge.personnel != request.user:
+    if demande or get_conge.personnel != request.user or get_conge.date_fin < datetime.date.today():
         return render(request, "error/page_403.html")
     if request.method == "POST":
         get_conge.delete()
@@ -177,7 +177,7 @@ def congeAttenteUser(request):
     """Liste des Congés en attente par personnel"""
     liste_object = models.Conge.objects.exclude(
         id__in=models.Demande.objects.filter().values_list("conge__id", flat=True)
-    ).filter(personnel=request.user)
+    ).filter(personnel=request.user).exclude(date_fin__lt=datetime.date.today())
     context = {"liste_object": liste_object}
     return render(request, "conge/congeAttenteUser.html", context)
 

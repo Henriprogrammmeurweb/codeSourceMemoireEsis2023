@@ -7,6 +7,7 @@
         align-items: flex-start;
         flex-direction: column;
        
+       
 
     }
 
@@ -22,6 +23,7 @@
         padding: 10px;
         margin-right: 20px;
         box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.15);
+        
         
 
     }
@@ -284,42 +286,42 @@
         <div class="contenu">
             <a href="{% url 'CongeUser' %}">
                 <div class="activite-1">
-                    <p>{{nombreConge}} <br>Tous les Congés </p>
+                    <p>{{nombreConge}} <br>Tous les Congés <span class="fa fa-address-book"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeApprouve' %}">
                 <div class="activite-2">
-                    <p>{{nombreApprouve}} <br>Congés Approuvés</p>
+                    <p>{{nombreApprouve}} <br>Congés Approuvés <span class="fa fa-check"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeRejet' %}">
                 <div class="activite-3">
-                    <p>{{nombreRejet}} <br>Congés Rejetés</p>
+                    <p>{{nombreRejet}} <br>Congés Rejetés <span class="fa fa-language"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeEncours' %}">
                 <div class="activite-4">
-                    <p>{{nombreEncours}} <br>Congés encours</p>
+                    <p>{{nombreEncours}} <br>Congés encours <span class="fa fa-calendar"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeAttenteUser' %}">
                 <div class="activite-5">
-                    <p>{{nombreAttente}} <br>Congés en attente</p>
+                    <p>{{nombreAttente}} <br>Congés en attente <span class="fa fa-info-circle"></span></p>
                 </div>
             </a>
             <a href="{% url 'planningOneUser' %}">
                 <div class="activite-6">
-                    <p>{{panningsUser}} <br>Mes Planifications</p>
+                    <p>{{panningsUser}} <br>Mes Planifications <span class="fa fa-automobile"></span></p>
                 </div>
             </a>
             <a href="{% url 'listePersonnel' %}">
                 <div class="activite-7">
-                    <p>{{personnel}} <br>Personnels</p>
+                    <p>{{personnel}} <br>Personnels <span class="fa fa-user-plus"></span></p>
                 </div>
             </a>
             <a href="{% url 'listeAnnee' %}">
                 <div class="activite-8">
-                    <p>{{plannings}} <br>Planification</p>
+                    <p>{{plannings}} <br>Planifications <span class="fa fa-book"></span></p>
                 </div>
             </a>
         </div>
@@ -370,7 +372,7 @@
                             <td>{{liste_object.getNombreJours}}</td>
                             <td>{{liste_object.get_JoursConsomes}}</td>
 
-                            {% if liste_object.get_conge_demander %}
+                            {% if liste_object.get_conge_demander or liste_object.date_fin < dateToday %}
                             <td style="color: red;">Action Interdite</td>
                             <td style="color: red;">Action Interdite</td>
                             {% else %}

@@ -32,8 +32,7 @@ def dashboard(request):
         Conge.objects.exclude(
             id__in=Demande.objects.filter().values_list("conge__id", flat=True)
         )
-        .filter(personnel=request.user)
-        .count()
+        .filter(personnel=request.user).exclude(date_fin__lt=datetime.date.today()).count()
     )
     plannings = Planning.objects.filter(
         service__fonction__personnel=request.user
@@ -51,6 +50,7 @@ def dashboard(request):
         "plannings": plannings,
         "personnel": personnel,
         "panningsUser": panningsUser,
+        "dateToday":datetime.date.today()
     }
     return render(request, "dashboard/dashboard.html", context)
 

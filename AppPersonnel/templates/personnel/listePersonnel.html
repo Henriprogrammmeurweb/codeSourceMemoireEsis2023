@@ -144,8 +144,7 @@
 
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i
-                                class="fa fa-user-circle" aria-hidden="true"></i>
+                    <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}">
                             {{liste_object.username}}</a></td>
                     <td>{{liste_object.postnom}}</td>
                     <td>{{liste_object.prenom}}</td>
@@ -156,7 +155,7 @@
                     {% endif %}
                     <td>{{liste_object.sexe}}</td>
                     {% if liste_object.fonction.service %}
-                    <td>{{liste_object.fonction.service}}</td>
+                    <td>{{liste_object.fonction.service|truncatewords:1}}</td>
                     {% else %}
                     <td>-</td>
                     {% endif %}

@@ -83,8 +83,6 @@
         width: 190px;
         height: 190px;
         margin-bottom: 50px;
-
-
     }
 
     .content-img .img img {
@@ -122,6 +120,23 @@
         padding-top: 30px;
 
     }
+    .content-img .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .content-img .img img {
+        width: 50%;
+        height: auto;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center center;
+    }
     }
 </style>
 
@@ -132,9 +147,11 @@
             {% if user.photo %}
             <img src="{{user.photo.url}}" alt="">
             <p>Crée dépuis : {{user.date_creation}}</p>
+            <a href="{% url 'ChangeProfil' user.id %}">Changer mon Profil <span class="fa fa-pencil"></span></a>
             {% else %}
             <img src="{% static 'assets/img/userlogo.png' %}" alt="">
             <p>Crée dépuis : {{user.date_creation}}</p>
+            <a href="{% url 'ChangeProfil' user.id %}">Change Profil</a>
             {% endif %}
             <hr>
         </div>
@@ -144,6 +161,13 @@
     <div class="content">
         <div class="titre">
             <p>Tes informations ou Profils</p>
+        </div>
+        <div class="messages">
+            {% for message in messages %}
+              <div class="alert alert-warning" role="alert">
+                <p>{{message}}</p>
+              </div>
+            {% endfor %}
         </div>
         {% if user.is_authenticated %}
         <div class="infos-personnels">
@@ -179,17 +203,5 @@
     </div>
 </div>
 
-<script>
-
-    $(document).ready(function () {
-        $("#search").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-</script>
 
 {% endblock content %}

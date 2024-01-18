@@ -141,7 +141,7 @@
                 <td>{{liste_object.conge.getReponseConge}}</td>
                 <td>{{liste_object.conge.getNombreJours}}</td>
                 <td>{{liste_object.conge.get_JoursConsomes}}</td>
-                <td>{{liste_object.conge.date_creation}}</td>
+                <td>{{liste_object.conge.date_creation|truncatewords:1}}</td>
                 
 
                 {% if liste_object.conge.get_conge_demander %}

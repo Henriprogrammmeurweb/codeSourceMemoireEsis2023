@@ -11,7 +11,6 @@
         justify-content: space-between;
         align-items: center;
         height: 110px;
-        background-color: white;
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
         z-index: 1;
         margin-bottom: 5px;
@@ -177,7 +176,7 @@
         width: 200px;
         display: flex;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         flex-direction: column;
         padding-top: 20px;
         margin-right: 15px;
@@ -187,21 +186,30 @@
         top: 0;
         min-height: 100vh;
         box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.15);
+        
 
+    }
+    aside .menus {
+        width: 100%;
     }
     aside .menus .liste-menu{
         width: 100%;
     }
-    aside .titre h5 a{
-        text-decoration: none;
+    aside .titre{
+        width: 100%;
     }
-    aside .titre h5{
+    aside .titre p a{
+        text-decoration: none;
+        margin-left: 20px;
+    }
+    aside .titre p{
         color: teal;
         font-size: 14px;
     }
     aside .menus .liste-menu li{
         list-style: none;
         margin-top: 15px;
+        margin-left: 20px;
         
     }
     aside .menus .liste-menu hr{
@@ -209,7 +217,10 @@
     }
     aside .menus .liste-menu li a{
       text-decoration: none;
-      color: rgb(79, 92, 117);
+      color: rgb(68, 130, 124);
+    }
+    aside .menus .liste-menu li a:hover{
+        color: #49454d;
     }
 
 
@@ -342,23 +353,23 @@
       <aside class="aside">
         <div class="titre">
             <hr>
-            <h5><a href="{% url 'dashboard' %}">Tableau de Bord</a></h5>
+            <p><a href="{% url 'dashboard' %}"><span class="fa fa-dashboard"></span> Tableau de Bord</a></p>
             <hr>
         </div>
         <div class="menus">
             <ul class="liste-menu">
                 {% if perms.AppConge.view_conge %}
-                <li><a href="{% url 'dashboard' %}">Accueil</a></li>
+                <li><a href="{% url 'dashboard' %}"><span class="fa fa-home"></span> Accueil</a></li>
                 <hr>
-                <li><a href="{% url 'CongeUser' %}">Congés</a></li>
+                <li><a href="{% url 'CongeUser' %}"><span class="fa fa-rocket"></span> Congés</a></li>
                 <hr>
                 {% endif %}
                 {% if perms.AppPlanning.view_annee %}
-                <li><a href="{% url 'listeAnnee' %}">Planning</a></li>
+                <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-bars"></span> Planning</a></li>
                 <hr>
                 {% endif %}
                 {% if perms.AppAccount.view_personnel %}
-                <li><a href="{% url 'listePersonnel' %}">Personnels</a></li>
+                <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-user-circle"></span> Personnels</a></li>
                 <hr>
                 {% endif %}
 

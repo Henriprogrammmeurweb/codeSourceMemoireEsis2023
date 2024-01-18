@@ -95,6 +95,26 @@ def ProfilUser(request):
     return render(request, "profil/profilUser.html")
 
 @login_required
+def ChangeProfil(request, id):
+    get_user=models.Personnel.objects.get(id=id)
+    form=forms.ChangeProfilUser(instance=get_user)
+    if request.method == "POST":
+        form=forms.ChangeProfilUser(request.POST, request.FILES, instance=get_user)
+        if form.is_valid():
+            form.save()
+            messages.warning(request, "Votre photo a été mise à jour !")
+            return redirect('ProfilUser')
+        else:
+            messages.warning(request, "Impossible de modifier votre photo")
+    else:
+        form=forms.ChangeProfilUser(instance=get_user)
+    context={
+        "get_user":get_user,
+        'form':form
+    }
+    return render(request, "profil/changeProfil.html", context)
+
+@login_required
 def guideUser(request):
     """Guide d'utilisation descriptif du site !"""
     return render(request, "guide/guideUser.html")
