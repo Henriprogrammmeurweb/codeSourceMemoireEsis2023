@@ -19,5 +19,6 @@ urlpatterns=[
     path('suppDemande=<str:id>', views.suppDemande, name="suppDemande"),
     path('detailDemande=<str:id>', views.detailDemande, name="detailDemande"),
     path('consulter-conge-encours', views.consulterCongeEncours, name="consulterCongeEncours"),
+    path('detailCongeApprobateur=<str:id>', views.detailCongeApprobateur, name="detailCongeApprobateur"),
     path('send-email', views.sendEmail, name='sendEmail')
 ]

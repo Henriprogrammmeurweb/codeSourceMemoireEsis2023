@@ -140,7 +140,7 @@
                 <td>-</td>
                 {% endif %}
 
-                <td><a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre}}</a></td>
+                <td><a href="{% url 'detailCongeApprobateur' liste_object.id %}">{{liste_object.titre}}</a></td>
                 <td>{{liste_object.motif|truncatewords:3}}</td>
                 <td>{{liste_object.nature}}</td>
                 <td>{{liste_object.date_creation}}</td>
@@ -171,4 +171,3 @@
  </script>
   
 {% endblock content %}
-

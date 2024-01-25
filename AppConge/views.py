@@ -245,6 +245,15 @@ def consulterCongeEncours(request):
     context = {"liste_object": liste_object}
     return render(request, "conge/consulterCongeEncours.html", context)
 
+@login_required
+@permission_required("AppConge.view_demande", raise_exception=True)
+def detailCongeApprobateur(request,id):
+    """Cette fonction permet d'afficher le detail des congés demandés avant l'approbation"""
+    get_conge=models.Conge.objects.get(id=id)
+    context={
+        "get_conge":get_conge
+    }
+    return render(request, "conge/detailConge.html", context)
 
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)

@@ -77,8 +77,8 @@
         margin: 8px;
     }
     header nav .menu .img-user{
-        width: 56px;
-        height: 56px;
+        width: 30px;
+        height: 30px;
         margin-right: 12px;
         cursor: pointer;
     }
@@ -359,7 +359,7 @@
         <div class="menus">
             <ul class="liste-menu">
                 {% if perms.AppConge.view_conge %}
-                <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil</a></li>
+                <li><a href="{% url 'dashboard' %}"><span class="fas fa-home "></span> Accueil</a></li>
                 <hr>
                 <li><a href="{% url 'CongeUser' %}"><span class="fa fa-blind"></span> Congés</a></li>
                 <hr>
@@ -372,7 +372,6 @@
                 <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-address-book"></span> Personnels</a></li>
                 <hr>
                 {% endif %}
-
             </ul>
         </div>
       </aside>
