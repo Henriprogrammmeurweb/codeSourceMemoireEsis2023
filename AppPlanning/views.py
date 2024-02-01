@@ -231,17 +231,12 @@ def PDFplanningAnnee(request, id):
     liste_object=models.Planning.objects.filter(annee=get_id)
     template_path = 'annee/planning_pdf.html'
     context = {'get_id': get_id, 'liste_object':liste_object}
-    # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="PlanningAnnee.pdf"'
-    # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
-
-    # create a pdf
     pisa_status = pisa.CreatePDF(
        html, dest=response,)
-    # if error then show some funny view
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response

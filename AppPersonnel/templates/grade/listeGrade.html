@@ -83,7 +83,7 @@
         <div class="contenu">
             <div class="link">
                 
-            <a href="{% url 'ajoutGrade' %}" class="btn btn-info">Ajouter Grade</a>
+            <a href="{% url 'ajoutGrade' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter Grade</a>
 
                 <form action="" method="GET">
                     <input type="text" name="recherche" class="form-control" required
@@ -115,12 +115,12 @@
               
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelGrade' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i> {{liste_object.designation}}</a></td>
+                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelGrade' liste_object.id %}"> {{liste_object.designation}}</a></td>
                 <td><a href="{% url 'listePersonnelGrade' liste_object.id %}">Personnels</a></td>
                 <td>{{liste_object.date_creation}}</td>
                 <td>{{liste_object.date_modification}}</td>
-                <td><a href="{% url 'modifGrade' liste_object.id %}">Modifier</a></td>
-                <td><a href="{% url 'suppGrade' liste_object.id  %}">Supprimer</a></td>
+                <td><a href="{% url 'modifGrade' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
+                <td><a href="{% url 'suppGrade' liste_object.id  %}"><span class="fa fa-trash"></span>  Supprimer</a></td>
               </tr>
               
               {% empty %}

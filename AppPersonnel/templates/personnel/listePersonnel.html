@@ -105,10 +105,10 @@
 <div class="content">
     <div class="contenu">
         <div class="link">
-            <a href="{% url 'ajoutPersonnel' %}" class="btn btn-info">Ajouter un Personnel</a>
-            <a href="{% url 'listeService' %}" class="btn btn-success">Listes Services</a>
-            <a href="{% url 'listeFonction' %}" class="btn btn-dark">Listes Fonctions</a>
-            <a href="{% url 'listeGrade' %}" class="btn btn-primary">Listes Grades</a>
+            <a href="{% url 'ajoutPersonnel' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter un Personnel</a>
+            <a href="{% url 'listeService' %}" class="btn btn-success"><span class="fa fa-bars"></span> Listes Services</a>
+            <a href="{% url 'listeFonction' %}" class="btn btn-dark"><span class="fa fa-bars"></span> Listes Fonctions</a>
+            <a href="{% url 'listeGrade' %}" class="btn btn-primary"><span class="fa fa-bars"></span> Listes Grades</a>
         </div>
         <form action="" method="GET">
             <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
@@ -135,8 +135,7 @@
                 <th>Fonction</th>
                 <th>Actif</th>
                 <th>Date_creation</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
+                <th colspan="2" style="text-align: center; color: rgb(182, 180, 182);">Action</th>
             </tr>
 
             {% for liste_object in liste_object %}
@@ -166,8 +165,8 @@
                     {% endif %}
                     <td>{{liste_object.is_active}}</td>
                     <td>{{liste_object.date_creation|truncatewords:1}}</td>
-                    <td><a href="{% url 'modifPersonnel' liste_object.id %}">Modifier</a></td>
-                    <td><a href="{% url 'suppPersonnel' liste_object.id %}">Supprimer</a></td>
+                    <td><a href="{% url 'modifPersonnel' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
+                    <td><a href="{% url 'suppPersonnel' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
                 </tr>
 
                 {% empty %}

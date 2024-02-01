@@ -102,8 +102,8 @@
 <div class="content">
         <div class="contenu">
             <div class="link">
-                <a href="{% url 'ajoutAnnee' %}" class="btn btn-info">Ajouter une Annnée</a>
-                <a href="{% url 'listePlanning' %}" class="btn btn-success">Planification les Congés</a>
+                <a href="{% url 'ajoutAnnee' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter une Annnée</a>
+                <a href="{% url 'listePlanning' %}" class="btn btn-success"><span class="fa fa-bars"></span> Planification les Congés</a>
             </div>
             <form action="" method="GET">
                 <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
@@ -145,8 +145,8 @@
                 <td style="color: red;">Action Interdite</td>
                 <td style="color: red;">Action Interdite</td>
                 {% else %}
-                <td><a href="{% url 'modifAnnee' liste_object.id %}">Modifier</a></td>
-                <td><a href="{% url 'suppAnnee' liste_object.id %}">Supprimer</a></td>
+                <td><a href="{% url 'modifAnnee' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
+                <td><a href="{% url 'suppAnnee' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
                 {% endif %}
               </tr>
               {% empty %}

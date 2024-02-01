@@ -34,7 +34,7 @@
         flex-wrap: wrap;
     }
     .content .contenu .link a{
-        width: 250px;
+        width: 255px;
     }
 
     .content .contenu form {
@@ -102,15 +102,15 @@
 <div class="content">
         <div class="contenu">
             <div class="link">
-                <a href="{% url 'ajoutConge' %}" class="btn btn-info">Demander un Congé</a>
+                <a href="{% url 'ajoutConge' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Demander les Congés</a>
                 {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
-                <a href="{% url 'congeAttente' %}" class="btn btn-success">Congés en attente</a>
+                <a href="{% url 'congeAttente' %}" class="btn btn-success"><span class="fa fa-bars"></span> Liste des Congés en attente</a>
                 {% endif %}
                 {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
-                <a href="{% url 'consulterCongeEncours' %}" class="btn btn-dark">Congés encours</a>
+                <a href="{% url 'consulterCongeEncours' %}" class="btn btn-dark"><span class="fa fa-bars"></span> Liste des Congés encours</a>
                 {% endif %}
                 {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
-                <a href="{% url 'listeApprobationRejet' %}" class="btn btn-primary">Listes des Approbations</a>
+                <a href="{% url 'listeApprobationRejet' %}" class="btn btn-primary"><span class="fa fa-bars"></span> Listes des Approbations</a>
                 {% endif %}
             </div>
             <form action="" method="GET">

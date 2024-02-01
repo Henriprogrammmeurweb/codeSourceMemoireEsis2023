@@ -6,7 +6,7 @@ import datetime
 
 
 class Conge(models.Model):
-    """Classe de stocker les demandes des Congés des Personnels"""
+    """Classe permet de stocker les demandes des Congés des Personnels"""
     personnel = models.ForeignKey(Personnel, on_delete=models.PROTECT)
     titre = models.CharField(max_length=255)
     NATURE_CONGE = (
@@ -91,7 +91,7 @@ class Conge(models.Model):
 
 
 class Demande(models.Model):
-    """Cette de stocker les réponses aux demandes des congés des Personnels"""
+    """Cette classe permet de stocker les réponses aux demandes des congés des Personnels"""
     conge = models.ForeignKey(Conge, on_delete=models.CASCADE)
     commentaire = models.TextField()
     approbation = models.BooleanField(default=False)
