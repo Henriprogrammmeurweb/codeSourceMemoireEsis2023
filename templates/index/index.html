@@ -10,46 +10,88 @@
         box-sizing: border-box;
         font-weight: normal;
     }
-
-    .index .titles{
+    .index .desc-site{
         display: flex;
         justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        margin-top: 75px;
+        align-items: flex-start;
     }
-    .index .titles h1{
+    .index .desc-site .img-desc{
+        width: 40%;
+        margin-top: 20px;
+    }
+    .index .desc-site .img-desc img{
+        width: 100%;
+    }
+
+    .index .desc-site .titles{
+        display: flex;
+        justify-content:flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 75px;
+        margin-right: 10%;
+        width: 40%;
+    
+    }
+    .index .desc-site .titles h1{
         color: #60a5fa;
     }
-    .index .titles h1 span{
+    .index .desc-site .titles h1 span{
         color: #c084fc;
         
     }
-    .index .titles p{
-        color: #fff;
+    .index .desc-site .titles p{
+        color: #d4dcff;
         font-size: 15px;
         font-weight: normal;
     }
-    .index .titles #dps{
+    .index .desc-site .titles #dps{
         font-size: 18px;
     }
-    .index .titles a{
+    .index .desc-site .titles a{
         padding: 14px;
-        background-color: #5b2a8d;
+        background-color: #643097;
         color: #fff;
         margin-top: 20px;
+        outline: none;
     }
-    .index .titles a:hover{
-        background-color: #643097;
+    .index .desc-site .titles a:hover{
+        background-color: #5e2b91;
     }
+    .title-app{
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        margin-top: 10px;
+        text-align: center;
+        padding-bottom: 60px;
+
+    }
+    .title-app .texte-app{
+        box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.15);
+        width: 98%;
+        padding: 12px;
+        color: #60a5fa;
+        background-color: #1a1c35;
+    }
+    .title-app .texte-app strong #app{
+        color: #d4dcff;
+        font-size: x-large;
+        margin-top: 15px;
+    }
+    .title-app .texte-app strong #services{
+        color: #d4dcff;
+        font-size: x-large;
+    }
+
 
     .fonctionnnement {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
-        margin-top: 70px;
+        margin-top: 10px;
+        
     }
 
     .fonctionnnement .liste-app {
@@ -57,15 +99,15 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 290px;
+        width: 260px;
         margin: 15px;
         text-align: center;
-        border: 1px solid #444444;
+        border: 1px solid rgb(92, 154, 205);
         padding: 25px;
         border-radius: 2px;
-        background-color: #13131b;
+        background-color: #171933;
         border-radius: 5px;
-        border-top: 3px solid #643097;
+        border-top: 3px solid #8491c7;
 
     }
 
@@ -76,14 +118,14 @@
 
     .fonctionnnement .liste-app .texte-fonctionnement h5 {
         font-size: 14px;
-        color: rgb(92, 154, 205);
+        color: rgb(96, 101, 105);
         margin-top: 8px;
         text-align: center;
     }
 
     .fonctionnnement .liste-app .texte-fonctionnement p {
         font-size: 14px;
-        color: #fff;
+        color: #d4dcff;
     }
 
     .fonctionnnement .liste-app .img {
@@ -140,6 +182,39 @@
 
 
 
+    @media(max-width:800px){
+        .index .desc-site .titles #dps{
+   
+        text-align: center;
+    }
+    .index .desc-site{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 96%;
+        padding: 10px;
+    }
+    .index .desc-site .img-desc{
+        width: 100%;
+        margin-top: 20px;
+    }
+    .index .desc-site .img-desc img{
+        width: 100%;
+    }
+
+    .index .desc-site .titles{
+        display: flex;
+        justify-content:flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 15px;
+        margin-right: 10%;
+        width: 100%;
+        text-align: justify;
+    
+    } 
+    }
 
     @media(max-width:906px) {
         .fonctionnnement .liste-app {
@@ -151,14 +226,6 @@
         .fonctionnnement .liste-app {
             width: 96%;
         }
-        .index .titles{
-            margin-right: 8px;
-            margin-bottom: 8px;
-    }
-    .start .start-process{
-        margin-right: 8px;
-        margin-bottom: 8px;
-    }
 
     }
 </style>
@@ -167,71 +234,87 @@
 
 
 <section class="index">
-    <div class="titles">
-        <p id="dps">Division Provinciale de la Santé du Haut-Katanga</p>
-        <p>Alignement des Processus métiers de Gestion des Personnels <br>Planification et demande des Congés</p>
-        <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
+    <div class="desc-site">
+        <div class="titles">
+            <p id="dps">Division Provinciale de la Santé du Haut-Katanga</p>
+            <p>Alignement des Processus métiers de Gestion des Personnels <br>Planification et demande des Congés
+            <br>
+            Gérer efficacement les Personnels et leurs demands des Congés sans beaucoup des peines grâce à l'Ingénierie des Processus Métiers
+            
+            </p>
+            <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
+        </div>
+        <div class="img-desc">
+            <img src="{% static 'img/processMetier.png' %}" alt="">
+        </div>
     </div>
 
     <!-- Début des services ou listes applications -->
-    <section class="fonctionnnement">
-        <div class="liste-app">
-            <div class="img">
-                <img src="{% static 'img/contrats.png' %}" alt="">
-            </div>
-            <div class="texte-fonctionnement">
-                <h5>Gestion des Congés</h5>
-                <p>Fini la Gestion manuelle des demandes des Congés</p>
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-            </div>
+    <div class="title-app">
+        <div class="texte-app">
+            <strong><span id="app">Les Meilleurs Solutions</span></strong>
+            <section class="fonctionnnement">
+                <div class="liste-app">
+                    <div class="img">
+                        <img src="{% static 'img/contrats.png' %}" alt="">
+                    </div>
+                    <div class="texte-fonctionnement">
+                        <h5>Gestion des Congés</h5>
+                        <p>Fini la Gestion manuelle des demandes des Congés</p>
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="liste-app">
+                    <div class="img">
+                        <img src="{% static 'img/744406.png' %}" alt="">
+                    </div>
+                    <div class="texte-fonctionnement">
+                        <h5>Gestion des Personnels</h5>
+                        <p>Gestion des Personnels, connaître qui est qui ?</p>
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="liste-app">
+                    <div class="img">
+                        <img src="{% static 'img/contracter.png' %}" alt="">
+                    </div>
+                    <div class="texte-fonctionnement">
+                        <h5>Gestion des Planifications</h5>
+                        <p>Planifier les congés sans beacoup des peines</p>
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="liste-app">
+                    <div class="img">
+                        <img src="{% static 'img/cadenas2.png' %}" alt="">
+                    </div>
+                    <div class="texte-fonctionnement">
+                        <h5>Tout securisé</h5>
+                        <p>Configurer les Profils et reduire l'accès aux données</p>
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                        <img src="{% static 'img/etoile.png' %}" alt="">
+                    </div>
+                </div>
+            </section>
+        
         </div>
-        <div class="liste-app">
-            <div class="img">
-                <img src="{% static 'img/744406.png' %}" alt="">
-            </div>
-            <div class="texte-fonctionnement">
-                <h5>Gestion des Personnels</h5>
-                <p>Gestion des Personnels, connaître qui est qui ?</p>
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-            </div>
-        </div>
-        <div class="liste-app">
-            <div class="img">
-                <img src="{% static 'img/contracter.png' %}" alt="">
-            </div>
-            <div class="texte-fonctionnement">
-                <h5>Gestion des Planifications</h5>
-                <p>Planifier les congés sans beacoup des peines</p>
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-            </div>
-        </div>
-        <div class="liste-app">
-            <div class="img">
-                <img src="{% static 'img/cadenas2.png' %}" alt="">
-            </div>
-            <div class="texte-fonctionnement">
-                <h5>Tout securisé</h5>
-                <p>Configurer les Profils et reduire l'accès aux données</p>
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-                <img src="{% static 'img/etoile.png' %}" alt="">
-            </div>
-        </div>
-    </section>
+    </div>
+
     
     <!-- Fin des Services -->
 
-    <section class="start">
+    <!-- <section class="start">
         <div class="start-process">
             <p>Commencez maintenant les <span>processus de demande ou de planification des Congés</span></p>
             <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
@@ -243,7 +326,7 @@
         <div class="img">
             <img src="{% static 'img/process.png' %}" alt="">
         </div>
-    </section>
+    </section> -->
 
 </section>
 {% endblock content %}

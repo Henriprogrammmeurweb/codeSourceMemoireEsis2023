@@ -19,16 +19,16 @@
     .ligne{
         width: 100%;
         height: 0.5px;
-        background-color: #444444;
+        background-color: #8491c7;
     }
 
     header nav{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 110px;
+        height: 70px;
         padding-top: 10px;
-        background-color: #090911;
+        background-color: #171933;
     }
     header nav .logo{
         margin-left: 15px;
@@ -39,7 +39,7 @@
     }
     header nav .logo p{
         color: #c084fc;
-        font-size: x-large;
+        font-size: 17px;
         font-weight: normal;
         
     }
@@ -93,26 +93,20 @@
     }
     header nav .menus li{
         list-style-type: none;
-        margin: 7px;
+        margin: 13px;
     }
     header nav .menus li span:hover{
         color: #37949d;
     }
     header nav .menus li a{
         text-decoration: none;
-        color: #eee;
+        color: #d4dcff;
     }
     header nav .menus li a:hover{
         color: #37949d;
     }
     header nav .menus li #login{
-        border: 1px solid cadetblue;
-        padding: 13px;
-        color: #60a5fa;
         border-radius: 5px;
-    }
-    header nav .menus li #login:hover{
-        border: 1px solid #fff;
     }
 
 
@@ -216,7 +210,7 @@
             <li><a href="/"><span class="fa fa-home"></span> Accueil</a></li>
             <li><a href="#"><span class="fa fa-info-circle"></span> Appropos</a></li>
             <li><a href="#"><span class="fa fa-phone"></span> Contact</a></li>
-            <li><a href="{% url 'loginUser' %}" id="login"><span class="fa fa-user"></span> Se connecter</a></li>
+            <li><a href="{% url 'loginUser' %}" id="login"><span class="fa fa-sign-out"></span> Se connecter</a></li>
         </ul>
     </nav>
 </header>
