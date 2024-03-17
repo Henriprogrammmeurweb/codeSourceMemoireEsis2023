@@ -17,10 +17,26 @@
     }
     .index .desc-site .img-desc{
         width: 40%;
+        height: 300px;
         margin-top: 20px;
+        margin-top: 75px;
+        filter: brightness(0.80);
+        border: 1px solid #5a7691;
     }
     .index .desc-site .img-desc img{
         width: 100%;
+        height: 100%;
+        object-position: center center;
+        object-fit: cover;
+    }
+    .index .desc-site .img-desc p{
+        font-weight: normal;
+        color: #d4dcff;
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .index .desc-site .img-desc hr{
+        background-color: #747474;
     }
 
     .index .desc-site .titles{
@@ -42,29 +58,54 @@
     }
     .index .desc-site .titles p{
         color: #d4dcff;
-        font-size: 15px;
+        font-size: 17px;
         font-weight: normal;
     }
     .index .desc-site .titles #dps{
-        font-size: 18px;
+        color: #d4dcff;
+        font-weight: bold;
+        font-size: 3rem;
     }
-    .index .desc-site .titles a{
+    .index .desc-site .titles .link .btn-start1{
         padding: 14px;
-        background-color: #643097;
+        color: aliceblue;
+        margin-top: 20px;
+        outline: none;
+        margin-right: 8px;
+        border: 1px solid teal;
+    }
+    .index .desc-site .titles .link .btn-start2{
+        padding: 14px;
         color: #fff;
         margin-top: 20px;
         outline: none;
+        border: 1px solid cornflowerblue;
     }
-    .index .desc-site .titles a:hover{
-        background-color: #5e2b91;
+    .index .desc-site .titles .link .btn-start1:hover{
+        border: 1px solid #af6161;
+        
     }
+    .index .desc-site .titles .link .btn-start2:hover{
+        border: 1px solid #af6161;
+    }
+    .solutions{
+        margin-left: 65px;
+        margin-top: 70px;
+    }
+    .solutions h2{
+        color: #d4dcff;
+        font-weight: normal;
+        font-size: xx-large;
+    }
+
     .title-app{
         display: flex;
         justify-content:center;
         align-items: center;
-        margin-top: 10px;
+        
         text-align: center;
         padding-bottom: 60px;
+        background-color:  #171933;
 
     }
     .title-app .texte-app{
@@ -95,19 +136,14 @@
     }
 
     .fonctionnnement .liste-app {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 260px;
-        margin: 15px;
-        text-align: center;
-        border: 1px solid rgb(92, 154, 205);
-        padding: 25px;
-        border-radius: 2px;
-        background-color: #171933;
+        width: 400px;
+        border: 1px solid #5a7691;
+        margin: 8px;
+        padding: 10px;
+        cursor: pointer;
         border-radius: 5px;
-        border-top: 3px solid #8491c7;
+        border-top: 2px solid rgb(107, 95, 175);
+        border-bottom: 1px solid rgb(119, 119, 119);
 
     }
 
@@ -117,15 +153,17 @@
     }
 
     .fonctionnnement .liste-app .texte-fonctionnement h5 {
-        font-size: 14px;
-        color: rgb(96, 101, 105);
+        font-size: 17px;
+        color: rgb(107, 95, 175);
         margin-top: 8px;
-        text-align: center;
+        text-align: left;
+        
     }
 
     .fonctionnnement .liste-app .texte-fonctionnement p {
-        font-size: 14px;
+        font-size: 1rem;
         color: #d4dcff;
+        text-align: left;
     }
 
     .fonctionnnement .liste-app .img {
@@ -183,10 +221,6 @@
 
 
     @media(max-width:800px){
-        .index .desc-site .titles #dps{
-   
-        text-align: center;
-    }
     .index .desc-site{
         display: flex;
         justify-content: center;
@@ -216,10 +250,46 @@
     } 
     }
 
-    @media(max-width:906px) {
+    @media(max-width:996px) {
         .fonctionnnement .liste-app {
             width: 300px;
         }
+        .index .desc-site{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 96%;
+        padding: 10px;
+        margin-top: 25px;
+    }
+    .index .desc-site .img-desc{
+        width: 100%;
+        margin-top: 20px;
+        height: auto;
+    }
+    .index .desc-site .img-desc img{
+        width: 100%;
+        height: 100%;
+    }
+    .index .desc-site .img-desc hr{
+        display: none;
+    }
+    .index .desc-site .img-desc p{
+        margin-left: 10px;
+    }
+    .index .desc-site .titles{
+        display: flex;
+        justify-content:flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 15px;
+        margin-right: 10%;
+        width: 100%;
+        text-align: justify;
+    
+    } 
+
     }
 
     @media(max-width:676px) {
@@ -236,23 +306,31 @@
 <section class="index">
     <div class="desc-site">
         <div class="titles">
-            <p id="dps">Division Provinciale de la Santé du Haut-Katanga</p>
+            <h2 id="dps">Division Provinciale de la Santé du Haut-Katanga</h2>
             <p>Alignement des Processus métiers de Gestion des Personnels <br>Planification et demande des Congés
             <br>
             Gérer efficacement les Personnels et leurs demands des Congés sans beaucoup des peines grâce à l'Ingénierie des Processus Métiers
             
             </p>
-            <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
+            <div class="link">
+                <a href="{% url 'loginUser' %}" class="btn btn-start1">Demander les Congés</a>
+                <a href="{% url 'loginUser' %}" class="btn btn-start2">Planifier les Congés</a>
+            </div>
+          
         </div>
         <div class="img-desc">
-            <img src="{% static 'img/processMetier.png' %}" alt="">
+            <img src="{% static 'img/dps_photo.jpg' %}" alt="">
+            <p><span class="fa fa-map"></span> Commune Lubumbashi, Avenue Likasi N° 365, Lubumbashi, RDC</p>
+            <hr>
         </div>
     </div>
 
     <!-- Début des services ou listes applications -->
+    <div class="solutions">
+        <h2>Les tâches automatisées</h2>
+    </div>
     <div class="title-app">
         <div class="texte-app">
-            <strong><span id="app">Les Meilleurs Solutions</span></strong>
             <section class="fonctionnnement">
                 <div class="liste-app">
                     <div class="img">
@@ -261,10 +339,6 @@
                     <div class="texte-fonctionnement">
                         <h5>Gestion des Congés</h5>
                         <p>Fini la Gestion manuelle des demandes des Congés</p>
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
                     </div>
                 </div>
                 <div class="liste-app">
@@ -274,10 +348,6 @@
                     <div class="texte-fonctionnement">
                         <h5>Gestion des Personnels</h5>
                         <p>Gestion des Personnels, connaître qui est qui ?</p>
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
                     </div>
                 </div>
                 <div class="liste-app">
@@ -287,23 +357,6 @@
                     <div class="texte-fonctionnement">
                         <h5>Gestion des Planifications</h5>
                         <p>Planifier les congés sans beacoup des peines</p>
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                    </div>
-                </div>
-                <div class="liste-app">
-                    <div class="img">
-                        <img src="{% static 'img/cadenas2.png' %}" alt="">
-                    </div>
-                    <div class="texte-fonctionnement">
-                        <h5>Tout securisé</h5>
-                        <p>Configurer les Profils et reduire l'accès aux données</p>
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
-                        <img src="{% static 'img/etoile.png' %}" alt="">
                     </div>
                 </div>
             </section>
@@ -313,20 +366,6 @@
 
     
     <!-- Fin des Services -->
-
-    <!-- <section class="start">
-        <div class="start-process">
-            <p>Commencez maintenant les <span>processus de demande ou de planification des Congés</span></p>
-            <a href="{% url 'loginUser' %}" class="btn">Commencez maintenant</a>
-        </div>
-    </section>
-
-
-    <section class="localisation">
-        <div class="img">
-            <img src="{% static 'img/process.png' %}" alt="">
-        </div>
-    </section> -->
 
 </section>
 {% endblock content %}

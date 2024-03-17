@@ -29,10 +29,7 @@ class CreateCongeTestCate(TestCase):
         
         self.reponse=models.Demande.objects.create(conge=self.conge, commentaire="Oui",approbation=False)
         
-    # def test_ok(self):
-    #     self.assertNotIn(self.conge, self.conge.get_conge_demander)
 
-    
     def test_comment(self):
         self.assertEqual(self.conge.getReponseConge, '0 jour')
         
