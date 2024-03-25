@@ -27,11 +27,11 @@ class CreateCongeTestCate(TestCase):
                                                date_debut=self.convert_date_debut,
                                                date_fin=self.convert_date_fin)
         
-        self.reponse=models.Demande.objects.create(conge=self.conge, commentaire="Oui",approbation=False)
+        self.reponse=models.Demande.objects.create(conge=self.conge, commentaire="Oui",approbation=True)
         
 
     def test_comment(self):
-        self.assertEqual(self.conge.getReponseConge, '0 jour')
+        self.assertEqual(self.conge.getReponseConge, 'Congé accordé ✅')
         
         
 
