@@ -106,6 +106,8 @@
             <tr>
                 <th>N°</th>
                 <th>Designation</th>
+                <th>Hommes</th>
+                <th>Femmes</th>
                 <th>Personnels</th>
                 <th>Date Création</th>
                 <th>Date Modification</th>
@@ -119,6 +121,8 @@
               <tr>
                 <td>{{forloop.counter}}</td>
                 <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelService' liste_object.id  %}"> {{liste_object.designation}}</a></td>
+                <td>{{liste_object.getNumberPersonMale}}</td>
+                <td>{{liste_object.getNumberPersonFemale}}</td>
                 <td><a href="{% url 'listePersonnelService' liste_object.id  %}">Personnels</a></td>
                 <td>{{liste_object.date_creation}}</td>
                 <td>{{liste_object.date_modification}}</td>

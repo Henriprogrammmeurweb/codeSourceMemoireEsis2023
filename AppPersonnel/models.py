@@ -23,6 +23,18 @@ class Service(models.Model):
     def __str__(self):
         return self.designation
 
+    @property
+    def getNumberPersonMale(self):
+        list_user=self.fonction_set.all()
+        number_person=sum([ligne.getNumberPersonMale for ligne in list_user])
+        return number_person
+    
+    @property
+    def getNumberPersonFemale(self):
+        list_user=self.fonction_set.all()
+        number_person=sum([ligne.getNumberPersonFemale for ligne in list_user])
+        return number_person
+
 
 class Fonction(models.Model):
     """Cette classe permet de stocker les fonctions des Personnels"""
@@ -35,5 +47,15 @@ class Fonction(models.Model):
         return f"{self.service}-{self.designation}"
 
 
-
+    @property
+    def getNumberPersonMale(self):
+        list_user=self.personnel_set.all()
+        number_person=len([ligne.sexe for ligne in list_user if ligne.sexe == "M"])
+        return number_person
+    
+    @property
+    def getNumberPersonFemale(self):
+        list_user=self.personnel_set.all()
+        number_person=len([ligne.sexe for ligne in list_user if ligne.sexe == "F"])
+        return number_person
 
