@@ -103,7 +103,9 @@
             <tr>
                 <th>N°</th>
                 <th>Designation</th>
-                <th>Personnels</th>
+                <th>Hommes</th>
+                <th>Femmes</th>
+                <th>Total Personnels</th>
                 <th>Date Création</th>
                 <th>Date Modification</th>
                 <th>Modifier</th>
@@ -115,8 +117,10 @@
               
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelGrade' liste_object.id %}"> {{liste_object.designation}}</a></td>
-                <td><a href="{% url 'listePersonnelGrade' liste_object.id %}">Personnels</a></td>
+                <td style="text-transform: uppercase;"><span class="fa fa-eye"></span> <a href="{% url 'listePersonnelGrade' liste_object.id %}"> {{liste_object.designation}}</a></td>
+                <td>{{liste_object.getNumberPersonMale}}</td>
+                <td>{{liste_object.getNumberPersonFemale}}</td>
+                <td>{{liste_object.TotalNumberPerson}}</td>
                 <td>{{liste_object.date_creation}}</td>
                 <td>{{liste_object.date_modification}}</td>
                 <td><a href="{% url 'modifGrade' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>

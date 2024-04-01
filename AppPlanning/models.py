@@ -60,5 +60,5 @@ class Planning(models.Model):
         return super().save(*args, **kwargs)
     
     def __str__(self):
-        return self.annee.designation
+        return f"{self.annee.designation} {self.service.designation} {self.personnel.sexe}"
 

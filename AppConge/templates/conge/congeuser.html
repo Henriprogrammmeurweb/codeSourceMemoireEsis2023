@@ -145,7 +145,7 @@
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a></td>
+                <td><span class="fa fa-eye"></span> <a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a></td>
                 <td>{{liste_object.motif|truncatewords:1}}</td>
                 <td>{{liste_object.nature}}</td>
                 {% if liste_object.getReponseConge %}
@@ -158,8 +158,8 @@
                 <td>{{liste_object.date_creation|truncatewords:1}}</td>
 
                 {% if liste_object.get_conge_demander or liste_object.date_fin < dateToday %}
-                    <td style="color: red;">Action Interdite</td>
-                    <td style="color: red;">Action Interdite</td>
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
                   {% else %}
                   <td><a href="{% url 'modifConge' liste_object.id  %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
                   <td><a href="{% url 'suppConge' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>

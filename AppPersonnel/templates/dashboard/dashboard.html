@@ -34,7 +34,7 @@
         margin-left: 25px;
     }
 
-    .content .contenu .activite-1 {
+    .content .contenu .card-1 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -47,11 +47,11 @@
         border-radius: 2px;
     }
 
-    .content .contenu .activite-1:hover {
+    .content .contenu .card-1:hover {
         background-color: #57799d;
     }
 
-    .content .contenu .activite-2 {
+    .content .contenu .card-2 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -65,11 +65,11 @@
 
     }
 
-    .content .contenu .activite-2:hover {
+    .content .contenu .card-2:hover {
         background-color: #35486d;
     }
 
-    .content .contenu .activite-3 {
+    .content .contenu .card-3 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -84,11 +84,11 @@
         order: 4;
     }
 
-    .content .contenu .activite-3:hover {
+    .content .contenu .card-3:hover {
         background-color: rgb(214, 66, 48);
     }
 
-    .content .contenu .activite-4 {
+    .content .contenu .card-4 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -101,11 +101,11 @@
         border-radius: 2px;
     }
 
-    .content .contenu .activite-4:hover {
+    .content .contenu .card-4:hover {
         background-color: #5D9547;
     }
 
-    .content .contenu .activite-5 {
+    .content .contenu .card-5 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -118,11 +118,11 @@
         border-radius: 2px;
     }
 
-    .content .contenu .activite-5:hover {
+    .content .contenu .card-5:hover {
         background-color: #0b476d;
     }
 
-    .content .contenu .activite-6 {
+    .content .contenu .card-6 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -135,11 +135,11 @@
         border-radius: 2px;
     }
 
-    .content .contenu .activite-6:hover {
+    .content .contenu .card-6:hover {
         background-color: #5f5aaa;
     }
 
-    .content .contenu .activite-7 {
+    .content .contenu .card-7 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -152,11 +152,11 @@
         border-radius: 2px;
     }
 
-    .content .contenu .activite-7:hover {
+    .content .contenu .card-7:hover {
         background-color: #324458;
     }
 
-    .content .contenu .activite-8 {
+    .content .contenu .card-8 {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -169,7 +169,7 @@
         border-radius: 2px;
     }
 
-    .content .contenu .activite-8:hover {
+    .content .contenu .card-8:hover {
         background-color: #166e81;
     }
 
@@ -225,42 +225,42 @@
             width: 90%;
         }
 
-        .content .contenu .activite-1 {
+        .content .contenu .card-1 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-2 {
+        .content .contenu .card-2 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-3 {
+        .content .contenu .card-3 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-4 {
+        .content .contenu .card-4 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-5 {
+        .content .contenu .card-5 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-6 {
+        .content .contenu .card-6 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-7 {
+        .content .contenu .card-7 {
             width: 98%;
             margin-left: 0;
         }
 
-        .content .contenu .activite-8 {
+        .content .contenu .card-8 {
             width: 98%;
             margin-left: 0;
         }
@@ -307,65 +307,58 @@
 </style>
 
 
-<div class="content">
-
-    <!-- Tableau de Bord  -->
-
-    <div class="dashboard">
+<section class="content">
+    <section class="dashboard">
         <div class="contenu">
             <a href="{% url 'CongeUser' %}">
-                <div class="activite-1">
+                <div class="card-1">
                     <p>{{nombreConge}} <br>Tous les Congés <span class="fa fa-cog"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeApprouve' %}">
-                <div class="activite-2">
+                <div class="card-2">
                     <p>{{nombreApprouve}} <br>Congés Approuvés <span class="fa fa-check-circle"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeRejet' %}">
-                <div class="activite-3">
+                <div class="card-3">
                     <p>{{nombreRejet}} <br>Congés Rejetés <span class="fa fa-eye-slash"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeEncours' %}">
-                <div class="activite-4">
+                <div class="card-4">
                     <p>{{nombreEncours}} <br>Congés encours <span class="fa fa-spinner"></span></p>
                 </div>
             </a>
             <a href="{% url 'congeAttenteUser' %}">
-                <div class="activite-5">
+                <div class="card-5">
                     <p>{{nombreAttente}} <br>Congés en attente <span class="fa fa-envelope"></span></p>
                 </div>
             </a>
             <a href="{% url 'planningOneUser' %}">
-                <div class="activite-6">
+                <div class="card-6">
                     <p>{{panningsUser}} <br>Mes Planifications <span class="fa fa-bar-chart"></span></p>
                 </div>
             </a>
             <a href="{% url 'listePersonnel' %}">
-                <div class="activite-7">
+                <div class="card-7">
                     <p>{{personnel}} <br>Personnels <span class="fa fa-users"></span></p>
                 </div>
             </a>
             <a href="{% url 'listeAnnee' %}">
-                <div class="activite-8">
+                <div class="card-8">
                     <p>{{plannings}} <br>Planifications <span class="fa fa-book"></span></p>
                 </div>
             </a>
         </div>
-    </div>
+    </section>
 
-
-    <!-- Dernières demandes des Congés -->
-
-
-    <div class="trasanction">
+    <section class="trasanction">
         <div class="last-trans">
             <p>Tes 5 dernières Demandes des Congés</p>
         </div>
-    </div>
-    <div class="content-trans">
+    </section>
+    <section class="content-trans">
         <div class="contenu-trans">
             <div class="table table-responsive table-hover">
                 <table class="table no-wrap">
@@ -382,13 +375,11 @@
                             <th>Supprimer</th>
                         </tr>
                     </thead>
-
-
                     {% for liste_object in liste_object %}
                     <tbody id="myTable">
                         <tr>
                             <td>{{forloop.counter}}</td>
-                            <td><a
+                            <td><span class="fa fa-eye"></span> <a
                                     href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}
                                 </a>
                             </td>
@@ -403,12 +394,14 @@
                             <td>{{liste_object.get_JoursConsomes}}</td>
 
                             {% if liste_object.get_conge_demander or liste_object.date_fin < dateToday %} <td
-                                style="color: red;">Action Interdite</td>
-                                <td style="color: red;">Action Interdite</td>
+                                style="color: rgb(194, 146, 146);">Action Interdite</td>
+                                <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
                                 {% else %}
-                                <td><a href="{% url 'modifConge' liste_object.id  %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
-                                <td><a href="{% url 'suppConge' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
-                                {% endif %}
+                                <td><a href="{% url 'modifConge' liste_object.id  %}"><span
+                                            class="fa fa-pencil-square"></span> Modifier</a></td>
+                                <td><a href="{% url 'suppConge' liste_object.id %}"><span 
+                                    class="fa fa-trash"></span>Supprimer</a></td>
+                            {% endif %}
 
                         </tr>
                         {% empty %}
@@ -421,8 +414,8 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</section>
 
 
 {% endblock content %}

@@ -103,9 +103,10 @@
                 <th>N°</th>
                 <th>Designation</th>
                 <th>Service</th>
-                <th>Personnels</th>
+                <th>Hommes</th>
+                <th>Femmes</th>
+                <th>Total Personnels</th>
                 <th>Date Création</th>
-                <th>Date Modification</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -117,9 +118,10 @@
                 <td>{{forloop.counter}}</td>
                 <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelFonction' liste_object.id %}"> {{liste_object.designation|truncatewords:2}}</a></td>
                 <td>{{liste_object.service|truncatewords:2}}</td>
-                <td><a href="{% url 'listePersonnelFonction' liste_object.id %}">Personnels</a></td>
+                <td>{{liste_object.getNumberPersonMale}}</td>
+                <td>{{liste_object.getNumberPersonFemale}}</td>
+                <td>{{liste_object.TotalNumberPerson}}</td>
                 <td>{{liste_object.date_creation}}</td>
-                <td>{{liste_object.date_modification}}</td>
                 <td><a href="{% url 'modifFonction' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
                 <td><a href="{% url 'suppFonction' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
               </tr>

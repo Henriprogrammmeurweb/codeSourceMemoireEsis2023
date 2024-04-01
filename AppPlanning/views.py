@@ -1,9 +1,13 @@
+import datetime
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.db.models import Sum, Count, Max,Min, Q
 from django.urls import reverse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.auth.decorators import login_required, permission_required
+
+from AppConge.models import Conge, Demande
 from .import models
 from django.contrib import messages
 from AppAccount.models import Personnel
@@ -221,6 +225,62 @@ def planningOneUser(request):
         "liste_object":liste_object
     }
     return render(request, "planning/planningOneUser.html", context)
+
+
+
+@login_required
+def PlanningAnuelService(request):
+    """Cette fonction groupe les plannings des congés par années et par service et compte le nombre d'hommes et de femmes"""
+    group_by_planning_conge=models.Planning.objects.values('service__id', 
+                                                           'service__designation',
+                                                           'annee__id', 
+                                                           'annee__designation'
+                                                           ).annotate(nombre__personnel=Count('personnel__id'))
+    for service_and_year in group_by_planning_conge:
+        plannings=models.Planning.objects.filter(service__id=service_and_year['service__id'], 
+                                                 annee__id=service_and_year['annee__id'])
+        service_and_year['homme']=len([ligne.personnel.sexe for ligne in plannings if ligne.personnel.sexe == "M"])
+        service_and_year['femme']=len([ligne.personnel.sexe for ligne in plannings if ligne.personnel.sexe == "F"])
+    context={
+        "group_by_planning_conge":group_by_planning_conge
+    }
+    return render(request, 'annee/planningAnnuel.html', context)
+
+
+
+@login_required
+def detailPlanningAnnuelService(request, id_service, id_annee):
+    """Cette fonction affiche le detail sur le planning des congés de chaque service"""
+    get_service=Service.objects.get(id=id_service, )
+    get_annee=models.Annee.objects.get(id=id_annee)
+    liste_object=models.Planning.objects.filter(service=get_service, annee=get_annee)
+    context={
+        'liste_object':liste_object,
+        'get_service':get_service,
+        'get_annee':get_annee,
+    }
+    return render(request, 'annee/detailPlanningAnnuelService.html', context)
+
+
+
+@login_required
+def StatCongeServiceAnnee(request):
+    """Cette fonction affiche les statistiques de congé de chaque service et les compte"""
+    service_agent=Conge.objects.values('personnel__fonction__service__id',
+                                       'personnel__fonction__service__designation', 
+                                       'date_creation__year').annotate(nombre_conge=Count('personnel__id'))
+    for items in service_agent:
+        demandes=Demande.objects.filter(conge__personnel__fonction__service__id=items['personnel__fonction__service__id'])
+        conge_encours=Conge.objects.filter(id__in=[ligne.conge.id for ligne in demandes if ligne.approbation == True and ligne.conge.date_fin >= datetime.date.today()])
+        items['conge_approuve'] = len([ligne.approbation for ligne in demandes if ligne.approbation == True])
+        items['conge_rejet'] = len([ligne.approbation for ligne in demandes if ligne.approbation == False])
+        items['conge_encours'] = len([ligne for ligne in conge_encours])
+    context={
+        "service_agent":service_agent
+    }
+    return render(request, 'annee/StatCongeServiceAnnee.html', context)
+
+
 
 @login_required
 @permission_required("AppPlanning.view_annee")

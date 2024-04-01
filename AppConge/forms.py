@@ -21,9 +21,6 @@ class FormAjoutConge(forms.ModelForm):
         }
 
 
-
-
-
 class FormAddApprobation(forms.ModelForm):
     """Formulaire de réponse aux demandes des Congés"""
     def __init__(self, *args, **kwargs):

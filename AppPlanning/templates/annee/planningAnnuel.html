@@ -37,7 +37,6 @@
         width: 250px;
     }
 
-
     .content .contenu form {
         width: 100%;
         display: flex;
@@ -57,7 +56,6 @@
         margin-bottom: 20px;
         margin: 7px;
         padding: 20px;
-        width: 255px;
     }
 
     .content .contenu table {
@@ -103,59 +101,48 @@
 
 <div class="content">
         <div class="contenu">
-            <div class="link">
-                <a href="{% url 'ajoutConge' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Demander les Congés</a>
-                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
-                <a href="{% url 'congeAttente' %}" class="btn btn-success"><span class="fa fa-bars"></span> Liste des Congés en attente</a>
-                {% endif %}
-                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
-                <a href="{% url 'consulterCongeEncours' %}" class="btn btn-dark"><span class="fa fa-bars"></span> Liste des Congés encours</a>
-                {% endif %}
-                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
-                <a href="{% url 'listeApprobationRejet' %}" class="btn btn-primary"><span class="fa fa-bars"></span> Listes des Approbations</a>
-                {% endif %}
-            </div>
+            <!-- <div class="link">
+                <a href="{% url 'ajoutAnnee' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter une Annnée</a>
+                <a href="{% url 'listePlanning' %}" class="btn btn-success"><span class="fa fa-bars"></span> Planification les Congés</a>
+            </div> -->
             <form action="" method="GET">
                 <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                     id="search">
             </form>
-            <p>Liste des Congés Encours</p>
+            <p>Liste des Planification des congés par service et par Année</p>
+            <div class="messages">
+                {% for message in messages %}
+                  <div class="alert alert-warning" role="alert">
+                    <p>{{message}}</p>
+                  </div>
+                {% endfor %}
+            </div>
             <table class="table table-hover table-responsive">
                 
             <tr>
                 <th>N°</th>
-                <th>Titre</th>
-                <th>Motif</th>
-                <th>Nature</th>
-                <th>Réponse</th>
-                <th>Jours</th>
-                <th>Jours consomés</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
+                <th>Services</th>
+                <th>Années</th>
+                <th>Hommes</th>
+                <th>Femmes</th>
+                <th>Total Planning</th>
+                <th>Plus</th>
             </tr>
                 
-                {% for liste_object in liste_object %}
+                {% for service in group_by_planning_conge %}
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="#">{{liste_object.conge.titre|truncatewords:1}}</a></td>
-                <td>{{liste_object.conge.motif|truncatewords:1}}</td>
-                <td>{{liste_object.conge.nature}}</td>
-                <td>{{liste_object.conge.getReponseConge}}</td>
-                <td>{{liste_object.conge.getNombreJours}}</td>
-                <td>{{liste_object.conge.get_JoursConsomes}}</td>
-
-                {% if liste_object.conge.get_conge_demander %}
-                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
-                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
-                  {% else %}
-                  <td><a href="{% url 'modifConge' liste_object.id  %}">Modifier</a></td>
-                  <td><a href="{% url 'suppConge' liste_object.id %}">Supprimer</a></td>
-                {% endif %}
+                <td>{{service.service__designation}}</td>
+                <td>{{service.annee__designation}}</td>
+                <td>{{service.homme}}</td>
+                <td>{{service.femme}}</td>
+                <td>{{service.nombre__personnel}}</td>
+                <td><span class="fa fa-eye"></span><a href="{% url 'detailPlanningAnnuelService' service.service__id service.annee__id %}"> Plus infos</a></td>
               </tr>
               {% empty %}
               <tr>
-                <td colspan="5">Pas des congés dans la Base de données</td>
+                <td colspan="4">Pas des Planifications actuellement </td>
               </tr>
                 
                 </tbody>

@@ -53,6 +53,10 @@ class Personnel(AbstractUser):
     def getPersonnelLogin(self):
         """Cette méthode permet de recuperer les personnels"""
         return f'{self.prenom.lower()} {self.username.lower()}'
+
+    @property
+    def getSexeMale(self):
+        return self.sexe == "M"
     
 
        

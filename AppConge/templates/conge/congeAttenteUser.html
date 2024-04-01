@@ -148,8 +148,8 @@
                 <td>{{liste_object.get_JoursConsomes}}</td>
 
                 {% if liste_object.get_conge_demander %}
-                    <td style="color: red;">Action Interdite</td>
-                    <td style="color: red;">Action Interdite</td>
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
                   {% else %}
                   <td><a href="{% url 'modifConge' liste_object.id  %}">Modifier</a></td>
                   <td><a href="{% url 'suppConge' liste_object.id %}">Supprimer</a></td>

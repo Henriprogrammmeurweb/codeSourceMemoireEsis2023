@@ -134,7 +134,6 @@
                 <th>Service</th>
                 <th>Fonction</th>
                 <th>Actif</th>
-                <th>Date_creation</th>
                 <th colspan="2" style="text-align: center; color: rgb(182, 180, 182);">Action</th>
             </tr>
 
@@ -143,7 +142,7 @@
 
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}">
+                    <td style="text-transform: uppercase;"><span class="fa fa-eye"></span> <a href="{% url 'detailPersonnel' liste_object.id %}">
                             {{liste_object.username}}</a></td>
                     <td>{{liste_object.postnom}}</td>
                     <td>{{liste_object.prenom}}</td>
@@ -164,7 +163,6 @@
                     <td>-</td>
                     {% endif %}
                     <td>{{liste_object.is_active}}</td>
-                    <td>{{liste_object.date_creation|truncatewords:1}}</td>
                     <td><a href="{% url 'modifPersonnel' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
                     <td><a href="{% url 'suppPersonnel' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
                 </tr>
