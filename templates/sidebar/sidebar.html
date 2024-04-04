@@ -366,15 +366,15 @@
                 <hr>
                 {% endif %}
                 {% if perms.AppPlanning.view_annee %}
-                <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-bars"></span> Planning</a></li>
+                <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-bars"></span> Planifier</a></li>
                 <hr>
                 {% endif %}
                 {% if perms.AppAccount.view_personnel %}
-                <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-group"></span> Personnels</a></li>
+                <li><a href="{% url 'StatCongeServiceAnnee' %}"><span class="fa fa-info-circle"></span> Stat Congés</a></li>
                 <hr>
                 <li><a href="{% url 'PlanningAnuelService' %}"><span class="fa fa-eye"></span> Congé Annuel</a></li>
                 <hr>
-                <li><a href="{% url 'StatCongeServiceAnnee' %}"><span class="fa fa-eyedropper"></span> Stat Service</a></li>
+                <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-group"></span> Personnels</a></li>
                 <hr>
                 {% endif %}
             </ul>

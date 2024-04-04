@@ -15,8 +15,9 @@ urlpatterns=[
     path('planningAnnee=<str:id>', views.planningAnnee, name='planningAnnee'),
     path('planningOneUser', views.planningOneUser, name="planningOneUser"),
     path('planning-anuel-service', views.PlanningAnuelService, name='PlanningAnuelService'),
-    path('detailPlanningAnnuelService=<str:id_service>/<str:id_annee>', views.detailPlanningAnnuelService, name='detailPlanningAnnuelService'),
-    path('StatCongeServiceAnnee', views.StatCongeServiceAnnee, name="StatCongeServiceAnnee"),
+    path('detail-planning-annuel-service/<str:id_service>/<str:id_annee>', views.detailPlanningAnnuelService, name='detailPlanningAnnuelService'),
+    path('stat-conge-service-annee', views.StatCongeServiceAnnee, name="StatCongeServiceAnnee"),
+    path('detail-stat-service-annee/<str:id_service>/<str:annee>', views.detailStatServiceAnnee, name='detailStatServiceAnnee'),
 
     #---------------PDF-----------------
     path('pdf-planning/<str:id>/annee', views.PDFplanningAnnee, name="planning-annee")

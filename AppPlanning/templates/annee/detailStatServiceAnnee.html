@@ -29,12 +29,12 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
+        flex-wrap: wrap;
         padding-bottom: 15px;
         width: 100%;
-        flex-wrap: wrap;
     }
     .content .contenu .link a{
-        width: 250px;
+        width: 255px;
     }
 
     .content .contenu form {
@@ -63,7 +63,6 @@
     }
 
     .content .contenu table tr th {
-        background-color: rgb(18, 89, 131);
         color: white;
     }
 
@@ -101,15 +100,12 @@
 
 <div class="content">
         <div class="contenu">
-            <!-- <div class="link">
-                <a href="{% url 'ajoutAnnee' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter une Annnée</a>
-                <a href="{% url 'listePlanning' %}" class="btn btn-success"><span class="fa fa-bars"></span> Planification les Congés</a>
-            </div> -->
             <form action="" method="GET">
                 <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                     id="search">
             </form>
-            <p>Liste des demandes des congés par service et par Année</p>
+            <p>Liste des Congés</p>
+
             <div class="messages">
                 {% for message in messages %}
                   <div class="alert alert-warning" role="alert">
@@ -117,38 +113,49 @@
                   </div>
                 {% endfor %}
             </div>
+
             <table class="table table-hover table-responsive">
                 
             <tr>
                 <th>N°</th>
-                <th>Services</th>
-                <th>Années</th>
-                <th>Approuvés</th>
-                <th>Rejetes</th>
-                <th>Attentes</th>
-                <th>Encours</th>
-                <th>Sans réponse</th>
-                <th>Total</th>
-                <th>Plus</th>
+                <th>Titre</th>
+                <th>Motif</th>
+                <th>Nature</th>
+                <th>Réponse</th>
+                <th>Jours</th>
+                <th>Jours consomés</th>
+                <th>Date_creation</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
                 
-                {% for service in service_agent %}
+                {% for liste_object in liste_object %}
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td>{{service.personnel__fonction__service__designation}}</td>
-                <td>{{service.date_creation__year}}</td>
-                <td>{{service.conge_approuve}}</td>
-                <td>{{service.conge_rejet}}</td>
-                <td>{{service.conge_attente}}</td>
-                <td>{{service.conge_encours}}</td>
-                <td>{{service.demande_sans_reponse}}</td>
-                <td>{{service.nombre_conge}}</td>
-                <td><span class="fa fa-eye"></span><a href="{% url 'detailStatServiceAnnee' service.personnel__fonction__service__id service.date_creation__year %}"> Plus infos</a></td>
+                <td><span class="fa fa-eye"></span> <a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a></td>
+                <td>{{liste_object.motif|truncatewords:1}}</td>
+                <td>{{liste_object.nature}}</td>
+                {% if liste_object.getReponseConge %}
+                    <td>{{liste_object.getReponseConge}}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                <td>{{liste_object.getNombreJours|truncatewords:1}}</td>
+                <td>{{liste_object.get_JoursConsomes}}</td>
+                <td>{{liste_object.date_creation|truncatewords:1}}</td>
+
+                {% if liste_object.get_conge_demander or liste_object.date_fin < dateToday %}
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
+                  {% else %}
+                  <td><a href="{% url 'modifConge' liste_object.id  %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
+                  <td><a href="{% url 'suppConge' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+                {% endif %}
               </tr>
               {% empty %}
               <tr>
-                <td colspan="4">Pas des Congés actuellement </td>
+                <td colspan="10">Pas des congés dans la Base de données</td>
               </tr>
                 
                 </tbody>

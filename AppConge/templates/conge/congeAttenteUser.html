@@ -136,7 +136,7 @@
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a></td>
+                <td><span class="fa fa-eye"></span> <a href="{% url 'detailConge' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a></td>
                 <td>{{liste_object.motif|truncatewords:1}}</td>
                 <td>{{liste_object.nature}}</td>
                 {% if liste_object.getReponseConge %}

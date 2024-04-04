@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% block content %}
- <style>
+<style>
     .content {
         display: flex;
         justify-content: flex-start;
@@ -22,6 +22,7 @@
         flex-direction: column;
         padding: 10px;
         margin-right: 20px;
+        width: 100%;
 
     }
 
@@ -33,7 +34,8 @@
         width: 100%;
         flex-wrap: wrap;
     }
-    .content .contenu .link a{
+
+    .content .contenu .link a {
         width: 250px;
     }
 
@@ -58,8 +60,9 @@
         padding: 20px;
     }
 
-    .content .contenu table {
+    .content .contenu .table {
         width: 100%;
+        
     }
 
     .content .contenu table tr th {
@@ -75,50 +78,53 @@
             align-items: center;
             margin-left: 5px;
             margin-right: 5px;
-            
+
         }
-    .content  .contenus{
-        margin-top: 15px;
-        width: 95%;
+
+        .content .contenus {
+            margin-top: 15px;
+            width: 95%;
+        }
+
+        .content .contenu {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+            padding: 10px;
+            margin-right: 0;
+            width: 100%;
+
+        }
+
+        .content .contenus .contenu table {
+            width: 100%;
+        }
     }
-    .content .contenu{
-        display: flex;
-        justify-content: flex-start;
-        align-items:flex-start;
-        flex-wrap: wrap;
-        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-        padding: 10px;
-        margin-right: 0;
-        width: 100%;
-        
-    }
-    .content .contenus .contenu table{
-        width: 100%;
-    }
-    }
- </style>
+</style>
 
 
 <div class="content">
-        <div class="contenu">
-            <!-- <div class="link">
+    <div class="contenu">
+        <!-- <div class="link">
                 <a href="{% url 'ajoutAnnee' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter une Annnée</a>
                 <a href="{% url 'listePlanning' %}" class="btn btn-success"><span class="fa fa-bars"></span> Planification les Congés</a>
             </div> -->
-            <form action="" method="GET">
-                <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
-                    id="search">
-            </form>
-            <p>Liste des Planification des congés par service et par Année</p>
-            <div class="messages">
-                {% for message in messages %}
-                  <div class="alert alert-warning" role="alert">
-                    <p>{{message}}</p>
-                  </div>
-                {% endfor %}
+        <form action="" method="GET">
+            <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
+                id="search">
+        </form>
+        <p>Liste des Planification des congés par service et par Année</p>
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                <p>{{message}}</p>
             </div>
-            <table class="table table-hover table-responsive">
-                
+            {% endfor %}
+        </div>
+        <table class="table table-hover table-responsive">
+
             <tr>
                 <th>N°</th>
                 <th>Services</th>
@@ -128,42 +134,44 @@
                 <th>Total Planning</th>
                 <th>Plus</th>
             </tr>
-                
-                {% for service in group_by_planning_conge %}
-                <tbody id="myTable">
-              <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{service.service__designation}}</td>
-                <td>{{service.annee__designation}}</td>
-                <td>{{service.homme}}</td>
-                <td>{{service.femme}}</td>
-                <td>{{service.nombre__personnel}}</td>
-                <td><span class="fa fa-eye"></span><a href="{% url 'detailPlanningAnnuelService' service.service__id service.annee__id %}"> Plus infos</a></td>
-              </tr>
-              {% empty %}
-              <tr>
-                <td colspan="4">Pas des Planifications actuellement </td>
-              </tr>
-                
-                </tbody>
-                {% endfor %}
-            </table>
-        </div>
+
+            {% for service in group_by_planning_conge %}
+            <tbody id="myTable">
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{service.service__designation}}</td>
+                    <td>{{service.annee__designation}}</td>
+                    <td>{{service.homme}}</td>
+                    <td>{{service.femme}}</td>
+                    <td>{{service.nombre__personnel}}</td>
+                    <td><span class="fa fa-eye"></span><a
+                            href="{% url 'detailPlanningAnnuelService' service.service__id service.annee__id %}"> Plus
+                            infos</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Pas des Planifications actuellement </td>
+                </tr>
+
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
 
 </div>
 
 <script>
 
-    $(document).ready(function(){
-       $("#search").on("keyup", function(){
-          var value = $(this).val().toLowerCase();
-          $("#myTable tr").filter(function(){
-             $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value)>-1)
-          });
-       });
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value) > -1)
+            });
+        });
     });
- 
- </script>
-  
+
+</script>
+
 {% endblock content %}
 

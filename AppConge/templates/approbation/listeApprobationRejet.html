@@ -129,7 +129,7 @@
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.personnel.getPersonnel|truncatewords:2}}</a></td>
+                <td><span class="fa fa-eye"></span> <a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.personnel.getPersonnel|truncatewords:2}}</a></td>
                 <td>{{liste_object.commentaire|truncatewords:3}}</td>
                 <td>{{liste_object.conge.getReponseConge}}</td>
                 <td>{{liste_object.conge.date_debut}}</td>

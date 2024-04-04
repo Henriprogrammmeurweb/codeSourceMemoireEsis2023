@@ -251,7 +251,7 @@ def PlanningAnuelService(request):
 @login_required
 def detailPlanningAnnuelService(request, id_service, id_annee):
     """Cette fonction affiche le detail sur le planning des congés de chaque service"""
-    get_service=Service.objects.get(id=id_service, )
+    get_service=Service.objects.get(id=id_service)
     get_annee=models.Annee.objects.get(id=id_annee)
     liste_object=models.Planning.objects.filter(service=get_service, annee=get_annee)
     context={
@@ -270,15 +270,30 @@ def StatCongeServiceAnnee(request):
                                        'personnel__fonction__service__designation', 
                                        'date_creation__year').annotate(nombre_conge=Count('personnel__id'))
     for items in service_agent:
+        conge_attente=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id']).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
+        demande_sans_reponse=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id'], date_fin__lt=datetime.date.today()).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
         demandes=Demande.objects.filter(conge__personnel__fonction__service__id=items['personnel__fonction__service__id'])
         conge_encours=Conge.objects.filter(id__in=[ligne.conge.id for ligne in demandes if ligne.approbation == True and ligne.conge.date_fin >= datetime.date.today()])
         items['conge_approuve'] = len([ligne.approbation for ligne in demandes if ligne.approbation == True])
         items['conge_rejet'] = len([ligne.approbation for ligne in demandes if ligne.approbation == False])
         items['conge_encours'] = len([ligne for ligne in conge_encours])
+        items['conge_attente'] = len([ligne for ligne in conge_attente])
+        items['demande_sans_reponse'] = len([ligne for ligne in demande_sans_reponse])
     context={
         "service_agent":service_agent
     }
     return render(request, 'annee/StatCongeServiceAnnee.html', context)
+
+
+
+
+def detailStatServiceAnnee(request, id_service, annee):
+    liste_object=Conge.objects.filter(personnel__fonction__service__id=id_service, date_creation__year=annee)
+    context={
+        "liste_object":liste_object
+    }
+    return render(request, 'annee/detailStatServiceAnnee.html', context)
+
 
 
 
