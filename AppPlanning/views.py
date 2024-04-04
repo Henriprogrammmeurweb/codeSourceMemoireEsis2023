@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.auth.decorators import login_required, permission_required
-
 from AppConge.models import Conge, Demande
 from .import models
 from django.contrib import messages
@@ -270,8 +269,10 @@ def StatCongeServiceAnnee(request):
                                        'personnel__fonction__service__designation', 
                                        'date_creation__year').annotate(nombre_conge=Count('personnel__id'))
     for items in service_agent:
-        conge_attente=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id']).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
-        demande_sans_reponse=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id'], date_fin__lt=datetime.date.today()).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
+        conge_attente=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id']
+                                           ).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
+        demande_sans_reponse=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id'], 
+                                                  date_fin__lt=datetime.date.today()).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
         demandes=Demande.objects.filter(conge__personnel__fonction__service__id=items['personnel__fonction__service__id'])
         conge_encours=Conge.objects.filter(id__in=[ligne.conge.id for ligne in demandes if ligne.approbation == True and ligne.conge.date_fin >= datetime.date.today()])
         items['conge_approuve'] = len([ligne.approbation for ligne in demandes if ligne.approbation == True])
@@ -279,14 +280,11 @@ def StatCongeServiceAnnee(request):
         items['conge_encours'] = len([ligne for ligne in conge_encours])
         items['conge_attente'] = len([ligne for ligne in conge_attente])
         items['demande_sans_reponse'] = len([ligne for ligne in demande_sans_reponse])
-    context={
-        "service_agent":service_agent
-    }
-    return render(request, 'annee/StatCongeServiceAnnee.html', context)
+    return render(request, 'annee/StatCongeServiceAnnee.html', {"service_agent":service_agent})
 
 
 
-
+@login_required
 def detailStatServiceAnnee(request, id_service, annee):
     liste_object=Conge.objects.filter(personnel__fonction__service__id=id_service, date_creation__year=annee)
     context={
