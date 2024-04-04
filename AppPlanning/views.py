@@ -286,6 +286,7 @@ def StatCongeServiceAnnee(request):
 
 @login_required
 def detailStatServiceAnnee(request, id_service, annee):
+    """Cette fonction affiche les details de demandes des congés pour chaque service et par année"""
     liste_object=Conge.objects.filter(personnel__fonction__service__id=id_service, date_creation__year=annee)
     context={
         "liste_object":liste_object
