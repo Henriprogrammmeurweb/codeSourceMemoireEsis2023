@@ -13,7 +13,7 @@ urlpatterns=[
     path('modifAnnee=<str:id>', views.modifAnnee, name="modifAnnee"),
     path('suppAnnee=<str:id>', views.suppAnnee, name='suppAnnee'),
     path('planningAnnee=<str:id>', views.planningAnnee, name='planningAnnee'),
-    path('planningOneUser', views.planningOneUser, name="planningOneUser"),
+    path('planning-one-user', views.planningOneUser, name="planningOneUser"),
     path('planning-anuel-service', views.PlanningAnuelService, name='PlanningAnuelService'),
     path('detail-planning-annuel-service/<str:id_service>/<str:id_annee>', views.detailPlanningAnnuelService, name='detailPlanningAnnuelService'),
     path('stat-conge-service-annee', views.StatCongeServiceAnnee, name="StatCongeServiceAnnee"),
