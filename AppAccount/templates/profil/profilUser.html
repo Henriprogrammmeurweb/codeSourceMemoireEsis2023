@@ -178,13 +178,13 @@
                 <li>Prénom : {{user.prenom}}</li>
                 <li>Sexe : {{user.sexe}}</li>
                 {% if user.grade %}
-                <li>Nom : {{user.grade}}</li>
+                <li>Grade : {{user.grade}}</li>
                 {% endif %}
                 {% if user.fonction.designation %}
-                <li>Grade : {{user.fonction.designation}}</li>
+                <li>Fonction : {{user.fonction.designation}}</li>
                 {% endif %}
-                {% if user.service %}
-                <li>Service : {{user.service}}</li>
+                {% if user.fonction.service %}
+                <li>Service : {{user.fonction.service.designation}}</li>
                 {% endif %}
                 {% if user.date_naissance %}
                 <li>DateNaissance : {{user.date_naissance}}</li>

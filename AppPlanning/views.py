@@ -267,7 +267,7 @@ def StatCongeServiceAnnee(request):
     """Cette fonction affiche les statistiques de congé de chaque service et les compte"""
     service_agent=Conge.objects.values('personnel__fonction__service__id',
                                        'personnel__fonction__service__designation', 
-                                       'date_creation__year').annotate(nombre_conge=Count('personnel__id'))
+                                       'date_creation__year').annotate(nombre_conge=Count('id'))
     for items in service_agent:
         conge_attente=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id']
                                            ).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
