@@ -44,7 +44,9 @@ class Planning(models.Model):
     @property
     def getNombreJours(self):
         """Cette méthode permet de calculer le nombre de jour pour chaque planning"""
-        return self.date_fin - self.date_debut
+        nombre_jour = f'{self.date_fin - self.date_debut}'.split()
+        return f'{nombre_jour[0]} jours'
+        
     
     @property
     def getCongePlanningFini(self):

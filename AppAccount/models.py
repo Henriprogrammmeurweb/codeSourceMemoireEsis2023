@@ -55,9 +55,10 @@ class Personnel(AbstractUser):
         return f'{self.prenom.lower()} {self.username.lower()}'
 
     @property
-    def getSexeMale(self):
-        return self.sexe == "M"
-    
+    def getNombreDemandeConge(self):
+        conge_user=self.conge_set.all()
+        number_total=len([ligne.personnel for ligne in conge_user])
+        return number_total
 
        
     

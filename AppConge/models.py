@@ -49,8 +49,8 @@ class Conge(models.Model):
     @property
     def getNombreJours(self):
         """Cette Méthodes calcul les nombres des jours pour chaque instance"""
-        total = self.date_fin - self.date_debut
-        return total
+        total = f"{self.date_fin - self.date_debut}".split()
+        return f"{total[0]} jours"
 
     @property
     def getCommentaire(self):
@@ -74,17 +74,20 @@ class Conge(models.Model):
             if reponses == False:
                 return f"0 Jour"
             elif reponses == True and self.date_debut == self.date_fin:
-                return f"1 Jour"
+                return f"1 Jours"
             elif self.date_debut > date.today() and reponses == True:
                 return f"Pas encore"
             elif reponses == True and self.date_fin > date.today():
-                return date.today() - self.date_debut
+                nombre_jour=f"{date.today() - self.date_debut}".split()
+                return f"{nombre_jour[0]} jours"
             elif reponses == True and self.date_fin == date.today():
-                return self.date_fin - self.date_debut
+                nombre_jour=f"{self.date_fin - self.date_debut}".split()
+                return f"{nombre_jour[0]} jours"
             elif reponses == True and self.date_fin < date.today():
-                return self.date_fin - self.date_debut
+                nombre_jour=f"{self.date_fin - self.date_debut}".split()
+                return f"{nombre_jour[0]} jours"
             else:
-                return 0
+                return "0 jour"
         if not self.id in reponse and self.date_fin < datetime.date.today():
             return "Delai depassé"
         return "Demande encours"
