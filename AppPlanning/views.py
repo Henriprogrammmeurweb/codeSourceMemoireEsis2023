@@ -1,4 +1,5 @@
 import datetime
+import csv
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.db.models import Sum, Count, Max,Min, Q
@@ -295,6 +296,22 @@ def detailStatServiceAnnee(request, id_service, annee):
 
 
 
+@login_required
+def export_csv_planningAnuel(request, id):
+    get_id=models.Annee.objects.get(id=id)
+    liste_object=models.Planning.objects.filter(annee=get_id)
+    response=HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'Attachment; filename = "planningAnnuel.csv"'
+    writer=csv.writer(response)
+    writer.writerow(['Noms','Postnom', 'Prenom', 'Service', 'Fonction', 'Grade', 
+                     'sexe', 'date_debut', 'date_fin', 'Total jours'])
+    liste_data = [ligne if ligne is not None else 'Null' for ligne in liste_object]
+    for item in liste_data:
+        writer.writerow([item.personnel.username,item.personnel.postnom,
+                         item.personnel.prenom, item.service,item.personnel.fonction, 
+                         item.personnel.grade, item.personnel.sexe, item.date_debut, 
+                         item.date_fin, item.getNombreJours])
+    return response
 
 @login_required
 @permission_required("AppPlanning.view_annee")

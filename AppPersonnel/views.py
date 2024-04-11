@@ -572,7 +572,7 @@ def listePersonnelGrade(request, id):
 def export_personnel_csv(request):
     liste_personnel=Personnel.objects.all()
     response=HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="articles.csv"'
+    response['Content-Disposition'] = 'attachment; filename="liste_personnel_conge.csv"'
     writer=csv.writer(response)
     writer.writerow(["Nom", "Postnom", "Prenom", "Sexe", "Service", "Fonction", "Grade", "Conges Approuves", "Conges Rejetes","Demande Total"])
     liste_data=[ligne if ligne is not None else 'Null' for ligne in liste_personnel]

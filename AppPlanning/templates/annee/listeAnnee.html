@@ -123,7 +123,7 @@
                 <th>N°</th>
                 <th>Designation</th>
                 <th>Planification</th>
-                <th>Rapport</th>
+                <th colspan="2">Rapport</th>
                 <th>Date début</th>
                 <th>Date fin</th>
                 <th>Date_creation</th>
@@ -138,6 +138,7 @@
                 <td style="text-transform: uppercase;"> <a href="{% url 'planningAnnee' liste_object.id %}">{{liste_object.designation}}</a></td>
                 <td><a href="{% url 'planningAnnee' liste_object.id %}">Planification</a></td>
                 <td><a href="{% url 'planning-annee'  liste_object.id %}">Planning PDF</a></td>
+                <td><a href="{% url 'export_csv_planningAnuel' liste_object.id %}">Planning Excel</a></td>
                 <td>{{liste_object.date_debut}}</td>
                 <td>{{liste_object.date_fin}}</td>
                 <td>{{liste_object.date_creation}}</td>
