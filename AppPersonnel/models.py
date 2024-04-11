@@ -64,7 +64,7 @@ class Fonction(models.Model):
     date_modification = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.service}-{self.designation}"
+        return self.designation
 
 
     @property

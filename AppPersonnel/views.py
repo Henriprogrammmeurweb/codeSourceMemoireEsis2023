@@ -1,4 +1,6 @@
 import datetime
+import csv
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission
@@ -564,3 +566,16 @@ def listePersonnelGrade(request, id):
     liste_object = Personnel.objects.filter(grade=get_id)
     context = {"get_id": get_id, "liste_object": liste_object}
     return render(request, "grade/listePersonnelGrade.html", context)
+
+
+@login_required
+def export_personnel_csv(request):
+    liste_personnel=Personnel.objects.all()
+    response=HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="articles.csv"'
+    writer=csv.writer(response)
+    writer.writerow(["Nom", "Postnom", "Prenom", "Sexe", "Service", "Fonction", "Grade"])
+    liste_data=[ligne if ligne is not None else 'Null' for ligne in liste_personnel]
+    for item in liste_data:
+        writer.writerow([item.username, item.postnom, item.prenom, item.sexe, item.fonction, item.fonction.service, item.grade])
+    return response

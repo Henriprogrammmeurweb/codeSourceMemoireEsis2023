@@ -114,7 +114,7 @@
             <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                 id="search">
         </form>
-        <p class="box-title mb-0">Liste des Personnels</p>
+        <p class="box-title mb-0">Liste des Personnels <a href="{% url 'export_personnel_csv' %}">En Excel</a></p>
             <div class="messages">
                 {% for message in messages %}
                   <div class="alert alert-warning" role="alert">

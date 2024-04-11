@@ -23,5 +23,6 @@ urlpatterns=[
     path('ajout-grade',views.ajoutGrade, name="ajoutGrade"),
     path('suppGrade=<str:id>',views.suppGrade, name="suppGrade"),
     path('modifGrade=<str:id>', views.modifGrade, name="modifGrade"),
-    path('listePersonnelGrade=<str:id>', views.listePersonnelGrade, name="listePersonnelGrade")
+    path('listePersonnelGrade=<str:id>', views.listePersonnelGrade, name="listePersonnelGrade"),
+    path('export_personnel_csv', views.export_personnel_csv, name="export_personnel_csv")
 ]
