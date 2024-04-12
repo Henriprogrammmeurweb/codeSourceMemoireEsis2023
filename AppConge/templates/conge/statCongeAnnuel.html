@@ -139,7 +139,7 @@
                 <td>{{annee.conge_encours}}</td>
                 <td>{{annee.demande_sans_reponse}}</td>
                 <td>{{annee.nombre_total}}</td>
-                <td><a href="#">Exporter en Excel</a></td>
+                <td><a href="{% url 'export_csv_stat_conge_annee' annee.date_creation__year %}">Exporter en Excel</a></td>
                 <td><span class="fa fa-eye"></span><a href="#"> Plus infos</a></td>
               </tr>
               {% empty %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.db.models import Count,Max,Min,Avg
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
@@ -278,8 +279,25 @@ def stat_conge_annee(request):
     return render(request, "conge/statCongeAnnuel.html",{"liste_conge_annee":liste_conge_annee})
 
 
-
-
+@login_required
+def export_csv_stat_conge_annee(request, annee):
+    liste_conge = models.Conge.objects.filter(date_creation__year=annee)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'Attachment; filename="liste_congeAnnee.csv"'
+    writer = csv.writer(response)
+    writer.writerow(["Nom", "PostNom", "Prenom", "Sexe","Service", "Fonction",
+                    "Grade", "Titre", "Nature", "Motif", "date_debut", 
+                    "date_fin","Annee", "Nombre_jours", "Reponse"])
+    liste_data = [ligne if ligne is not None else 'Null' for ligne in liste_conge]
+    for item in liste_data :
+        writer.writerow([item.personnel.username, item.personnel.postnom,
+                         item.personnel.prenom,
+                         item.personnel.sexe, item.personnel.fonction.service, 
+                         item.personnel.fonction,
+                         item.personnel.grade,item.titre, item.nature, item.motif, 
+                         item.date_debut, item.date_fin,
+                         item.date_creation.year,item.getNombreJours, item.getReponseConge])
+    return response
 
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)

@@ -21,5 +21,6 @@ urlpatterns=[
     path('consulter-conge-encours', views.consulterCongeEncours, name="consulterCongeEncours"),
     path('detailCongeApprobateur=<str:id>', views.detailCongeApprobateur, name="detailCongeApprobateur"),
     path('stat-conge-annee', views.stat_conge_annee, name="stat_conge_annee"),
+    path('export-csv-stat-conge_annee=<str:annee>', views.export_csv_stat_conge_annee, name="export_csv_stat_conge_annee"),
     path('send-email', views.sendEmail, name='sendEmail')
 ]
