@@ -33,9 +33,6 @@
         width: 100%;
         flex-wrap: wrap;
     }
-    .content .contenu .link a{
-        width: 250px;
-    }
 
     .content .contenu form {
         width: 100%;
@@ -51,11 +48,12 @@
         margin-bottom: 10px;
         padding: 25px;
     }
-
     .content .contenu .link a {
         margin-bottom: 20px;
         margin: 7px;
         padding: 20px;
+        width: 255px;
+
     }
 
     .content .contenu table {
@@ -101,50 +99,62 @@
 
 <div class="content">
         <div class="contenu">
+            <div class="link">
+                <a href="{% url 'ajoutConge' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Demander les Congés</a>
+                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+                <a href="{% url 'congeAttente' %}" class="btn btn-success"><span class="fa fa-bars"></span> Liste des Congés en attente</a>
+                {% endif %}
+                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+                <a href="{% url 'consulterCongeEncours' %}" class="btn btn-dark"><span class="fa fa-bars"></span> Liste des Congés encours</a>
+                {% endif %}
+                {% if perms.AppConge.view_demande and perms.AppConge.add_demande %}
+                <a href="{% url 'listeApprobationRejet' %}" class="btn btn-primary"><span class="fa fa-bars"></span> Listes des Approbations</a>
+                {% endif %}
+            </div>
             <form action="" method="GET">
                 <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                     id="search">
             </form>
-            <p>Liste des demandes des congés par Année</p>
-            <div class="messages">
-                {% for message in messages %}
-                  <div class="alert alert-warning" role="alert">
-                    <p>{{message}}</p>
-                  </div>
-                {% endfor %}
-            </div>
+            <p>Liste des Congés approuvés</p>
             <table class="table table-hover table-responsive">
                 
             <tr>
                 <th>N°</th>
-                <th>Années</th>
-                <th>Approuvés</th>
-                <th>Rejetes</th>
-                <th>Attentes</th>
-                <th>Encours</th>
-                <th>Sans réponse</th>
-                <th>Total</th>
-                <th>Rapport</th>
-                <th>Plus</th>
+                <th>Titre</th>
+                <th>Motif</th>
+                <th>Nature</th>
+                <th>Réponse</th>
+                <th>Jours</th>
+                <th>Jours consomés</th>
+                <th>Date_creation</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
                 
-                {% for annee in liste_conge_annee %}
+                {% for liste_object in liste_object %}
                 <tbody id="myTable">
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td>{{annee.date_creation__year}}</td>
-                <td>{{annee.conge_approuve}}</td>
-                <td>{{annee.conge_rejet}}</td>
-                <td>{{annee.conge_attente}}</td>
-                <td>{{annee.conge_encours}}</td>
-                <td>{{annee.demande_sans_reponse}}</td>
-                <td>{{annee.nombre_total}}</td>
-                <td><a href="{% url 'export_csv_stat_conge_annee' annee.date_creation__year %}">Exporter en Excel</a></td>
-                <td><span class="fa fa-eye"></span><a href="{% url 'detail_stat_conge_annee' annee.date_creation__year %}"> Plus infos</a></td>
+                <td><span class="fa fa-eye"></span> <a href="{% url 'detailCongeApprobateur' liste_object.id %}">{{liste_object.titre|truncatewords:1}}</a></td>
+                <td>{{liste_object.motif|truncatewords:1}}</td>
+                <td>{{liste_object.nature}}</td>
+                <td>{{liste_object.getReponseConge}}</td>
+                <td>{{liste_object.getNombreJours}}</td>
+                <td>{{liste_object.get_JoursConsomes}}</td>
+                <td>{{liste_object.date_creation|truncatewords:1}}</td>
+                
+
+                {% if liste_object.get_conge_demander %}
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
+                    <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
+                  {% else %}
+                  <td><a href="{% url 'modifConge' liste_object.id  %}">Modifier</a></td>
+                  <td><a href="{% url 'suppConge' liste_object.id %}">Supprimer</a></td>
+                {% endif %}
               </tr>
               {% empty %}
               <tr>
-                <td colspan="4">Pas des Congés actuellement </td>
+                <td colspan="5">Pas des congés dans la Base de données</td>
               </tr>
                 
                 </tbody>

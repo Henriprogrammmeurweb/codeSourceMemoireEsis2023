@@ -45,6 +45,7 @@ class Conge(models.Model):
             return "Congé rejeté ❌"
         if not self.id in reponse and self.date_fin < datetime.date.today():
             return "Aucune réponse 🔕"
+        return "Aucune réponse 🔕"
 
     @property
     def getNombreJours(self):

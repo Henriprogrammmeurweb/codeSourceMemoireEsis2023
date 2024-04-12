@@ -299,6 +299,16 @@ def export_csv_stat_conge_annee(request, annee):
                          item.date_creation.year,item.getNombreJours, item.getReponseConge])
     return response
 
+
+
+@login_required
+def detail_stat_conge_annee(request, annee):
+    liste_object = models.Conge.objects.filter(date_creation__year=annee)
+    return render(request, "conge/detail_stat_conge_annee.html", {"liste_object":liste_object})
+
+
+
+
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def sendEmail(request):

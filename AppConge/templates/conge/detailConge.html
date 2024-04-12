@@ -35,6 +35,10 @@
 <div class="content">
     <div class="contenu">
         <ul>
+            <li>Agent : {{get_conge.personnel.getPersonnel}}</li>
+            <li>Service : {{get_conge.personnel.fonction.service}}</li>
+            <li>Fonction : {{get_conge.personnel.fonction}}</li>
+            <li>Service : {{get_conge.personnel.grade}}</li>
             <li>Titre : {{get_conge.titre}}</li>
             <li>Nature : {{get_conge.nature}}</li>
             <li>Jours : {{get_conge.getNombreJours}}</li>
@@ -48,6 +52,8 @@
             {% else %}
             <li> Commentaire : -</li>
             {% endif %}
+            <li>Date Debut : {{get_conge.date_debut}}</li>
+            <li>Date Fin : {{get_conge.date_fin}}</li>
             <li>Date creation : {{get_conge.date_creation}}</li>
             <li>Date Modification : {{get_conge.date_modification}}</li>
             <hr style="background-color: white;width: 300px;">
