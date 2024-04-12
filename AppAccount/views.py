@@ -45,7 +45,7 @@ def logoutUser(request):
     """Deconnexion du Personnel"""
     logout(request)
     messages.info(request, "Vous êtes déconnecté !")
-    return redirect('loginUser')
+    return redirect('index')
 
 def page403(request, exception):
     """Page 403 personnalisée permissions requises"""
@@ -70,7 +70,7 @@ def changePassword(request):
         if form.is_valid():
             form.save()
             messages.info(request, "Vous êtes maintenant deconnecté, votre mot de passe a été changé, connectez-vous à nouveau !")
-            return redirect('loginUser')
+            return redirect('index')
         else:
             messages.error(request, "Formulaire invalide, veuillez renseigner les champs correctement !")
     else:
