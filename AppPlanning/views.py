@@ -295,6 +295,27 @@ def detailStatServiceAnnee(request, id_service, annee):
     return render(request, 'annee/detailStatServiceAnnee.html', context)
 
 
+@login_required
+def export_csv_conge_service(request, id_service, annee):
+    liste_conge = Conge.objects.filter(personnel__fonction__service__id=id_service, date_creation__year=annee)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'Attachment ; filename = "Conge_Service.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Nom', 'Postnom', 'Prenom', 'sexe', 'Service',
+                     'Titre congé', 'Nature', 'Motif', 'date_debut', 
+                     'date_fin', 'nombre_jours'])
+    liste_data = [ligne if ligne is not None else 'Null' for ligne in liste_conge]
+    for item in liste_data:
+        writer.writerow([item.personnel.username, item.personnel.postnom, 
+                         item.personnel.prenom,item.personnel.sexe, item.personnel.fonction.service,
+                         item.titre, item.nature, item.motif,
+                         item.date_debut, item.date_fin,
+                         item.getNombreJours
+                         ])
+    return response
+
+
+
 
 @login_required
 def export_csv_planningAnuel(request, id):

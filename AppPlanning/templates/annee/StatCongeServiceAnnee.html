@@ -129,6 +129,7 @@
                 <th>Encours</th>
                 <th>Sans réponse</th>
                 <th>Total</th>
+                <th>Rapport</th>
                 <th>Plus</th>
             </tr>
                 
@@ -144,6 +145,7 @@
                 <td>{{service.conge_encours}}</td>
                 <td>{{service.demande_sans_reponse}}</td>
                 <td>{{service.nombre_conge}}</td>
+                <td><a href="{% url 'export_csv_conge_service' service.personnel__fonction__service__id service.date_creation__year %}">Exporter en Excel</a></td>
                 <td><span class="fa fa-eye"></span><a href="{% url 'detailStatServiceAnnee' service.personnel__fonction__service__id service.date_creation__year %}"> Plus infos</a></td>
               </tr>
               {% empty %}
