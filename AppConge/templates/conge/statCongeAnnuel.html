@@ -1,0 +1,171 @@
+{% extends "base/base.html" %}
+{% block content %}
+ <style>
+    .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 7px;
+
+    }
+
+    .content .contenus {
+        margin-top: 15px;
+    }
+
+    .content .contenu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 20px;
+
+    }
+
+    .content .contenu .link {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .content .contenu .link a{
+        width: 250px;
+    }
+
+    .content .contenu form {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .content .contenu form input {
+        width: 100%;
+        border: 1px solid cadetblue;
+        margin-bottom: 10px;
+        padding: 25px;
+    }
+
+    .content .contenu .link a {
+        margin-bottom: 20px;
+        margin: 7px;
+        padding: 20px;
+    }
+
+    .content .contenu table {
+        width: 100%;
+    }
+
+    .content .contenu table tr th {
+        background-color: rgb(18, 89, 131);
+        color: white;
+    }
+
+
+    @media(max-width:1135px) {
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+            margin-right: 5px;
+            
+        }
+    .content  .contenus{
+        margin-top: 15px;
+        width: 95%;
+    }
+    .content .contenu{
+        display: flex;
+        justify-content: flex-start;
+        align-items:flex-start;
+        flex-wrap: wrap;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        margin-right: 0;
+        width: 100%;
+        
+    }
+    .content .contenus .contenu table{
+        width: 100%;
+    }
+    }
+ </style>
+
+
+<div class="content">
+        <div class="contenu">
+            <form action="" method="GET">
+                <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
+                    id="search">
+            </form>
+            <p>Liste des demandes des congés par Année</p>
+            <div class="messages">
+                {% for message in messages %}
+                  <div class="alert alert-warning" role="alert">
+                    <p>{{message}}</p>
+                  </div>
+                {% endfor %}
+            </div>
+            <table class="table table-hover table-responsive">
+                
+            <tr>
+                <th>N°</th>
+                <th>Années</th>
+                <th>Approuvés</th>
+                <th>Rejetes</th>
+                <th>Attentes</th>
+                <th>Encours</th>
+                <th>Sans réponse</th>
+                <th>Total</th>
+                <th>Rapport</th>
+                <th>Plus</th>
+            </tr>
+                
+                {% for annee in liste_conge_annee %}
+                <tbody id="myTable">
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{annee.date_creation__year}}</td>
+                <td>{{annee.conge_approuve}}</td>
+                <td>{{annee.conge_rejet}}</td>
+                <td>{{annee.conge_attente}}</td>
+                <td>{{annee.conge_encours}}</td>
+                <td>{{annee.demande_sans_reponse}}</td>
+                <td>{{annee.nombre_total}}</td>
+                <td><a href="#">Exporter en Excel</a></td>
+                <td><span class="fa fa-eye"></span><a href="#"> Plus infos</a></td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4">Pas des Congés actuellement </td>
+              </tr>
+                
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function(){
+       $("#search").on("keyup", function(){
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function(){
+             $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value)>-1)
+          });
+       });
+    });
+ 
+ </script>
+  
+{% endblock content %}
+

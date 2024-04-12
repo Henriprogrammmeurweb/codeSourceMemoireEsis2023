@@ -20,5 +20,6 @@ urlpatterns=[
     path('detailDemande=<str:id>', views.detailDemande, name="detailDemande"),
     path('consulter-conge-encours', views.consulterCongeEncours, name="consulterCongeEncours"),
     path('detailCongeApprobateur=<str:id>', views.detailCongeApprobateur, name="detailCongeApprobateur"),
+    path('stat-conge-annee', views.stat_conge_annee, name="stat_conge_annee"),
     path('send-email', views.sendEmail, name='sendEmail')
 ]

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.db.models import Count,Max,Min,Avg
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
 from ProjectGestionPersonnel.settings import EMAIL_HOST
 from django.contrib import messages
 import datetime
+import csv
 from . import forms
 from . import models
 import datetime
@@ -112,7 +114,7 @@ def congeAttente(request):
     """Liste des Congés en attente de confirmation/reponse"""
     liste_object = models.Conge.objects.exclude(
         id__in=models.Demande.objects.filter().values_list("conge__id", flat=True)
-    )
+    ).exclude(date_fin__lt=datetime.date.today())
     context = {"liste_object": liste_object}
     return render(request, "approbation/congeAttente.html", context)
 
@@ -254,6 +256,30 @@ def detailCongeApprobateur(request,id):
         "get_conge":get_conge
     }
     return render(request, "conge/detailConge.html", context)
+
+
+
+
+@login_required
+def stat_conge_annee(request):
+    liste_conge_annee = models.Conge.objects.values('date_creation__year').annotate(nombre_total=Count('id'))
+    for item in liste_conge_annee:
+        conge_approuve = models.Demande.objects.filter(approbation=True,conge__date_creation__year = item['date_creation__year'])
+        conge_rejet = models.Demande.objects.filter(approbation=False,conge__date_creation__year = item['date_creation__year'])
+        conge_attente = models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True),date_creation__year = item['date_creation__year']).exclude(date_fin__lt=datetime.date.today())
+        conge_encours = models.Demande.objects.exclude(approbation=False).exclude(conge__date_fin__lt=datetime.date.today()).filter(conge__date_creation__year = item['date_creation__year'])
+        demande_sans_reponse = models.Conge.objects.exclude(id__in=models.Demande.objects.filter().values_list('conge__id', flat=True)).filter(date_creation__year = item['date_creation__year'], date_fin__lt=datetime.date.today())
+        item['conge_approuve'] = len([ligne for ligne in conge_approuve])
+        item['conge_rejet'] = len([ligne for ligne in conge_rejet])
+        item['conge_attente'] = len([ligne for ligne in conge_attente])
+        item['conge_encours'] = len([ligne for ligne in conge_encours])
+        item['demande_sans_reponse'] = len([ligne for ligne in demande_sans_reponse])
+    print(liste_conge_annee)
+    return render(request, "conge/statCongeAnnuel.html",{"liste_conge_annee":liste_conge_annee})
+
+
+
+
 
 @login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
