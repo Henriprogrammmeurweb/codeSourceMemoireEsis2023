@@ -20,7 +20,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #1d70cf;
+        flex-direction: column;
+        background-color: #5e1761;
         height: 100vh;
         
     }
@@ -32,29 +33,69 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
         color: #ffff;
     }
     .content .contenu h5{
         font-weight: normal;
         color: #ffff;
-        font-size: 9rem;
+        font-size: 11rem;
+        margin-right: 15px;
     }
-    .content .contenu a{
+    .content .back a{
         color: #ffff;
+    }
+    .content .contenu .texte p{
+        font-size: 1rem;
+    }
+    .content .contenu .texte hr{
+        background-color: #ffff;
+    }
+    .content .back{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .content .back p{
+        color: #ffff;
+        font-size: 16px;
+    }
+    .content .back hr{
+        background-color: #ffff;
+        width: 100%;
     }
     #copy{
         margin-top: 50px;
+    }
+
+
+    @media(max-width:477px){
+        .content{
+            height: 100vh;
+        }
+        .content .contenu{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
     }
 </style>
 
 <div class="content">
     <div class="contenu">
         <h5>404</h5>
-        <p>Page non Trouvée</p>
-        <p>Apparement tu es perdue</p>
-        <a href="{% url 'index' %}">Cliquez ici Retour à l'accueil</a>
+        <div class="texte">
+            <h1>Desolé !</h1>
+            <p>Page non Trouvée <br> Apparement tu es perdue</p>
+            <hr>
+        </div>
+    </div>
+    <div class="back">
+        <a href="{% url 'index' %}">👉 Cliquez ici Retour à l'accueil</a>
         <p id="copy">&copy Tous droits reservés <br>2024 by Henri developer</p>
     </div>
 </div>
   
+

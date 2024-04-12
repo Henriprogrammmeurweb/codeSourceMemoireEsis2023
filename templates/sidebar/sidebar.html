@@ -218,13 +218,13 @@
     }
     aside .menus .liste-menu li a{
       text-decoration: none;
-      color: rgb(68, 130, 124);
+      color: rgb(42, 64, 97);
     }
     aside .menus .liste-menu li a:hover{
         color: #49454d;
     }
     aside .menus .liste-menu .stat{
-        color: rgb(68, 130, 124);
+        color: rgb(42, 64, 97);
         cursor: pointer;
     }
     aside .menus .liste-menu .stat p{
@@ -250,7 +250,7 @@
 
 
     aside .menus .liste-menu .personnels{
-        color: rgb(68, 130, 124);
+        color: rgb(42, 64, 97);;
         cursor: pointer;
     }
     aside .menus .liste-menu .personnels p{
@@ -275,7 +275,7 @@
     }
 
     aside .menus .liste-menu .conges{
-        color: rgb(68, 130, 124);
+        color: rgb(42, 64, 97);
         cursor: pointer;
     }
     aside .menus .liste-menu .conges p{
@@ -428,15 +428,15 @@
       <aside class="aside">
         <div class="titre">
             <hr>
-            <p><a href="{% url 'dashboard' %}"><span class="fa fa-dashboard"></span> Tableau de Bord</a></p>
+            <p><a href="{% url 'dashboard' %}"><span class="fa fa-dashboard"></span> Tableau de Bord   <span class="fa fa-angle-right float-right" style="margin-right: 8px;color: #252525; height: 4px;"></span></a></li></a></p>
             <hr>
         </div>
         <div class="menus">
             <ul class="liste-menu">
                 {% if perms.AppConge.view_conge %}
-                <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil du site</a></li>
+                <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil du site  <span class="fa fa-angle-right float-right" style="margin-right: 8px;color: #252525; height: 4px;"></span></a></li>
                 <hr>
-                <ul class="conges"><p id="conge"> <span class="fa fa-rocket"></span> Mes Congés
+                <ul class="conges"><p id="conge"> <span class="fa fa-rocket"></span> Mes Congés <span class="fa fa-angle-right float-right" style="margin-right: 8px;color: #252525; height: 4px;"></span>
                     <ul class="congess">
                         <hr>
                         <li><a href="{% url 'congeApprouve' %}"><span class="fa fa-info-circle"></span> Approuvés ✅</a></li>
@@ -461,11 +461,11 @@
                 <hr>
                 {% endif %}
                 {% if perms.AppPlanning.view_annee %}
-                <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-bars"></span> Planifier</a></li>
+                <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-bars"></span> Planifier  <span class="fa fa-angle-right float-right" style="margin-right: 8px;color: #252525; height: 4px;"></span></a></li>
                 <hr>
                 {% endif %}
                 {% if perms.AppAccount.view_personnel %}
-                <ul class="personnels"><p id="personnel"> <span class="fa fa-group"></span> Personnels
+                <ul class="personnels"><p id="personnel"> <span class="fa fa-group"></span> Personnels  <span class="fa fa-angle-right float-right" style="margin-right: 8px;color: #252525; height: 4px;"></span>
                     <ul class="personnelles">
                         <hr>
                         <li><a href="{% url 'listeService' %}"><span class="fa fa-info-circle"></span> Services</a></li>
@@ -480,14 +480,14 @@
                 </p>
                 </ul>
                 <hr>
-                <ul class="stat"><p id="statistique"> <span class="fa fa-bar-chart"></span> Statistiques
+                <ul class="stat"><p id="statistique"> <span class="fa fa-bar-chart"></span> Statistiques  <span class="fa fa-angle-right float-right" style="margin-right: 8px;color: #252525; height: 4px;"></span>
                     <ul class="stats">
                         <hr>
                         <li><a href="{% url 'StatCongeServiceAnnee' %}"><span class="fa fa-bar-chart"></span> Stat Congés</a></li>
                         <hr>
                         <li><a href="{% url 'PlanningAnuelService' %}"><span class="fa fa-bar-chart"></span> Congé Annuel</a></li>
                         <hr>
-                        <li><a href="{% url 'stat_conge_annee' %}"><span class="fa fa-bar-chart"></span> stat conge année</a></li>
+                        <li><a href="{% url 'stat_conge_annee' %}"><span class="fa fa-bar-chart"></span> stat congé année</a></li>
                         <hr>
                     </ul>
                 </p>
