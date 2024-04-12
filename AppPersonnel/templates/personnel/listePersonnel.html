@@ -55,7 +55,9 @@
     .content .contenu .link a {
         margin-bottom: 20px;
         margin: 7px;
-        padding: 20px;
+        padding: 12px;
+        background-color: rgb(226, 120, 50);
+        color: white;
     }
 
     .content .contenu table {
@@ -105,10 +107,7 @@
 <div class="content">
     <div class="contenu">
         <div class="link">
-            <a href="{% url 'ajoutPersonnel' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter un Personnel</a>
-            <a href="{% url 'listeService' %}" class="btn btn-success"><span class="fa fa-bars"></span> Listes Services</a>
-            <a href="{% url 'listeFonction' %}" class="btn btn-dark"><span class="fa fa-bars"></span> Listes Fonctions</a>
-            <a href="{% url 'listeGrade' %}" class="btn btn-primary"><span class="fa fa-bars"></span> Listes Grades</a>
+            <a href="{% url 'ajoutPersonnel' %}" class="btn btn-light"><span class="fa fa-plus-circle"></span> Ajouter un Personnel</a>
         </div>
         <form action="" method="GET">
             <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."

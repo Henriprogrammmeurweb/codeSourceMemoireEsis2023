@@ -223,7 +223,81 @@
     aside .menus .liste-menu li a:hover{
         color: #49454d;
     }
+    aside .menus .liste-menu .stat{
+        color: rgb(68, 130, 124);
+        cursor: pointer;
+    }
+    aside .menus .liste-menu .stat p{
+        margin-left: 20px;
+    }
+    aside .menus .liste-menu .stat .statistique{
+        cursor: pointer;
+        
+    }
+    aside .menus .liste-menu .stat .stats li{
+        margin-left: 35px;
+    }
+    aside .menus .liste-menu .stat .stats{
+        display: none;
+        background-color: #e9e9e9;
+    }
+    aside .menus .liste-menu .stat .stats li a{
+        color: #252525;
+    }
+    aside .menus .liste-menu .stat .stats.active{
+        display: block;
+    }
 
+
+    aside .menus .liste-menu .personnels{
+        color: rgb(68, 130, 124);
+        cursor: pointer;
+    }
+    aside .menus .liste-menu .personnels p{
+        margin-left: 20px;
+    }
+    aside .menus .liste-menu .personnels .personnelles{
+        cursor: pointer;
+        
+    }
+    aside .menus .liste-menu .personnels .personnelles li{
+        margin-left: 35px;
+    }
+    aside .menus .liste-menu .personnels .personnelles{
+        display: none;
+        background-color: #e9e9e9;
+    }
+    aside .menus .liste-menu .personnels .personnelles li a{
+        color: #252525;
+    }
+    aside .menus .liste-menu .personnels .personnelles.active{
+        display: block;
+    }
+
+    aside .menus .liste-menu .conges{
+        color: rgb(68, 130, 124);
+        cursor: pointer;
+    }
+    aside .menus .liste-menu .conges p{
+        margin-left: 20px;
+    }
+    aside .menus .liste-menu .conges .congess{
+        cursor: pointer;
+        
+    }
+    aside .menus .liste-menu .conges .congess li{
+        margin-left: 35px;
+    }
+    aside .menus .liste-menu .conges .congess{
+        display: none;
+        background-color: #e9e9e9;
+    }
+    aside .menus .liste-menu .conges .congess li a{
+        color: #252525;
+    }
+    aside .menus .liste-menu .conges .congess.active{
+        display: block;
+    }
 
 
 
@@ -362,7 +436,28 @@
                 {% if perms.AppConge.view_conge %}
                 <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil du site</a></li>
                 <hr>
-                <li><a href="{% url 'CongeUser' %}"><span class="fa fa-rocket"></span> Mes Congés</a></li>
+                <ul class="conges"><p id="conge"> <span class="fa fa-rocket"></span> Mes Congés
+                    <ul class="congess">
+                        <hr>
+                        <li><a href="{% url 'congeApprouve' %}"><span class="fa fa-info-circle"></span> Approuvés ✅</a></li>
+                        <hr>
+                        <li><a href="{% url 'congeRejet' %}"><span class="fa fa-eye"></span> Rejetés ❌</a></li>
+                        <hr>
+                        <li><a href="{% url 'congeEncours' %}"><span class="fa fa-spinner"></span> Pour moi encours</a></li>
+                        <hr>
+                        <li><a href="{% url 'consulterCongeEncours' %}"><span class="fa fa-spinner"></span> Encours Personnels</a></li>
+                        <hr>
+                        <li><a href="{% url 'congeAttenteUser' %}"><span class="fa fa-envelope"></span> En attente</a></li>
+                        <hr>
+                        <li><a href="{% url 'congeAttente' %}"><span class="fa fa-eye-slash"></span> En attente Personnels</a></li>
+                        <hr>
+                        <li><a href="{% url 'listeApprobationRejet' %}"><span class="fa fa-eye"></span> Approbations</a></li>
+                        <hr>
+                        <li><a href="{% url 'CongeUser' %}"><span class="fa fa-user"></span> Tous les Congés</a></li>
+                        <hr>
+                    </ul>
+                </p>
+                </ul>
                 <hr>
                 {% endif %}
                 {% if perms.AppPlanning.view_annee %}
@@ -370,13 +465,33 @@
                 <hr>
                 {% endif %}
                 {% if perms.AppAccount.view_personnel %}
-                <li><a href="{% url 'StatCongeServiceAnnee' %}"><span class="fa fa-info-circle"></span> Stat Congés</a></li>
+                <ul class="personnels"><p id="personnel"> <span class="fa fa-group"></span> Personnels
+                    <ul class="personnelles">
+                        <hr>
+                        <li><a href="{% url 'listeService' %}"><span class="fa fa-info-circle"></span> Services</a></li>
+                        <hr>
+                        <li><a href="{% url 'listeFonction' %}"><span class="fa fa-eye"></span> Fonctions</a></li>
+                        <hr>
+                        <li><a href="{% url 'listeGrade' %}"><span class="fa fa-eye"></span> Grades</a></li>
+                        <hr>
+                        <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-user"></span> Les Personnels</a></li>
+                        <hr>
+                    </ul>
+                </p>
+                </ul>
                 <hr>
-                <li><a href="{% url 'PlanningAnuelService' %}"><span class="fa fa-eye"></span> Congé Annuel</a></li>
-                <hr>
-                <li><a href="{% url 'stat_conge_annee' %}"><span class="fa fa-eye"></span> stat conge annee</a></li>
-                <hr>
-                <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-group"></span> Personnels</a></li>
+                <ul class="stat"><p id="statistique"> <span class="fa fa-bar-chart"></span> Statistiques
+                    <ul class="stats">
+                        <hr>
+                        <li><a href="{% url 'StatCongeServiceAnnee' %}"><span class="fa fa-bar-chart"></span> Stat Congés</a></li>
+                        <hr>
+                        <li><a href="{% url 'PlanningAnuelService' %}"><span class="fa fa-bar-chart"></span> Congé Annuel</a></li>
+                        <hr>
+                        <li><a href="{% url 'stat_conge_annee' %}"><span class="fa fa-bar-chart"></span> stat conge année</a></li>
+                        <hr>
+                    </ul>
+                </p>
+                </ul>
                 <hr>
                 {% endif %}
             </ul>
@@ -419,3 +534,54 @@
 
 </script>
 
+<script>
+    (function ToggleStatistique(){
+        let stat = document.querySelector('.stat');
+        let stat_p = document.querySelector('.stat #statistique');
+        let stats = document.querySelector('.stat .stats');
+
+        stat.addEventListener('click', ()=>{
+            stat.classList.toggle('active');
+            stat_p.classList.toggle('active');
+            stats.classList.toggle('active');
+        })
+    }
+
+    )();
+</script>
+
+
+
+
+<script>
+    (function TogglePersonnels(){
+        let personnels = document.querySelector('.personnels');
+        let personnels_p = document.querySelector('.personnels #personnel');
+        let personnelles = document.querySelector('.personnels .personnelles');
+
+        personnels.addEventListener('click', ()=>{
+            personnels.classList.toggle('active');
+            personnels_p.classList.toggle('active');
+            personnelles.classList.toggle('active');
+        })
+    }
+
+    )();
+</script>
+
+
+<script>
+    (function ToggleConges(){
+        let conges = document.querySelector('.conges');
+        let conges_p = document.querySelector('.conges #conge');
+        let congess = document.querySelector('.conges .congess');
+
+        conges.addEventListener('click', ()=>{
+            conges.classList.toggle('active');
+            conges_p.classList.toggle('active');
+            congess.classList.toggle('active');
+        })
+    }
+
+    )();
+</script>

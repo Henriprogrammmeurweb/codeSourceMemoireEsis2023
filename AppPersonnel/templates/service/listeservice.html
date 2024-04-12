@@ -43,8 +43,12 @@
         margin-bottom: 10px;
     }
     .content .contenu .link a{
-        margin-bottom: 20px;
+       margin-bottom: 20px;
+        margin-top: 7px;
         padding: 20px;
+        background-color: rgb(226, 120, 50);
+        color: white;
+        width: 200px;
     }
     .content .contenus .contenu table{
         width: 100%;
@@ -86,7 +90,7 @@
     <div class="contenus">
         <div class="contenu">
             <div class="link">
-                <a href="{% url 'ajoutService' %}" class="btn btn-info"><span class="fa fa-plus-circle"></span> Ajouter un service</a>
+                <a href="{% url 'ajoutService' %}" class="btn btn-light"><span class="fa fa-plus-circle"></span> Ajouter un service</a>
 
                 <form action="" method="GET">
                     <input type="text" name="recherche" class="form-control" required
