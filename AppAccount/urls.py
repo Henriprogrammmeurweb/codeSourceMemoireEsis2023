@@ -10,8 +10,8 @@ from .import forms
 
 
 urlpatterns=[
-    path('', views.index, name="index"),
-    path('account/login', views.loginUser, name="loginUser"),
+    # path('', views.loginUser, name="index"),
+    path('', views.loginUser, name="index"),
     path('account/logout', views.logoutUser,name='logoutUser'),
     path('account/change-password', views.changePassword, name="changePassword"),
     path('appropos-de-nous', views.appropos, name="appropos"),

@@ -11,19 +11,33 @@
         justify-content: space-between;
         align-items: center;
         height: 80px;
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
         z-index: 1;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
+        box-shadow: inset 0px -1px 0px #c5c5c6;
+        background: #fafafa;
         
     }
-    header nav .logo {
-            width: 130px;
-            height: 75px;
+    header nav .logos{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    header nav .logos .logo {
+            margin-left: 12px;
+            width: 60px;
+            height: 60px;
         }
-    header nav .logo img{
-        margin-top: 5px;
+    header nav .logos .logo img{
         width: 100%;
         height: 100%;
+    }
+    header nav .logos .site-title{
+        margin-left: 5px;
+    }
+    header nav .logos .site-title a{
+        font-size: 19px;
+        color: #5a5959;
+        text-decoration: none;
     }
     header nav .burger{
         display: flex;
@@ -71,7 +85,7 @@
         list-style: none;
     }
     header nav .menu li a{
-        color:black;
+        color: #317bac;
         text-decoration: none;
         font-size: 14px;
         margin: 8px;
@@ -388,8 +402,13 @@
 <!-- Menus d'entête du site ou navbar -->
 <header>
     <nav>
-        <div class="logo">
-            <a href="{% url 'dashboard' %}"><img src="{% static 'img/dps_logo.png' %}" alt=""></a>
+        <div class="logos">
+            <div class="logo">
+                <a href="/"><img src="{% static 'assets/img/chat.svg' %}" alt=""></a>
+            </div>
+            <div class="site-title">
+                <a href="/">Congeline</a>
+            </div>
         </div>
         <ul class="menu menu-active">
             {% if user.is_authenticated %}
@@ -408,6 +427,10 @@
                 <li><a href="{% url 'logoutUser' %}"><span class="fa fa-sign-out"></span> Se Deconnecter</a></li>
                 <hr>
             </div>
+            {% else %}
+                <li><a href="/"><span class="fa fa-home"></span> Accueil</a></li>
+                <li><a href="#"><span class="fa fa-info-circle"></span> Appropos</a></li>
+                <li><a href="#"><span class="fa fa-phone"></span> Contact</a></li>
            {% endif %}
         </ul>
     </nav>

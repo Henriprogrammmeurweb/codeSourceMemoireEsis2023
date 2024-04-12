@@ -8,11 +8,11 @@ import sweetify
 from .import forms
 
 
-def index(request):
-    """Page d'accueil du Site"""
-    if request.user.is_authenticated :
-        return redirect('dashboard')
-    return render(request, 'index/index.html')
+# def index(request):
+#     """Page d'accueil du Site"""
+#     if request.user.is_authenticated :
+#         return redirect('dashboard')
+#     return render(request, 'index/index.html')
 
 
 

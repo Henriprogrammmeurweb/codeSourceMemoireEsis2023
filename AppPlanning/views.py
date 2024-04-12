@@ -271,7 +271,7 @@ def StatCongeServiceAnnee(request):
                                        'date_creation__year').annotate(nombre_conge=Count('id'))
     for items in service_agent:
         conge_attente=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id']
-                                           ).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
+                                           ).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True)).exclude(date_fin__lt=datetime.date.today())
         demande_sans_reponse=Conge.objects.filter(personnel__fonction__service__id=items['personnel__fonction__service__id'], 
                                                   date_fin__lt=datetime.date.today()).exclude(id__in=Demande.objects.filter().values_list('conge__id', flat=True))
         demandes=Demande.objects.filter(conge__personnel__fonction__service__id=items['personnel__fonction__service__id'])
