@@ -12,7 +12,13 @@
     }
 
     .content .dashboard {
-        margin-top: 15px;
+        margin-top: 0px;
+    }
+    .content .dashboard .user-connect p{
+        text-transform: capitalize;
+        font-size: 1rem;
+        color: #0b476d;
+        font-weight: normal;
     }
 
     .content .contenu {
@@ -23,8 +29,9 @@
         padding: 10px;
         margin-right: 20px;
         box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.15);
-
-
+        border-left: 1px solid #9f9fcf;
+        
+        
 
     }
 
@@ -190,6 +197,7 @@
         padding: 20px;
         box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.15);
         width: 98%;
+        border-left: 1px solid #9f9fcf;
 
     }
 
@@ -309,6 +317,11 @@
 
 <section class="content">
     <section class="dashboard">
+        {% if user.is_authenticated %}
+        <div class="user-connect">
+            <p>Salut {{user.getPersonnelLogin}}</p>
+        </div>
+        {% endif %}
         <div class="contenu">
             <a href="{% url 'CongeUser' %}">
                 <div class="card-1">
