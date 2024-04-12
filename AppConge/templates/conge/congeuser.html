@@ -55,7 +55,7 @@
     .content .contenu .link a {
         margin-bottom: 20px;
         margin: 7px;
-        padding: 12px;
+        padding: 20px;
         background-color: rgb(226, 120, 50);
         color: white;
     }
@@ -146,7 +146,7 @@
                 {% else %}
                 <td>-</td>
                 {% endif %}
-                <td>{{liste_object.getNombreJours|truncatewords:1}}</td>
+                <td>{{liste_object.getNombreJours}}</td>
                 <td>{{liste_object.get_JoursConsomes}}</td>
                 <td>{{liste_object.date_creation|truncatewords:1}}</td>
 
