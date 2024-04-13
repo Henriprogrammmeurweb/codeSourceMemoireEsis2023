@@ -14,7 +14,7 @@ urlpatterns=[
     path('', views.loginUser, name="index"),
     path('account/logout', views.logoutUser,name='logoutUser'),
     path('account/change-password', views.changePassword, name="changePassword"),
-    path('appropos-de-nous', views.appropos, name="appropos"),
+    path('appropos-de-congeline', views.appropos, name="appropos"),
     path('contact', views.contact, name="contact"),
     path('Profil-user', views.ProfilUser, name="ProfilUser"),
     path('ChangeProfil=<str:id>', views.ChangeProfil, name='ChangeProfil'),

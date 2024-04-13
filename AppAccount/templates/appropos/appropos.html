@@ -1,0 +1,164 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<style>
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background-color: #f4f4f4;
+        padding: 15px;
+    }
+
+    .content .contenu {
+        background-color: #fff;
+        width: 900px;
+        padding: 12px;
+    }
+    .content .contenu h2{
+        color: #6868a7;
+        font-size: 17px;
+        font-weight: normal;
+    }
+    .content .contenu p{
+        text-align: justify;
+    }
+
+    .content .othor {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #5647aa;
+        margin-left: 15px;
+        padding-top: 12px;
+        width: 320px;
+        border-radius: 10px;
+    }
+
+    .content .othor .img {
+        width: 120px;
+        height: 120px;
+
+    }
+
+    .content .othor .img img {
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 3px solid #ced3e6;
+    }
+    .content .othor .img img:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+        transition-duration: 0.5s;
+    }
+
+    .content .othor .othor-texte {
+        margin-top: 20px;
+        box-shadow: inset 0px -1px 0px #c5c5c6;
+        background-color: #ced3e6;
+        width: 100%;
+        border-radius: 10px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .content .othor .othor-texte h5 {
+        text-align: center;
+    }
+
+    .content .othor .othor-texte h4 {
+        color: #6868a7;
+        font-size: 17px;
+        text-align: center;
+    }
+    .content .othor .othor-texte p{
+        margin-left: 25px;
+    }
+    .content .othor .othor-texte img{
+        width: 30px;
+        height: 30px;
+        margin-left: 25px;
+        
+    }
+
+
+    @media(max-width:900px){
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+    .content .contenu {
+        background-color: #fff;
+        width: 95%;
+        margin-top: 8px;
+    }
+    .content .othor{
+        width: 95%;
+        margin-left: 0px;
+    }
+    }
+</style>
+
+
+
+
+
+<div class="content">
+    <div class="contenu">
+        <h2>Appropos de Congeline</h2>
+        <p>Developpé par Henri Kiuka pour l'obtention du grade de Master en Méthodes Informatiques Appliquées à la
+            Gestion des Entreprises Miage en abregé à l'Ecole Supérieure d'Informatique Salama : <a href="https://www.esisalama.org"
+                target="_blank">www.esisalama.org</a>,
+            Congeline est une plateforme basée sur le Business Process Management
+            qui permet de gérer de manière optimale les personnels, les planifications et les demandes des Congés. <br> <br>
+            La gestion des Personnels de son entreprise ne s'arrête pas seulement sur l'identification de chacun au
+            travers les grades et fonctions mais aussi savoir planifier leurs congés et aussi leurs permettre de
+            demander leurs congés sans beaucoup des peines en mettant à leur disposition une plateforme dediée
+            comme celle-ci en l'occurrence. <br><br>
+            Les scénarios dans lesquels la plateforme fonctionne peuvent se resumer dans ce mot :
+            <br><br>
+            1. Pour les demandes Congés : Chacun Agent ayant un compte sur la plateforme peut se connecter et demander
+            son congé à travers son téléphone ou son ordinateur ainsi, l'approbateur notifié, lui à son tour réponds à
+            l'agent, après la réponse de l'approbateur l'Agent à son tour est notifié.
+            <br> Si l'approbateur approuve la demande de congés alors l'agent peut prendre son congé directement au cas où le jour de début tombe le même jour ou soit, l'agent va attendre la date de début de son congé.
+            Si l'approbateur rejete la demande de congé d'un agent, ce dernier (Agent) continuera à travailler sans prendre son congé...
+            <br> <br> 2. Pour la planfication des Congés : Sachant que chaque département est automone, les Responsables de
+            ces derniers planifient les congés des travailleurs qui sont sous leurs responsabilités, ainsi l'agent pour
+            qui le congé est planifié sera notifié de la date début et de fin de son congé...
+            <br> <br>
+            3. Pour la gestion des Personnels : Tout ce qui précède ne peut se réaliser que quand l'entreprise a les
+            agents nous avons ainsi mis en place une application complète pour gérer les personnels et les droits
+            d'accès à la plateforme.... <br>
+            <br>
+            Les fonctionnalités sont nombreuses alors n'hésitez pas de contacter les Développeur pour plus de details. <br>
+            <hr>
+        </p>
+    </div>
+    <div class="othor">
+        <div class="img">
+            <img src="{% static 'assets/img/HenriDeveloper.jpeg' %}" alt="">
+        </div>
+        <div class="othor-texte">
+            <h5>Henri Kiuka Mbayo</h5>
+            <h4>Concepteur & Développeur</h4>
+            <p>Email : <a href="mailto:kiukahenri@gmail.com">kiukahenri@gmail.com</a></p>
+            <p>Télépohne : +243819328364</p>
+            <p>Réseaux Sociaux du Développeur</p>
+            <a href=""><img src="{% static 'assets/img/linkedin.png' %}" alt=""></a>
+           <a href=""><img src="{% static 'assets/img/github.png' %}" alt=""></a>
+           <a href=""><img src="{% static 'assets/img/facebook.png' %}" alt=""></a>
+           <a href=""><img src="{% static 'assets/img/instagram.png' %}" alt=""></a>
+        </div>
+    </div>
+    <hr>
+</div>
+
+{% endblock content %}

@@ -549,7 +549,7 @@
         margin-right: 10px;
     }
     header nav .humburger span{
-        background-color: #524f4f;
+        background-color: #317bac;
         width: 35px;
         height: 2px;
         border-radius: 2px;
@@ -561,7 +561,7 @@
         content: "";
         position: absolute;
         transform: translateY(5px);
-        background-color: #524f4f;
+        background-color: #317bac;
         width: 35px;
         height: 2px;
         border-radius: 2px;
@@ -574,7 +574,7 @@
         content: "";
         position: absolute;
         transform: translateY(-5px);
-        background-color: #524f4f;
+        background-color: #317bac;
         width: 35px;
         height: 2px;
         border-radius: 2px;
@@ -630,8 +630,8 @@
         <div class="nav-home">
             <ul>
                 <li><a href="/"><span class="fa fa-home"></span> Accueil</a></li>
-                <li><a href="#"><span class="fa fa-info-circle"></span> Appropos</a></li>
-                <li><a href="#"><span class="fa fa-phone"></span> Contact</a></li>
+                <li><a href="{% url 'appropos' %}"><span class="fa fa-info-circle"></span> Appropos</a></li>
+                <li><a href="{% url 'appropos' %}"><span class="fa fa-phone"></span> Contact</a></li>
             </ul>
         </div>
         {% endif %}

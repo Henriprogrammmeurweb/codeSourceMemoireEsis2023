@@ -81,7 +81,7 @@ def changePassword(request):
 
 def appropos(request):
     """Appropos de l'éblissement"""
-    return render(request, "appropos.html")
+    return render(request, "appropos/appropos.html")
 
 def contact(request):
     """Page des Contacts"""
