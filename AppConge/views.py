@@ -263,6 +263,7 @@ def detailCongeApprobateur(request,id):
 
 @login_required
 def stat_conge_annee(request):
+    """Cette fonction groupe et affiche les congés demandés par service selon l'année """
     liste_conge_annee = models.Conge.objects.values('date_creation__year').annotate(nombre_total=Count('id'))
     for item in liste_conge_annee:
         conge_approuve = models.Demande.objects.filter(approbation=True,conge__date_creation__year = item['date_creation__year'])
@@ -281,6 +282,7 @@ def stat_conge_annee(request):
 
 @login_required
 def export_csv_stat_conge_annee(request, annee):
+    """Cette fonction exporte le rapport en csv des congés demandés par service et par année"""
     liste_conge = models.Conge.objects.filter(date_creation__year=annee)
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'Attachment; filename="liste_congeAnnee.csv"'
@@ -303,10 +305,9 @@ def export_csv_stat_conge_annee(request, annee):
 
 @login_required
 def detail_stat_conge_annee(request, annee):
+    """Cette fonction affiche les details des congés groupés par année"""
     liste_object = models.Conge.objects.filter(date_creation__year=annee)
     return render(request, "conge/detail_stat_conge_annee.html", {"liste_object":liste_object})
-
-
 
 
 @login_required

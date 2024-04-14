@@ -264,6 +264,7 @@ def detailPlanningAnnuelService(request, id_service, id_annee):
 
 
 @login_required
+@permission_required("AppPlanning.view_annee")
 def StatCongeServiceAnnee(request):
     """Cette fonction affiche les statistiques de congé de chaque service et les compte"""
     service_agent=Conge.objects.values('personnel__fonction__service__id',
@@ -286,6 +287,7 @@ def StatCongeServiceAnnee(request):
 
 
 @login_required
+@permission_required("AppPlanning.view_annee")
 def detailStatServiceAnnee(request, id_service, annee):
     """Cette fonction affiche les details de demandes des congés pour chaque service et par année"""
     liste_object=Conge.objects.filter(personnel__fonction__service__id=id_service, date_creation__year=annee)
@@ -296,7 +298,9 @@ def detailStatServiceAnnee(request, id_service, annee):
 
 
 @login_required
+@permission_required("AppPlanning.view_annee")
 def export_csv_conge_service(request, id_service, annee):
+    """Cette fonction exporte en csv le rapport de planning des congés par serice et par année"""
     liste_conge = Conge.objects.filter(personnel__fonction__service__id=id_service, date_creation__year=annee)
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = 'Attachment ; filename = "Conge_Service.csv"'
@@ -318,7 +322,9 @@ def export_csv_conge_service(request, id_service, annee):
 
 
 @login_required
+@permission_required("AppPlanning.view_annee")
 def export_csv_planningAnuel(request, id):
+    """Cette fonction exporte en csv le rapport de planification des congés annuel"""
     get_id=models.Annee.objects.get(id=id)
     liste_object=models.Planning.objects.filter(annee=get_id)
     response=HttpResponse(content_type='text/csv')

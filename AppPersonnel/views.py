@@ -570,6 +570,7 @@ def listePersonnelGrade(request, id):
 
 @login_required
 def export_personnel_csv(request):
+    """Cette fonction exporte en csv la liste des personnels et de leurs congés demandés"""
     liste_personnel=Personnel.objects.all()
     response=HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="liste_personnel_conge.csv"'
