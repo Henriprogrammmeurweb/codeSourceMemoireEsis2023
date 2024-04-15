@@ -129,8 +129,8 @@
                 <th>N°</th>
                 <th>Années</th>
                 <th>Total Planning</th>
-                <th>Classement</th>
                 <th>Comparaison nombre planning</th>
+                <th>Classement</th>
                 <th>Plus</th>
             </tr>
 
@@ -140,8 +140,8 @@
                     <td>{{forloop.counter}}</td>
                     <td>{{service.annee__designation}}</td>
                     <td>{{service.nombre_total}}</td>
-                    <td>{{service.classement}}</td>
                     <td>{{service.comparaison}}</td>
+                    <td>{{service.classement}}</td>
                     <td><span class="fa fa-eye"></span><a
                             href="{% url 'planningAnnee' service.annee__id %}"> Plus
                             infos</a></td>

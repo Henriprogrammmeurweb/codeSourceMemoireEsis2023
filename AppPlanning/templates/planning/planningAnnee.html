@@ -32,8 +32,22 @@
         padding-bottom: 15px;
         width: 100%;
     }
+    .content .contenu .form-rapport{
+        display: flex;
+        justify-content: flex-start;
+        align-items:center;
+        padding: 8px;
+    }
+    .content .contenu .form-rapport input{
+        height: 50px;
+        width: 200px;
+        margin-right: 6px;
+    }
+    .content .contenu .form-rapport button{
+        height: 50px;
+    }
 
-    .content .contenu form {
+    .content .contenu .form {
         width: 100%;
         display: flex;
         justify-content: flex-start;
@@ -41,7 +55,7 @@
         flex-direction: column;
     }
 
-    .content .contenu form input {
+    .content .contenu .form input {
         width: 100%;
         border: 1px solid cadetblue;
         margin-bottom: 10px;
@@ -100,7 +114,13 @@
             <div class="link">
                 <a href="{% url 'ajoutPlanning' %}" class="btn btn-info">Planifier les Congés</a>
             </div>
-            <form action="" method="GET">
+            <form action="" method="post" class="form-rapport">
+                {% csrf_token %}
+                <input type="date" placeholder="date debut" required class="form-control" name="date_debut">
+                <input type="date" placeholder="date fin" required class="form-control" name="date_fin">
+                <button type="submit" class="btn btn-success">Générer le rapport</button>
+            </form>
+            <form action="" method="GET" class="form">
                 <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                     id="search">
             </form>

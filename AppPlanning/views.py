@@ -212,6 +212,29 @@ def planningAnnee(request, id):
     """Liste des Planifications des Congés par An"""
     get_id=models.Annee.objects.get(id=id)
     liste_object=models.Planning.objects.filter(annee=get_id, service__fonction__personnel=request.user)
+    if request.method == "POST":
+        date_debut=request.POST.get('date_debut')
+        date_fin=request.POST.get('date_fin')
+        if date_debut > date_fin :
+            messages.warning(request, "date de début inférieur à celle de fin !")
+        else:
+            liste_planning = models.Planning.objects.filter(Q(date_debut__range=(date_debut, date_fin)) & Q(date_fin=date_fin))
+            if not liste_planning :
+                messages.warning(request, f"Aucun planning trouvé correspondant à votre recherche de planning entre {date_debut} à {date_fin}")
+            else:
+                response = HttpResponse(content_type='text/csv')
+                response['Content-Disposition'] = 'Attachement; "planning_conge.csv"'
+                writer = csv.writer(response)
+                writer.writerow(['NOM', 'POSTNOM','PRENOM','SEXE','SERVICE', 'FONCTION','GRADE', 
+                                 'DATE DEBUT','DATE FIN', 'ANNEE', 'NOMBRE JOURS'])
+                liste_data = [ligne if ligne else "Null" for ligne in liste_planning]
+                for personnels in liste_data:
+                    writer.writerow([personnels.personnel.username, personnels.personnel.postnom, 
+                                    personnels.personnel.prenom, personnels.personnel.sexe, 
+                                    personnels.personnel.fonction.service, personnels.personnel.fonction,
+                                    personnels.personnel.grade, personnels.date_debut,personnels.date_fin, 
+                                    personnels.annee.designation, personnels.getNombreJours])
+            return response
     context={
         "get_id":get_id,
         'liste_object':liste_object
