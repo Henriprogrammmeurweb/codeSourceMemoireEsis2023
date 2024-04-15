@@ -2,7 +2,9 @@ import datetime
 import csv
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.db.models import Sum, Count, Max,Min, Q
+from django.db.models import Sum, Count, Max,Min, Q,Window,Case,When,Value,CharField
+from django.db.models.functions import DenseRank,Lag,Coalesce
+from django.db.models.query import F
 from django.urls import reverse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -339,6 +341,25 @@ def export_csv_planningAnuel(request, id):
                          item.personnel.grade, item.personnel.sexe, item.date_debut, 
                          item.date_fin, item.getNombreJours])
     return response
+
+
+
+@login_required
+def stat_planning_service_annee(request):
+    """Cette fonction groupe les planings des congés par service et applique le classement avec window"""
+    liste_planning_service = models.Planning.objects.values('annee__id',
+                                                            'annee__designation').annotate(nombre_total=Count('id'), 
+                                                                                        classement=Window(DenseRank(), 
+                                                                                        order_by=F('nombre_total').desc()),
+                                                                                        comparaison=Window(Lag('nombre_total', 1, 0), 
+                                                                                        order_by=F('nombre_total').desc()))
+    context={
+        "liste_planning_service" : liste_planning_service
+    }
+    return render(request, "planning/stat_planning_service_annee.html", context)
+
+
+
 
 @login_required
 @permission_required("AppPlanning.view_annee")

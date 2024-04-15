@@ -23,5 +23,6 @@ urlpatterns=[
     path('stat-conge-annee', views.stat_conge_annee, name="stat_conge_annee"),
     path('export-csv-stat-conge_annee=<str:annee>', views.export_csv_stat_conge_annee, name="export_csv_stat_conge_annee"),
     path('detail-stat-conge-annee=<str:annee>', views.detail_stat_conge_annee, name = "detail_stat_conge_annee"),
+    path('stat-classement-service-par-annee', views.stat_classement_service_par_annee, name="stat_classement_service_par_annee"),
     path('send-email', views.sendEmail, name='sendEmail')
 ]

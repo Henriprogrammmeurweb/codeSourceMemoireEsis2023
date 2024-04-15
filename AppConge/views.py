@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.db.models import Count,Max,Min,Avg
+from django.db.models import Count,Max,Min,Avg,Window
+from django.db.models.query import F
+from django.db.models.functions import DenseRank
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
 from ProjectGestionPersonnel.settings import EMAIL_HOST
@@ -308,6 +310,22 @@ def detail_stat_conge_annee(request, annee):
     """Cette fonction affiche les details des congés groupés par année"""
     liste_object = models.Conge.objects.filter(date_creation__year=annee)
     return render(request, "conge/detail_stat_conge_annee.html", {"liste_object":liste_object})
+
+
+
+@login_required
+def stat_classement_service_par_annee(request):
+    """Cette fonction groupe les congés demandés par service et applique le classement avec window"""
+    liste_service_conge=models.Conge.objects.values('personnel__fonction__service__id', 
+                                                    'personnel__fonction__service__designation', 
+                                                    'date_creation__year').annotate(nombre_conge=Count('id'), 
+                                                                                    classement=Window(DenseRank(), 
+                                                                                    order_by=F('nombre_conge').desc()))
+    context={
+        "liste_service_conge":liste_service_conge
+    }
+    return render(request, "conge/stat_classementService.html", context)
+
 
 
 @login_required
