@@ -601,3 +601,17 @@ def export_personnel_grade_csv(request, id):
                          personnel.sexe, personnel.matricule, personnel.etat_civil, 
                          personnel.grade])
     return response
+
+
+@login_required
+def export_personnel_service_csv(request, id):
+    get_idService = models.Service.objects.get(id=id)
+    liste_personnelService = Personnel.objects.filter(fonction__service=get_idService)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'Attachement; filename = "ServicePersonnel.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['NUMERO','MARTICULE', 'NOM', 'POSTNOM', 'PRENOM', 'SEXE', 'SERVICE', 'FONCTION', 'ETAT CIVIL'])
+    liste_data = [ligne if ligne else 'Null' for ligne in liste_personnelService]
+    for index, personnel in enumerate(liste_data,1):
+        writer.writerow([index, personnel.matricule, personnel.username, personnel.postnom, personnel.prenom, personnel.sexe, personnel.fonction.service, personnel.fonction, personnel.etat_civil])
+    return response
