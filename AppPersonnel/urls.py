@@ -24,5 +24,6 @@ urlpatterns=[
     path('suppGrade=<str:id>',views.suppGrade, name="suppGrade"),
     path('modifGrade=<str:id>', views.modifGrade, name="modifGrade"),
     path('listePersonnelGrade=<str:id>', views.listePersonnelGrade, name="listePersonnelGrade"),
-    path('export_personnel_csv', views.export_personnel_csv, name="export_personnel_csv")
+    path('export-personnel-csv', views.export_personnel_csv, name="export_personnel_csv"),
+    path('export-personnel-grade-csv=<str:id>', views.export_personnel_grade_csv, name = "export_personnel_grade_csv")
 ]

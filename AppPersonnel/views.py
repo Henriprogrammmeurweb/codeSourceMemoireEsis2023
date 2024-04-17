@@ -585,3 +585,19 @@ def export_personnel_csv(request):
                          item.fonction.service, item.grade,demande_approuve, demande_rejet, 
                          item.getNombreDemandeConge])
     return response
+
+
+@login_required
+def export_personnel_grade_csv(request, id):
+    get_idGrade = models.Grade.objects.get(id=id)
+    liste_personnel_grade = Personnel.objects.filter(grade=get_idGrade)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'Attachement; filename = "gradepersonnel.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['NUMERO','NOM', 'POSTNOM', 'PRENOM', 'SEXE', 'MATRICULE', 'ETAT CIVIL', 'GRADE'])
+    liste_data = [ligne if ligne else 'Null' for ligne in liste_personnel_grade]
+    for index,personnel in enumerate(liste_data,1):
+        writer.writerow([index,personnel.username, personnel.postnom, personnel.prenom, 
+                         personnel.sexe, personnel.matricule, personnel.etat_civil, 
+                         personnel.grade])
+    return response
