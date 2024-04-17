@@ -329,6 +329,21 @@ def stat_classement_service_par_annee(request):
 
 
 @login_required
+def stat_nature_conge_annee(request):
+    liste_group_by_year_conge = models.Conge.objects.values('date_creation__year').annotate(nombre_conge=Count('id'))
+    for years in liste_group_by_year_conge :
+        conge_date = models.Conge.objects.filter(date_creation__year = years['date_creation__year'])
+        years['circonstance'] = len([ligne.nature for ligne in conge_date if ligne.nature == 'Circonstance'])
+        years['cumule'] = len([ligne.nature for ligne in conge_date if ligne.nature == 'Cumulé'])
+        years['maternite'] = len([ligne.nature for ligne in conge_date if ligne.nature == 'Maternité'])
+        years['avaloir'] = len([ligne.nature for ligne in conge_date if ligne.nature == 'A valoir'])
+    context = {
+        "liste_group_by_year_conge":liste_group_by_year_conge
+    }
+    return render(request, "conge/stat_nature_conge_annee.html", context)
+
+
+@login_required
 @permission_required("AppConge.view_demande", raise_exception=True)
 def sendEmail(request):
     """Declechement des alertes pour les demandes des Congés approuvées qui tendent vers la fin !"""

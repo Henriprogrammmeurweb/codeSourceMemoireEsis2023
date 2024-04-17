@@ -612,6 +612,8 @@ def export_personnel_service_csv(request, id):
     writer = csv.writer(response)
     writer.writerow(['NUMERO','MARTICULE', 'NOM', 'POSTNOM', 'PRENOM', 'SEXE', 'SERVICE', 'FONCTION', 'ETAT CIVIL'])
     liste_data = [ligne if ligne else 'Null' for ligne in liste_personnelService]
-    for index, personnel in enumerate(liste_data,1):
-        writer.writerow([index, personnel.matricule, personnel.username, personnel.postnom, personnel.prenom, personnel.sexe, personnel.fonction.service, personnel.fonction, personnel.etat_civil])
-    return response
+    if liste_data:
+        for index, personnel in enumerate(liste_data,1):
+            writer.writerow([index, personnel.matricule, personnel.username, personnel.postnom, personnel.prenom, personnel.sexe, personnel.fonction.service, personnel.fonction, personnel.etat_civil])
+        return response
+    return HttpResponse('<div style="padding:0px; margin:0px; background-color: rgb(226, 120, 50); height:100%;"> <h2 style="color:red">Aucune personnes trouvées pour ce service <a  href="/">Accueil</a></h2></div>')
