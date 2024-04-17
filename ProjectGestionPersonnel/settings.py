@@ -134,7 +134,7 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='AppAccount.Personnel'
 
-LOGIN_URL='loginUser'
+LOGIN_URL='index'
 
 # possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'

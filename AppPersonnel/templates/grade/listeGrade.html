@@ -45,6 +45,9 @@
     .content .contenus .contenu table{
         width: 100%;
     }
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
 
     @media(max-width:1135px) {
@@ -123,7 +126,7 @@
                 <td>{{liste_object.TotalNumberPerson}}</td>
                 <td>{{liste_object.date_creation}}</td>
                 <td>{{liste_object.date_modification}}</td>
-                <td><a href="{% url 'modifGrade' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
+                <td><a href="{% url 'modifGrade' liste_object.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
                 <td><a href="{% url 'suppGrade' liste_object.id  %}"><span class="fa fa-trash"></span>  Supprimer</a></td>
               </tr>
               

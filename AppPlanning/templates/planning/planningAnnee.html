@@ -76,6 +76,9 @@
         background-color: rgb(18, 89, 131);
         color: white;
     }
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
 
     @media(max-width:1135px) {
@@ -160,8 +163,8 @@
                 <td>{{liste_object.annee}}</td>
                 <td>{{liste_object.getNombreJours}}</td>
                 <td>{{liste_object.date_creation}}</td>
-                <td><a href="{% url 'modifPlanning' liste_object.id %}">Modifier</a></td>
-                <td><a href="{% url 'suppPlanning' liste_object.id %}">Supprimer</a></td>
+                <td><a href="{% url 'modifPlanning' liste_object.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
+                <td><a href="{% url 'suppPlanning' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
               </tr>
               {% empty %}
               <tr>

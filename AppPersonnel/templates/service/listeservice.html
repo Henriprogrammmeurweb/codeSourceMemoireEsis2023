@@ -53,6 +53,10 @@
     .content .contenus .contenu table{
         width: 100%;
     }
+    .content .contenus .contenu table tr a{
+        color: teal;
+        text-decoration: none;
+    }
 
 
     @media(max-width:1135px) {
@@ -123,7 +127,7 @@
               
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelService' liste_object.id  %}"> {{liste_object.designation}}</a></td>
+                <td style="text-transform: uppercase;"><a href="{% url 'listePersonnelService' liste_object.id  %}"><span class="fa fa-eye"></span> {{liste_object.designation}}</a></td>
                 <td>{{liste_object.getNumberPersonMale}}</td>
                 <td>{{liste_object.getNumberPersonFemale}}</td>
                 <td>{{liste_object.TotalNumberPerson}}</td>

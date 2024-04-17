@@ -67,6 +67,9 @@
     .content .contenu table tr th {
         color: white;
     }
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
 
     @media(max-width:1135px) {
@@ -154,7 +157,7 @@
                     <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
                     <td style="color: rgb(194, 146, 146);;">Action Interdite</td>
                   {% else %}
-                  <td><a href="{% url 'modifConge' liste_object.id  %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
+                  <td><a href="{% url 'modifConge' liste_object.id  %}"><span class="fa fa-pencil"></span> Modifier</a></td>
                   <td><a href="{% url 'suppConge' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
                 {% endif %}
               </tr>

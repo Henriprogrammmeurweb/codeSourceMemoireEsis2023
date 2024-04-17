@@ -66,6 +66,9 @@
         background-color: rgb(18, 89, 131);
         color: white;
     }
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
 
     @media(max-width:1135px) {
@@ -139,7 +142,7 @@
                 <td>{{annee.conge_encours}}</td>
                 <td>{{annee.demande_sans_reponse}}</td>
                 <td>{{annee.nombre_total}}</td>
-                <td><a href="{% url 'export_csv_stat_conge_annee' annee.date_creation__year %}">Exporter en Excel</a></td>
+                <td><a href="{% url 'export_csv_stat_conge_annee' annee.date_creation__year %}"><span class="fa fa-file-excel-o"></span> Exporter en Excel</a></td>
                 <td><span class="fa fa-eye"></span><a href="{% url 'detail_stat_conge_annee' annee.date_creation__year %}"> Plus infos</a></td>
               </tr>
               {% empty %}

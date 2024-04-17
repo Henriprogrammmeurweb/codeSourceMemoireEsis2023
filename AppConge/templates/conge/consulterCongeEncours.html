@@ -50,6 +50,9 @@
     .content .contenus .contenu table{
         width: 100%;
     }
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
 
     @media(max-width:1135px) {
@@ -116,8 +119,8 @@
               <tr>
               
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.personnel.getPersonnel}}</a></td>
-                <td><a href="{% url 'detailDemande' liste_object.id %}">{{liste_object.conge.titre}}</a></td>
+                <td><a href="{% url 'detailDemande' liste_object.id %}"> <span class="fa fa-eye"></span> {{liste_object.conge.personnel.getPersonnel}}</a></td>
+                <td><a href="{% url 'detailDemande' liste_object.id %}"> <span class="fa fa-eye"></span> {{liste_object.conge.titre}}</a></td>
                 <td>{{liste_object.conge.motif|truncatewords:1}}</td>
                 <td>{{liste_object.conge.nature}}</td>
                 <td>{{liste_object.conge.getReponseConge}}</td>

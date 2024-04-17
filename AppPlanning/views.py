@@ -2,8 +2,8 @@ import datetime
 import csv
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.db.models import Sum, Count, Max,Min, Q,Window,Case,When,Value,CharField
-from django.db.models.functions import DenseRank,Lag,Coalesce
+from django.db.models import Sum, Count, Max,Min, Q,Window,Case,When,Value,CharField,Subquery
+from django.db.models.functions import DenseRank,Lag,Coalesce, Ntile,RowNumber
 from django.db.models.query import F
 from django.urls import reverse
 from django.template.loader import get_template
@@ -376,6 +376,23 @@ def stat_planning_service_annee(request):
                                                                                         order_by=F('nombre_total').desc()),
                                                                                         comparaison=Window(Lag('nombre_total', 1, 0), 
                                                                                         order_by=F('nombre_total').desc()))
+    #Quelques fonctions de fenetrage utiles
+    # test_partition_by = models.Planning.objects.values('annee__id',
+    #                                                         'annee__designation', 
+    #                                                         'personnel__username', 
+    #                                                         'id').annotate(nombre_total=Count('id')).annotate(partionnement=Window(Count('personnel'), 
+    #                                                                                                                                partition_by='annee__id'))
+    # test_ntile_by = models.Planning.objects.values('annee__id',
+    #                                                     'annee__designation', 
+    #                                                     'personnel__username', 
+    #                                                     'id').annotate(nombre_total=Count('id')).annotate(my_ntile=Window(Ntile(3), order_by='annee__designation'))
+                                                             
+    # test_row_number_by = models.Planning.objects.values('annee__id',
+    #                                                     'annee__designation', 
+    #                                                     'personnel__username', 
+    #                                                     'id').annotate(nombre_total=Count('id')).annotate(my_row_number=Window(RowNumber(), order_by='id'))                                               
+    
+    
     context={
         "liste_planning_service" : liste_planning_service
     }

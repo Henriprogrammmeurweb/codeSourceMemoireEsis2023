@@ -66,7 +66,9 @@
         background-color: rgb(18, 89, 131);
         color: white;
     }
-
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
     @media(max-width:1135px) {
         .content {
@@ -137,7 +139,7 @@
                 <td>{{service.date_creation__year}}</td>
                 <td>{{service.nombre_conge}}</td>
                 <td>{{service.classement}}</td>
-                <td><a href="{% url 'export_csv_conge_service' service.personnel__fonction__service__id service.date_creation__year %}">Exporter en Excel</a></td>
+                <td><span class="fa fa-file-excel-o"></span> <a href="{% url 'export_csv_conge_service' service.personnel__fonction__service__id service.date_creation__year %}">Exporter en Excel</a></td>
                 <td><span class="fa fa-eye"></span><a href="{% url 'detailStatServiceAnnee' service.personnel__fonction__service__id service.date_creation__year %}"> Plus infos</a></td>
               </tr>
               {% empty %}

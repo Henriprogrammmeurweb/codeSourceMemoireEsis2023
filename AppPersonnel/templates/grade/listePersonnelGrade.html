@@ -44,7 +44,9 @@
     .content .contenus .contenu table{
         width: 100%;
     }
-
+    .content .contenu table tr td a{
+        color: teal;
+    }
 
     @media(max-width:1135px) {
         .content {
@@ -108,7 +110,7 @@
               
               <tr>
                 <td>{{forloop.counter}}</td>
-                <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i class="fa fa-user-circle" aria-hidden="true"></i>
+                <td style="text-transform: uppercase;"><a href="{% url 'detailPersonnel' liste_object.id %}"><i class="fa fa-eye" aria-hidden="true"></i>
                         {{liste_object.getPersonnel}}</a></td>
                 {% if liste_object.matricule %}
                 <td>{{liste_object.matricule}}</td>
@@ -131,8 +133,8 @@
                 {% else %}
                 <td>-</td>
                 {% endif %}
-                 <td><a href="{% url 'modifPersonnel' liste_object.id %}">Modifier</a></td>
-                <td><a href="{% url 'suppPersonnel' liste_object.id %}" >Supprimer</a></td>
+                 <td><a href="{% url 'modifPersonnel' liste_object.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
+                <td><a href="{% url 'suppPersonnel' liste_object.id %}" ><span class="fa fa-trash"></span> Supprimer</a></td>
               </tr>
               
               {% empty %}
