@@ -116,7 +116,7 @@
     }
     header nav .nav-home ul li a{
         text-decoration: none;
-        color: #317bac;;
+        color: #317bac;
     }
     header nav  .humburger{
         display: flex;
@@ -299,8 +299,10 @@
     }
 
     aside .titre p {
-        color: teal;
         font-size: 14px;
+    }
+    aside .titre p a{
+        color: rgb(59, 137, 209);
     }
 
     aside .menus .liste-menu li {
@@ -316,7 +318,8 @@
 
     aside .menus .liste-menu li a {
         text-decoration: none;
-        color: rgb(42, 64, 97);
+        color: #305d81;
+        font-size: 13.5px;
     }
 
     aside .menus .liste-menu li a:hover {
@@ -330,6 +333,8 @@
 
     aside .menus .liste-menu .stat p {
         margin-left: 20px;
+        color: #305d81;
+        font-size: 13.5px;
     }
 
     aside .menus .liste-menu .stat .statistique {
@@ -347,7 +352,8 @@
     }
 
     aside .menus .liste-menu .stat .stats li a {
-        color: #252525;
+        color: #305d81;
+        font-size: 12px;
     }
 
     aside .menus .liste-menu .stat .stats.active {
@@ -356,13 +362,14 @@
 
 
     aside .menus .liste-menu .personnels {
-        color: rgb(42, 64, 97);
-        ;
+        color: #703d5b;
         cursor: pointer;
     }
 
     aside .menus .liste-menu .personnels p {
         margin-left: 20px;
+        color: #305d81;
+        font-size: 13.5px;
     }
 
     aside .menus .liste-menu .personnels .personnelles {
@@ -381,6 +388,7 @@
 
     aside .menus .liste-menu .personnels .personnelles li a {
         color: #252525;
+        font-size: 12px;
     }
 
     aside .menus .liste-menu .personnels .personnelles.active {
@@ -394,6 +402,8 @@
 
     aside .menus .liste-menu .conges p {
         margin-left: 20px;
+        color: #305d81;
+        font-size: 13.5px;
     }
 
     aside .menus .liste-menu .conges .congess {
@@ -412,6 +422,7 @@
 
     aside .menus .liste-menu .conges .congess li a {
         color: #252525;
+        font-size: 12px;
     }
 
     aside .menus .liste-menu .conges .congess.active {
@@ -553,6 +564,7 @@
         width: 35px;
         height: 2px;
         border-radius: 2px;
+        border-radius: 10px;
     }
     header nav .humburger span.active{
         display: none;
@@ -564,7 +576,7 @@
         background-color: #317bac;
         width: 35px;
         height: 2px;
-        border-radius: 2px;
+        border-radius: 10px;
     }
     header nav  .humburger.active::after{
         position: absolute;
@@ -577,7 +589,7 @@
         background-color: #317bac;
         width: 35px;
         height: 2px;
-        border-radius: 2px;
+        border-radius: 10px;
     }
     header nav  .humburger.active::before{
         position: absolute;
@@ -654,7 +666,7 @@
     <div class="titre">
         <hr>
         <p><a href="{% url 'dashboard' %}"><span class="fa fa-dashboard"></span> Tableau de Bord <span
-                    class="fa fa-angle-right float-right"
+                    class="fa fa-angle-down float-right"
                     style="margin-right: 8px;color: #252525; height: 4px;"></span></a></li></a></p>
         <hr>
     </div>
@@ -662,32 +674,32 @@
         <ul class="liste-menu">
             {% if perms.AppConge.view_conge %}
             <li><a href="{% url 'dashboard' %}"><span class="fa fa-home "></span> Accueil du site <span
-                        class="fa fa-angle-right float-right"
+                        class="fa fa-angle-down float-right"
                         style="margin-right: 8px;color: #252525; height: 4px;"></span></a></li>
             <hr>
             <ul class="conges">
-                <p id="conge"> <span class="fa fa-rocket"></span> Mes Congés <span class="fa fa-angle-right float-right"
+                <p id="conge"> <span class="fa fa-cogs"></span> Mes Congés <span class="fa fa-angle-down float-right"
                         style="margin-right: 8px;color: #252525; height: 4px;"></span>
                 <ul class="congess">
                     <hr>
-                    <li><a href="{% url 'congeApprouve' %}"><span class="fa fa-info-circle"></span> Approuvés ✅</a></li>
+                    <li><a href="{% url 'congeApprouve' %}"><span class="fa fa-check-circle"></span> Mes congés approuvés</a></li>
                     <hr>
-                    <li><a href="{% url 'congeRejet' %}"><span class="fa fa-eye"></span> Rejetés ❌</a></li>
+                    <li><a href="{% url 'congeRejet' %}"><span class="fa fa-eye-slash"></span> Mes congés rejetés</a></li>
                     <hr>
-                    <li><a href="{% url 'congeEncours' %}"><span class="fa fa-spinner"></span> Pour moi encours</a></li>
+                    <li><a href="{% url 'congeEncours' %}"><span class="fa fa-spinner"></span> Mes congés encours</a></li>
                     <hr>
-                    <li><a href="{% url 'consulterCongeEncours' %}"><span class="fa fa-spinner"></span> Encours
+                    <li><a href="{% url 'congeAttenteUser' %}"><span class="fa fa-envelope"></span> Mes congés en attente</a></li>
+                    <hr>
+                    <li><a href="{% url 'consulterCongeEncours' %}"><span class="fa fa-circle-o-notch"></span> Encours
                             Personnels</a></li>
                     <hr>
-                    <li><a href="{% url 'congeAttenteUser' %}"><span class="fa fa-envelope"></span> En attente</a></li>
-                    <hr>
-                    <li><a href="{% url 'congeAttente' %}"><span class="fa fa-eye-slash"></span> En attente
+                    <li><a href="{% url 'congeAttente' %}"><span class="fa fa-list-ul"></span> En attente
                             Personnels</a></li>
                     <hr>
-                    <li><a href="{% url 'listeApprobationRejet' %}"><span class="fa fa-eye"></span> Approbations</a>
+                    <li><a href="{% url 'listeApprobationRejet' %}"><span class="fa fa-envelope-open"></span> Les approbations</a>
                     </li>
                     <hr>
-                    <li><a href="{% url 'CongeUser' %}"><span class="fa fa-user"></span> Tous les Congés</a></li>
+                    <li><a href="{% url 'CongeUser' %}"><span class="fa fa-th"></span> Tous mes congés</a></li>
                     <hr>
                 </ul>
                 </p>
@@ -695,33 +707,33 @@
             <hr>
             {% endif %}
             {% if perms.AppPlanning.view_annee %}
-            <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-bars"></span> Planifier <span
-                        class="fa fa-angle-right float-right"
+            <li><a href="{% url 'listeAnnee' %}"><span class="fa fa-folder-open"></span> Planifier les congés<span
+                        class="fa fa-angle-down float-right"
                         style="margin-right: 8px;color: #252525; height: 4px;"></span></a></li>
             <hr>
             {% endif %}
             {% if perms.AppAccount.view_personnel %}
             <ul class="personnels">
                 <p id="personnel"> <span class="fa fa-group"></span> Personnels <span
-                        class="fa fa-angle-right float-right"
+                        class="fa fa-angle-down float-right"
                         style="margin-right: 8px;color: #252525; height: 4px;"></span>
                 <ul class="personnelles">
                     <hr>
-                    <li><a href="{% url 'listeService' %}"><span class="fa fa-info-circle"></span> Services</a></li>
+                    <li><a href="{% url 'listeService' %}"><span class="fa fa-cogs"></span> Services</a></li>
                     <hr>
-                    <li><a href="{% url 'listeFonction' %}"><span class="fa fa-eye"></span> Fonctions</a></li>
+                    <li><a href="{% url 'listeFonction' %}"><span class="fa fa-list-ul"></span> Fonctions</a></li>
                     <hr>
-                    <li><a href="{% url 'listeGrade' %}"><span class="fa fa-eye"></span> Grades</a></li>
+                    <li><a href="{% url 'listeGrade' %}"><span class="fa fa-balance-scale"></span> Grades</a></li>
                     <hr>
-                    <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-user"></span> Les Personnels</a></li>
+                    <li><a href="{% url 'listePersonnel' %}"><span class="fa fa-group"></span> Les Personnels</a></li>
                     <hr>
                 </ul>
                 </p>
             </ul>
             <hr>
             <ul class="stat">
-                <p id="statistique"> <span class="fa fa-bar-chart"></span> Statistiques <span
-                        class="fa fa-angle-right float-right"
+                <p id="statistique"> <span class="fa fa-signal"></span> Statistiques <span
+                        class="fa fa-angle-down float-right"
                         style="margin-right: 8px;color: #252525; height: 4px;"></span>
                 <ul class="stats">
                     <hr>
@@ -739,6 +751,7 @@
                     <li><a href="{% url 'stat-planning-service-annee' %}"><span class="fa fa-bar-chart"></span> Classement planning</a></li>
                     <hr>
                     <li><a href="{% url 'stat_nature_conge_annee' %}"><span class="fa fa-bar-chart"></span> Stat Nature</a></li>
+                    <hr>
                 </ul>
                 </p>
             </ul>
