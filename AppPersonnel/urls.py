@@ -26,5 +26,6 @@ urlpatterns=[
     path('listePersonnelGrade=<str:id>', views.listePersonnelGrade, name="listePersonnelGrade"),
     path('export-personnel-csv', views.export_personnel_csv, name="export_personnel_csv"),
     path('export-personnel-grade-csv=<str:id>', views.export_personnel_grade_csv, name = "export_personnel_grade_csv"),
-    path('export-personnel-service-csv=<str:id>', views.export_personnel_service_csv, name = 'export_personnel_service_csv')
+    path('export-personnel-service-csv=<str:id>', views.export_personnel_service_csv, name = 'export_personnel_service_csv'),
+    path('export-csv-personnel-fonction=<str:id>', views.export_csv_personnel_fonction, name = "export_csv_personnel_fonction")
 ]

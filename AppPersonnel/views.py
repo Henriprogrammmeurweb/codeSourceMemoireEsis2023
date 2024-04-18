@@ -616,4 +616,38 @@ def export_personnel_service_csv(request, id):
         for index, personnel in enumerate(liste_data,1):
             writer.writerow([index, personnel.matricule, personnel.username, personnel.postnom, personnel.prenom, personnel.sexe, personnel.fonction.service, personnel.fonction, personnel.etat_civil])
         return response
-    return HttpResponse('<div style="padding:0px; margin:0px; background-color: rgb(226, 120, 50); height:100%;"> <h2 style="color:red">Aucune personnes trouvées pour ce service <a  href="/">Accueil</a></h2></div>')
+    return HttpResponse('<p style="color:gray;font-family:Arial;">Aucune personne trouvée pour ce service, cliquez-ici pour retourner <a  href="/">Accueil</a></p>')
+
+
+@login_required
+def export_csv_personnel_fonction(request, id):
+    get_IdFoncton = models.Fonction.objects.get(id=id)
+    liste_personnel = Personnel.objects.filter(fonction=get_IdFoncton)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'Attachement; filename = "personnel_fonction.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['NUMERO','MATRICULE', 'NOM', 
+                     'POSTNOM', 'PRENOM', 
+                     'SEXE', 'SERVICE', 
+                     'FONCTION', 'ETAT CIVIL'
+                    ])
+    liste_data = [ligne if ligne else 'Null' for ligne in liste_personnel]
+    for index,personnels in enumerate(liste_data, 1):
+        writer.writerow([index, personnels.matricule, personnels.username, 
+                            personnels.postnom,personnels.prenom,
+                            personnels.sexe, personnels.fonction.service, 
+                            personnels.fonction, personnels.etat_civil
+                        ])
+    return response
+        
+
+
+
+
+
+
+
+
+
+
+

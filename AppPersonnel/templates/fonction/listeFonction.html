@@ -114,6 +114,7 @@
                 <th>Femmes</th>
                 <th>Total Personnels</th>
                 <th>Date Création</th>
+                <th>Rapport</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -129,6 +130,7 @@
                 <td>{{liste_object.getNumberPersonFemale}}</td>
                 <td>{{liste_object.TotalNumberPerson}}</td>
                 <td>{{liste_object.date_creation}}</td>
+                <td><a href="{% url 'export_csv_personnel_fonction' liste_object.id %}"><span class="fa fa-file-excel-o"></span> Excel</a></td>
                 <td><a href="{% url 'modifFonction' liste_object.id %}"><span class="fa fa-pencil-square"></span> Modifier</a></td>
                 <td><a href="{% url 'suppFonction' liste_object.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
               </tr>
