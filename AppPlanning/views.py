@@ -47,7 +47,7 @@ def planningUser(request, id):
 def ajoutPlanning(request):
     """Insertion des planifications des Congés des Personnels"""
     fonction_user=Fonction.objects.filter(personnel=request.user)
-    if len(fonction_user) == 0:
+    if not fonction_user :
         return render(request, "error/page_403.html")
     form=forms.FormAjoutPlanningConge(request=request)
     if request.method == "POST":
