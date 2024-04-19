@@ -2,15 +2,13 @@ from django.urls import path
 from django.contrib.auth.views import (PasswordResetView,
                                        PasswordResetDoneView,
                                        PasswordResetConfirmView,
-                                       PasswordResetCompleteView)
-                                       
+                                       PasswordResetCompleteView)                            
 from .import views
 from .import forms
 
 
 
 urlpatterns=[
-    # path('', views.loginUser, name="index"),
     path('', views.loginUser, name="index"),
     path('account/logout', views.logoutUser,name='logoutUser'),
     path('account/change-password', views.changePassword, name="changePassword"),

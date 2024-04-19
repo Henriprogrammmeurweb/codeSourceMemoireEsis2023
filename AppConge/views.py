@@ -330,6 +330,7 @@ def stat_classement_service_par_annee(request):
 
 @login_required
 def stat_nature_conge_annee(request):
+    """Cette fonctio affiche les statistiques de demandes des congés par année selon les natures"""
     liste_group_by_year_conge = models.Conge.objects.values('date_creation__year').annotate(nombre_conge=Count('id'))
     for years in liste_group_by_year_conge :
         conge_date = models.Conge.objects.filter(date_creation__year = years['date_creation__year'])

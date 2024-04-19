@@ -589,12 +589,15 @@ def export_personnel_csv(request):
 
 @login_required
 def export_personnel_grade_csv(request, id):
+    """Cette fonction exporte la liste des personnels par grade en CSV"""
     get_idGrade = models.Grade.objects.get(id=id)
     liste_personnel_grade = Personnel.objects.filter(grade=get_idGrade)
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = 'Attachement; filename = "gradepersonnel.csv"'
     writer = csv.writer(response)
-    writer.writerow(['NUMERO','NOM', 'POSTNOM', 'PRENOM', 'SEXE', 'MATRICULE', 'ETAT CIVIL', 'GRADE'])
+    writer.writerow(['NUMERO','NOM', 'POSTNOM', 'PRENOM', 'SEXE', 
+                     'MATRICULE', 'ETAT CIVIL', 'GRADE'
+                    ])
     liste_data = [ligne if ligne else 'Null' for ligne in liste_personnel_grade]
     for index,personnel in enumerate(liste_data,1):
         writer.writerow([index,personnel.username, personnel.postnom, personnel.prenom, 
@@ -605,22 +608,31 @@ def export_personnel_grade_csv(request, id):
 
 @login_required
 def export_personnel_service_csv(request, id):
+    """Cette fonction exporte la liste des personnels par service en CSV"""
     get_idService = models.Service.objects.get(id=id)
     liste_personnelService = Personnel.objects.filter(fonction__service=get_idService)
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = 'Attachement; filename = "ServicePersonnel.csv"'
     writer = csv.writer(response)
-    writer.writerow(['NUMERO','MARTICULE', 'NOM', 'POSTNOM', 'PRENOM', 'SEXE', 'SERVICE', 'FONCTION', 'ETAT CIVIL'])
+    writer.writerow(['NUMERO','MARTICULE', 'NOM', 'POSTNOM', 
+                     'PRENOM', 'SEXE', 'SERVICE', 'FONCTION', 
+                     'ETAT CIVIL'
+                    ])
     liste_data = [ligne if ligne else 'Null' for ligne in liste_personnelService]
     if liste_data:
         for index, personnel in enumerate(liste_data,1):
-            writer.writerow([index, personnel.matricule, personnel.username, personnel.postnom, personnel.prenom, personnel.sexe, personnel.fonction.service, personnel.fonction, personnel.etat_civil])
+            writer.writerow([index, personnel.matricule, personnel.username, 
+                             personnel.postnom, personnel.prenom, personnel.sexe, 
+                             personnel.fonction.service, personnel.fonction, 
+                             personnel.etat_civil
+                            ])
         return response
     return HttpResponse('<p style="color:gray;font-family:Arial;">Aucune personne trouvée pour ce service, cliquez-ici pour retourner <a  href="/">Accueil</a></p>')
 
 
 @login_required
 def export_csv_personnel_fonction(request, id):
+    """"Cette fonction exporte la liste des personnels par service en csv"""
     get_IdFoncton = models.Fonction.objects.get(id=id)
     liste_personnel = Personnel.objects.filter(fonction=get_IdFoncton)
     response = HttpResponse(content_type = 'text/csv')
