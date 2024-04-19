@@ -14,8 +14,8 @@ urlpatterns=[
     path('account/change-password', views.changePassword, name="changePassword"),
     path('appropos-de-congeline', views.appropos, name="appropos"),
     path('contact', views.contact, name="contact"),
-    path('Profil-user', views.ProfilUser, name="ProfilUser"),
-    path('ChangeProfil=<str:id>', views.ChangeProfil, name='ChangeProfil'),
+    path('account/profil-user', views.ProfilUser, name="ProfilUser"),
+    path('account/change-profil=<str:id>', views.ChangeProfil, name='ChangeProfil'),
     path('guide-user', views.guideUser, name="guideUser"),
 
     #reinitialisation du mot de password utilisateur

@@ -147,11 +147,11 @@
             {% if user.photo %}
             <img src="{{user.photo.url}}" alt="">
             <p>Crée dépuis : {{user.date_creation}}</p>
-            <a href="{% url 'ChangeProfil' user.id %}">Changer mon Profil <span class="fa fa-pencil"></span></a>
+            <a href="{% url 'ChangeProfil' user.id %}"><span class="fa fa-pencil"></span> Changer mon profil</a>
             {% else %}
             <img src="{% static 'assets/img/userlogo.png' %}" alt="">
             <p>Crée dépuis : {{user.date_creation}}</p>
-            <a href="{% url 'ChangeProfil' user.id %}">Change Profil</a>
+            <a href="{% url 'ChangeProfil' user.id %}"> <span class="fa fa-pencil"></span> Changer mon profil</a>
             {% endif %}
             <hr>
         </div>

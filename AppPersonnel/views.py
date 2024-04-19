@@ -575,14 +575,17 @@ def export_personnel_csv(request):
     response=HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="liste_personnel_conge.csv"'
     writer=csv.writer(response)
-    writer.writerow(["Nom", "Postnom", "Prenom", "Sexe", "Service", "Fonction", 
+    writer.writerow(["Num","Nom", "Postnom", "Prenom", "Sexe", "Service", "Fonction", 
                      "Grade", "Conges Approuves", "Conges Rejetes","Demande Total"])
     liste_data=[ligne if ligne is not None else 'Null' for ligne in liste_personnel]
-    for item in liste_data:
+    for index,item in enumerate(liste_data, 1):
         demande_approuve=Demande.objects.filter(approbation=True, conge__personnel=item.id).count()
         demande_rejet=Demande.objects.filter(approbation=False, conge__personnel=item.id).count()
-        writer.writerow([item.username, item.postnom, item.prenom, item.sexe, item.fonction, 
-                         item.fonction.service, item.grade,demande_approuve, demande_rejet, 
+        writer.writerow([index, item.username.upper(), item.postnom.upper(), 
+                         item.prenom.upper(), 
+                         item.sexe.upper(), item.fonction.designation.upper(), 
+                         item.fonction.service.designation.upper(), 
+                         item.grade,demande_approuve, demande_rejet, 
                          item.getNombreDemandeConge])
     return response
 
