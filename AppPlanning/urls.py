@@ -20,6 +20,8 @@ urlpatterns=[
     path('detail-stat-service-annee/<str:id_service>/<str:annee>', views.detailStatServiceAnnee, name='detailStatServiceAnnee'),
     path('export_csv_conge_service/<str:id_service>/<str:annee>', views.export_csv_conge_service, name="export_csv_conge_service"),
     path('stat-planning-service-annee', views.stat_planning_service_annee, name="stat-planning-service-annee"),
+    path('stat-planning-trimestre', views.stat_planning_trimestre, name="stat_planning_trimestre"),
+    path('export-csv-stat-planning-trimestre/<str:annee>/<str:trimestre_debut>/<str:trimestre_fin>', views.export_csv_stat_planning_trimestre, name='export_csv_stat_planning_trimestre'),
     
 
     #---------------RAPPORT-----------------

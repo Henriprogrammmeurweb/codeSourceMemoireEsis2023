@@ -68,11 +68,12 @@
     .content .contenu table tr th {
         background-color: rgb(18, 89, 131);
         color: white;
-        width:200px;
+        width: 200px;
     }
     .content .contenu table tr td a{
         color: teal;
     }
+
 
     @media(max-width:1135px) {
         .content {
@@ -118,7 +119,7 @@
             <input type="text" name="recherche" class="form-control" required placeholder="Rechercher ici..........."
                 id="search">
         </form>
-        <p>Liste des Planification des congés par service et par Année</p>
+        <p>Statistiques des plannings de congé par année et par Trimestre</p>
         <div class="messages">
             {% for message in messages %}
             <div class="alert alert-warning" role="alert">
@@ -130,26 +131,22 @@
 
             <tr>
                 <th>N°</th>
-                <th>Services</th>
                 <th>Années</th>
-                <th>Hommes</th>
-                <th>Femmes</th>
-                <th>Total Planning</th>
-                <th>Plus</th>
+                <th>Trimestre début</th>
+                <th>Trimestre fin</th>
+                <th>Total</th>
+                <th>Exporter</th>
             </tr>
 
-            {% for service in group_by_planning_conge %}
+            {% for conge in liste_conge %}
             <tbody id="myTable">
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{service.service__designation}}</td>
-                    <td>{{service.annee__designation}}</td>
-                    <td>{{service.homme}}</td>
-                    <td>{{service.femme}}</td>
-                    <td>{{service.nombre__personnel}}</td>
-                    <td><span class="fa fa-eye"></span><a
-                            href="{% url 'detailPlanningAnnuelService' service.service__id service.annee__id %}"> Plus
-                            infos</a></td>
+                    <td>{{conge.annee__designation}}</td>
+                    <td>{{conge.date_debut__quarter}}</td>
+                    <td>{{conge.date_fin__quarter}}</td>
+                    <td>{{conge.nombre_conge}}</td>
+                    <td><a href="{% url 'export_csv_stat_planning_trimestre' conge.annee__designation conge.date_debut__quarter conge.date_fin__quarter %}"><span class=" fa fa-file-excel-o"></span> Excel</a></td>
                 </tr>
                 {% empty %}
                 <tr>

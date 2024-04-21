@@ -399,6 +399,43 @@ def stat_planning_service_annee(request):
     return render(request, "planning/stat_planning_service_annee.html", context)
 
 
+@login_required
+def stat_planning_trimestre(request):
+    liste_conge = models.Planning.objects.values('annee__designation', 
+                                                 'date_debut__quarter', 
+                                                 'date_fin__quarter').annotate(nombre_conge = Count('id')).order_by('-annee__designation')
+    context = {
+        "liste_conge":liste_conge
+    }
+    return render(request, "planning/stat_planning_trimestre.html", context)
+
+
+@login_required
+def export_csv_stat_planning_trimestre(request, annee, trimestre_debut, trimestre_fin):
+    liste_planning_conge = models.Planning.objects.filter(annee__designation=annee, 
+                                                          date_debut__quarter = trimestre_debut, 
+                                                          date_fin__quarter=trimestre_fin)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'Attachement; filename = "liste_planningTrimestreAnnee.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Num','Matricule', 'Nom', 'Postnom', 
+                     'Prenom', 'Sexe', 'service', 
+                     'fonction', 'Grade','etat_civil','Annee'
+                    ])
+    liste_data = [ligne if ligne else 'Null' for ligne in liste_planning_conge]
+    for index, personnels in enumerate(liste_data,1):
+        writer.writerow([index, personnels.personnel.matricule, 
+                            personnels.personnel.username,
+                            personnels.personnel.postnom, 
+                            personnels.personnel.prenom, 
+                            personnels.personnel.sexe,
+                            personnels.personnel.fonction.service, 
+                            personnels.personnel.fonction, 
+                            personnels.personnel.grade, 
+                            personnels.personnel.etat_civil,
+                            personnels.annee
+                        ])
+    return response
 
 
 @login_required
