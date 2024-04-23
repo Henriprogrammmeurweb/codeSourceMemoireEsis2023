@@ -289,18 +289,23 @@ def export_csv_stat_conge_annee(request, annee):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'Attachment; filename="liste_congeAnnee.csv"'
     writer = csv.writer(response)
-    writer.writerow(["Nom", "PostNom", "Prenom", "Sexe","Service", "Fonction",
+    writer.writerow(["Num","Nom", "PostNom", "Prenom", "Sexe","Service", "Fonction",
                     "Grade", "Titre", "Nature", "Motif", "date_debut", 
                     "date_fin","Annee", "Nombre_jours", "Reponse"])
     liste_data = [ligne if ligne is not None else 'Null' for ligne in liste_conge]
-    for item in liste_data :
-        writer.writerow([item.personnel.username, item.personnel.postnom,
+    for index,item in enumerate(liste_data,1) :
+        writer.writerow([index,item.personnel.username, 
+                        item.personnel.postnom,
                          item.personnel.prenom,
-                         item.personnel.sexe, item.personnel.fonction.service, 
+                         item.personnel.sexe, 
+                         item.personnel.fonction.service, 
                          item.personnel.fonction,
-                         item.personnel.grade,item.titre, item.nature, item.motif, 
+                         item.personnel.grade,item.titre, 
+                         item.nature, item.motif, 
                          item.date_debut, item.date_fin,
-                         item.date_creation.year,item.getNombreJours, item.getReponseConge])
+                         item.date_creation.year,
+                         item.getNombreJours, item.getReponseConge
+                        ])
     return response
 
 
